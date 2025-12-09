@@ -95,4 +95,39 @@ public class FXMLPrincipalController implements Initializable {
             Utilidades.mostrarAlertaSimple("Error", "No podemos ir al modulo Clientes", Alert.AlertType.ERROR);
         }
     }
+    
+    private void moduloEnvios() {
+        try {
+
+            Stage escenarioBase = (Stage) moduloEnvios.getScene().getWindow();
+
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLModuloEnvios.fxml"));
+            Parent principal = loader.load();
+
+            FXMLModuloEnviosController controlador = loader.getController();
+            controlador.inizializar(colaborador);
+
+            Scene escenaPrincipal = new Scene(principal);
+            escenarioBase.setScene(escenaPrincipal);
+            escenarioBase.setTitle("Packet World Envios");
+            escenarioBase.show();
+        } catch (IOException ex) {
+            Utilidades.mostrarAlertaSimple("Error", "No podemos ir al módulo Envios", Alert.AlertType.ERROR);
+        }
+    }
+    
+    private void moduloPaquetes(){
+        try{
+            Stage escenarioBase = (Stage) moduloUnidades.getScene().getWindow();
+            
+            Parent principal = FXMLLoader.load(getClass().getResource("FXMLModuloPaquetes.fxml"));
+            Scene escenaPrincipal = new Scene(principal);
+            escenarioBase.setScene(escenaPrincipal);
+            escenarioBase.setTitle("Packet World Paquetes");
+            escenarioBase.show();
+        }catch(IOException e){
+            Utilidades.mostrarAlertaSimple("Error", "No podemos ir al modulo Paquetes", Alert.AlertType.ERROR);
+        }
+    }
 }
