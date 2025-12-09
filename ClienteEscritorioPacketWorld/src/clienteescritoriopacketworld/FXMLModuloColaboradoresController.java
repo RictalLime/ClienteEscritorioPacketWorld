@@ -37,7 +37,7 @@ import javafx.stage.Stage;
  *
  * @author Tron7
  */
-public class FXMLModuloColaboradoresController implements Initializable {
+public class FXMLModuloColaboradoresController implements Initializable, NotificadoOperacion {
     
     private ObservableList<Colaborador> colaboradores;
 
@@ -134,7 +134,7 @@ public class FXMLModuloColaboradoresController implements Initializable {
 
     @FXML
     private void irRegistrarColaboradors(MouseEvent event) {
-        irAFormulario((NotificadoOperacion) this, null);
+        irAFormulario(this, null);
     }
 
     @FXML
@@ -158,7 +158,7 @@ public class FXMLModuloColaboradoresController implements Initializable {
     private void irEditarColaborador(MouseEvent event) {
         Colaborador colaborador = tablaColaboradores.getSelectionModel().getSelectedItem();
         if(colaborador!= null){
-            irAFormulario((NotificadoOperacion) this, colaborador);
+            irAFormulario(this, colaborador);
         }else{
             Utilidades.mostrarAlertaSimple("Error", "Selecciona un colaborador", Alert.AlertType.ERROR);
         }

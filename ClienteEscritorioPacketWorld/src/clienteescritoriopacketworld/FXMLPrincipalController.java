@@ -67,4 +67,18 @@ public class FXMLPrincipalController implements Initializable {
             Utilidades.mostrarAlertaSimple("Error", "No podemos ir al modulo Colaboradores :(", Alert.AlertType.ERROR);
         }
     }
+    
+    private void moduloUnidades(){
+        try{
+            Stage escenarioBase = (Stage) moduloUnidades.getScene().getWindow();
+            
+            Parent principal = FXMLLoader.load(getClass().getResource("FXMLModuloUnidades.fxml"));
+            Scene escenaPrincipal = new Scene(principal);
+            escenarioBase.setScene(escenaPrincipal);
+            escenarioBase.setTitle("Packet World Unidades");
+            escenarioBase.show();
+        }catch(IOException e){
+            Utilidades.mostrarAlertaSimple("Error", "No podemos ir al modulo Unidades", Alert.AlertType.ERROR);
+        }
+    }
 }
