@@ -90,4 +90,36 @@ public class ConexionAPI {
         }
         return respuesta;
     }
+    
+    public static RespuestaHTTP peticionPUTBINARIO(String url, byte[] datos) {
+        RespuestaHTTP respuesta = new RespuestaHTTP();
+        try {
+
+            HttpURLConnection conexionHTTP = (HttpURLConnection) new URL(url).openConnection();
+            conexionHTTP.setDoOutput(true);
+            conexionHTTP.setRequestMethod("PUT");
+            conexionHTTP.setRequestProperty("Content-Type", "image/png");
+            try (OutputStream os = conexionHTTP.getOutputStream()) {
+                os.write(datos);
+                os.flush();
+            }
+
+            int codigoRespuesta = conexionHTTP.getResponseCode();
+            respuesta.setCodigo(codigoRespuesta);
+
+            if (codigoRespuesta == HttpURLConnection.HTTP_OK) {
+                respuesta.setContenido(Utilidades.streamToString(conexionHTTP.getInputStream()));
+            } else {
+                respuesta.setContenido("Código de respuesta HTTP: " + codigoRespuesta + ". " +
+                        Utilidades.streamToString(conexionHTTP.getInputStream()));
+            }
+        } catch (MalformedURLException e) {
+            respuesta.setCodigo(Constantes.ERROR_MALFORMED_URL);
+            respuesta.setContenido("Error en la dirección de conexión.");
+        } catch (IOException io) {
+            respuesta.setCodigo(Constantes.ERROR_PETICION);
+            respuesta.setContenido("Error: no se pudo realizar la solicitud correspondiente.");
+        }
+        return respuesta;
+    }
 }
