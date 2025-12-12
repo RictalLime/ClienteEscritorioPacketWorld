@@ -1,11 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLModuloUnidadesController">
-    
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLModuloUnidadesController">
+   <children>
+      <Pane prefHeight="60.0" prefWidth="633.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fitHeight="53.0" fitWidth="54.0" layoutX="290.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/Packet%20World%20logo%20blanco.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgRegresar" fitHeight="53.0" fitWidth="43.0" layoutX="26.0" layoutY="9.0" onMouseClicked="#regresarPrincipal" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/arrow_back.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label fx:id="tfBuscar" layoutX="23.0" layoutY="140.0" prefHeight="19.0" prefWidth="205.0" style="-fx-border-color: blue;" text="busca tu Unidad por VIN, Marca o NII" />
+      <ImageView fx:id="imgBuscar" fitHeight="33.0" fitWidth="28.0" layoutX="239.0" layoutY="136.0" onMouseClicked="#buscarUnidad" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@recursos/search_black.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tvTablaUnidades" layoutX="23.0" layoutY="186.0" prefHeight="200.0" prefWidth="591.0" style="-fx-border-color: blue;">
+        <columns>
+          <TableColumn fx:id="colMarca" prefWidth="72.0" text="Marca" />
+            <TableColumn fx:id="colModelo" text="Modelo" />
+            <TableColumn fx:id="colAnio" prefWidth="61.0" text="Año" />
+            <TableColumn fx:id="colVin" prefWidth="135.0" text="VIN" />
+            <TableColumn fx:id="colTipoDeUnidad" prefWidth="45.0" text="idTipoUnidad" />
+            <TableColumn prefWidth="156.0" text="NII" />
+            <TableColumn fx:id="colNii" prefWidth="41.0" text="idEstadoUnidad" />
+        </columns>
+      </TableView>
+      <Pane layoutX="350.0" layoutY="114.0" prefHeight="53.0" prefWidth="53.0" style="-fx-border-color: blue;">
+         <children>
+            <ImageView fitHeight="43.0" fitWidth="53.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#irRegistrarUnidad" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/note_add_blue.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="438.0" layoutY="114.0" prefHeight="53.0" prefWidth="53.0" style="-fx-border-color: blue;">
+         <children>
+            <ImageView fitHeight="43.0" fitWidth="43.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#irEditarUnidad" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/edit_document_blue.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="528.0" layoutY="114.0" prefHeight="53.0" prefWidth="53.0" style="-fx-border-color: blue;">
+         <children>
+            <ImageView fitHeight="43.0" fitWidth="43.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#irEliminarUnidad" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/scan_delete_blue.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label layoutX="25.0" layoutY="84.0" text="Unidades Vehiculares" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>

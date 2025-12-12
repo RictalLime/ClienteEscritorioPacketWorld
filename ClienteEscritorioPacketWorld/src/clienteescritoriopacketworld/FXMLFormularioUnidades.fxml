@@ -1,11 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLFormularioUnidadesController">
-    
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLFormularioUnidadesController">
+   <children>
+      <Pane layoutX="-2.0" prefHeight="60.0" prefWidth="633.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fitHeight="53.0" fitWidth="54.0" layoutX="290.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/Packet%20World%20logo%20blanco.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgRegresar" fitHeight="53.0" fitWidth="43.0" layoutX="26.0" layoutY="9.0" onMouseClicked="#regresarPrincipal" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/arrow_back.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label layoutX="226.0" layoutY="74.0" text="Formulario Unidad">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="298.0" layoutY="126.0" text="Marca:" />
+      <TextField fx:id="tfMarca" layoutX="241.0" layoutY="143.0" promptText="Marca" style="-fx-border-color: black;" />
+      <Label layoutX="111.0" layoutY="126.0" text="Modelo:" />
+      <TextField fx:id="tfModelo" layoutX="58.0" layoutY="143.0" promptText="Modelo" style="-fx-border-color: black;" />
+      <Label layoutX="121.0" layoutY="192.0" text="VIN:" />
+      <TextField fx:id="tfVin" layoutX="58.0" layoutY="209.0" prefHeight="25.0" prefWidth="150.0" promptText="VIN (17 caracteres, sin las letras I, O, Q)" style="-fx-border-color: black;" />
+      <ComboBox fx:id="cbEstadoUnidad" layoutX="144.0" layoutY="272.0" onAction="#detectarEstado" prefWidth="150.0" style="-fx-border-color: black;" />
+      <Label fx:id="lEstadoUnidad" layoutX="164.0" layoutY="251.0" text="Estado de la Unidad:" />
+      <Label layoutX="227.0" layoutY="192.0" text="Numero de identificacion interno:" />
+      <TextField fx:id="tfNumeroIdentificacion" layoutX="241.0" layoutY="209.0" prefHeight="25.0" prefWidth="150.0" promptText="NII (Año + primeros 4 caracteres del VIN)" style="-fx-border-color: black;" />
+      <Label layoutX="506.0" layoutY="126.0" text="Año:" />
+      <TextField fx:id="tfAnio" layoutX="433.0" layoutY="143.0" prefHeight="25.0" prefWidth="170.0" promptText="Año (valor numérico de 4 dígitos)" style="-fx-border-color: black;" />
+      <ComboBox fx:id="cbTipoUnidad" layoutX="346.0" layoutY="272.0" prefWidth="150.0" style="-fx-border-color: black;" />
+      <Label layoutX="379.0" layoutY="251.0" text="Tipo de unidad:" />
+      <Label fx:id="lMotivo" layoutX="498.0" layoutY="192.0" text="Motivo:" />
+      <TextField fx:id="tfMotivo" layoutX="444.0" layoutY="209.0" style="-fx-border-color: black;" />
+      <Button fx:id="btnGuardar" layoutX="291.0" layoutY="332.0" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: blue;" text="Guardar" textFill="WHITE" />
+   </children>
 </AnchorPane>

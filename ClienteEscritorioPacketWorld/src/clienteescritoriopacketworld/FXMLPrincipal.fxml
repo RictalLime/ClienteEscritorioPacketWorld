@@ -1,11 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLPrincipalController">
-    
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLPrincipalController">
+   <children>
+      <Pane prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fitHeight="53.0" fitWidth="54.0" layoutX="274.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/Packet%20World%20logo%20blanco.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgCerrarSesion" fitHeight="35.0" fitWidth="34.0" layoutX="539.0" layoutY="13.0" onMouseClicked="#cerrarSesion" onMouseEntered="#cambiarMouse" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/logout.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <Pane layoutX="454.0" layoutY="97.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fx:id="moduloColaboradores" fitHeight="42.0" fitWidth="42.0" layoutX="25.0" layoutY="8.0" onMouseClicked="#irModuloColaboradores" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/badge.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <Pane layoutX="255.0" layoutY="97.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fx:id="moduloClientes" fitHeight="42.0" fitWidth="42.0" layoutX="25.0" layoutY="6.0" onMouseClicked="#irModuloClientes" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/person_3.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <Pane layoutX="64.0" layoutY="97.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fx:id="moduloSucursales" fitHeight="44.0" fitWidth="42.0" layoutX="25.0" layoutY="7.0" onMouseClicked="#irModuloSucursales" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/add_business.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <Pane layoutX="64.0" layoutY="207.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fx:id="moduloUnidades" fitHeight="53.0" fitWidth="49.0" layoutX="21.0" layoutY="8.0" onMouseClicked="#irModuloUnidades" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/local_shipping.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <Pane layoutX="255.0" layoutY="207.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fx:id="moduloAsignaciones" fitHeight="60.0" fitWidth="56.0" layoutX="18.0" onMouseClicked="#irModuloAsignaciones" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/garage.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <Pane layoutX="454.0" layoutY="207.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fx:id="moduloPaquetes" fitHeight="42.0" fitWidth="49.0" layoutX="25.0" layoutY="8.0" onMouseClicked="#irModuloPaquetes" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/package_2.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <Pane layoutX="255.0" layoutY="307.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fx:id="moduloEnvios" fitHeight="53.0" fitWidth="50.0" layoutX="21.0" layoutY="6.0" onMouseClicked="#irModuloEnvios" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/delivery_truck_speed.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <Label layoutX="460.0" layoutY="143.0" text="Colaboradores" textFill="WHITE" />
+      <Label layoutX="84.0" layoutY="258.0" text="Unidades" textFill="WHITE" />
+      <Label layoutX="279.0" layoutY="143.0" text="Clientes" textFill="WHITE" />
+      <Label layoutX="265.0" layoutY="258.0" text="Asignaciones" textFill="WHITE" />
+      <Label layoutX="81.0" layoutY="143.0" text="Sucursales" textFill="WHITE" />
+      <Label layoutX="475.0" layoutY="258.0" text="Paquetes" textFill="WHITE" />
+      <Label layoutX="286.0" layoutY="358.0" text="Envios" textFill="WHITE" />
+   </children>
 </AnchorPane>

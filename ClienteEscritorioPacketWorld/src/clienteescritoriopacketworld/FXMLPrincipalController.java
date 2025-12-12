@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -37,10 +38,13 @@ public class FXMLPrincipalController implements Initializable {
     private ImageView moduloColaboradores;
     @FXML
     private ImageView moduloEnvios;
-    
-    private Colaborador colaborador;
     @FXML
     private ImageView moduloAsignaciones;
+    @FXML
+    private ImageView moduloSucursales;
+    
+    private Colaborador colaborador;
+    
     
     /**
      * Initializes the controller class.
@@ -142,6 +146,75 @@ public class FXMLPrincipalController implements Initializable {
             escenarioBase.show();
         }catch(IOException e){
             Utilidades.mostrarAlertaSimple("Error", "No podemos ir al modulo Asignaciones", Alert.AlertType.ERROR);
+        }
+    }
+    
+    private void moduloSucursales(){
+        try{
+            Stage escenarioBase = (Stage) moduloUnidades.getScene().getWindow();
+            
+            Parent principal = FXMLLoader.load(getClass().getResource("FXMLModuloSucursal.fxml"));
+            Scene escenaPrincipal = new Scene(principal);
+            escenarioBase.setScene(escenaPrincipal);
+            escenarioBase.setTitle("Packet World Sucursal");
+            escenarioBase.show();
+        }catch(IOException e){
+            Utilidades.mostrarAlertaSimple("Error", "No podemos ir al modulo Sucursales", Alert.AlertType.ERROR);
+        }
+    }
+    
+    @FXML
+    private void irModuloColaboradores() {
+        moduloColaboradores();
+    }
+
+    @FXML
+    private void irModuloPaquetes(MouseEvent event) {
+        moduloPaquetes();
+    }
+
+    @FXML
+    private void irModuloUnidades(MouseEvent event) {
+        moduloUnidades();
+    }
+
+    @FXML
+    private void irModuloClientes(MouseEvent event) {
+        moduloClientes();
+    }
+
+    @FXML
+    private void irModuloEnvios(MouseEvent event) {
+        moduloEnvios();
+    }
+
+    @FXML
+    private void irModuloAsignaciones(MouseEvent event) {
+        moduloAsignaciones();
+    }
+    
+    @FXML
+    private void irModuloSucursales(MouseEvent event) {
+        moduloSucursales();
+    }
+
+    @FXML
+    private void cambiarMouse(MouseEvent event) {
+        ((ImageView) event.getSource()).setCursor(javafx.scene.Cursor.HAND); 
+    }
+
+    @FXML
+    private void cerrarSesion(MouseEvent event) {
+        try{
+            Stage escenarioBase = (Stage) imgCerrarSesion.getScene().getWindow();
+            colaborador = null;
+            Parent principal = FXMLLoader.load(getClass().getResource("FXMLInicioSesion.fxml"));
+            Scene escenaPrincipal = new Scene(principal);
+            escenarioBase.setScene(escenaPrincipal);
+            escenarioBase.setTitle("Inicio Sesion");
+            escenarioBase.show();
+        }catch(IOException e){
+            Utilidades.mostrarAlertaSimple("Error", "No se puede cerrar sesión", Alert.AlertType.ERROR);
         }
     }
 }

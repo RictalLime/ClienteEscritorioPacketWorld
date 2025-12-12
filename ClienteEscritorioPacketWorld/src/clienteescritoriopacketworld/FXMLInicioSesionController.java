@@ -36,8 +36,6 @@ public class FXMLInicioSesionController implements Initializable {
     @FXML
     private PasswordField pfContrasenia;
     @FXML
-    private Button btnEntrar;
-    @FXML
     private Label errorNumeroPersonal;
     @FXML
     private Label errorContraseña;
@@ -52,7 +50,7 @@ public class FXMLInicioSesionController implements Initializable {
     
     private void irPantallaPrincipal(Colaborador colaborador){
         try {
-            Stage escenarioBase = (Stage) errorNumeroPersonal.getScene().getWindow();
+            Stage escenarioBase = (Stage) tfNumeroPersonal.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLPrincipal.fxml"));
             Parent principal = loader.load() ;
             
@@ -60,7 +58,7 @@ public class FXMLInicioSesionController implements Initializable {
             controlador.setColaborador(colaborador);
             Scene escenaPrincipal = new Scene(principal);
             escenarioBase.setScene(escenaPrincipal);
-            escenarioBase.setTitle("Time-Fast");
+            escenarioBase.setTitle("Packet World");
             escenarioBase.show();
         } catch (IOException ex) {
            Utilidades.mostrarAlertaSimple("Error", "No podemos ir a la pantalla principal :(", Alert.AlertType.ERROR);
@@ -85,7 +83,7 @@ public class FXMLInicioSesionController implements Initializable {
     }
     
     @FXML
-    private void iniciarSesion(ActionEvent event) {
+    private void btnIniciarSesion(ActionEvent event) {
          String noPersonal = tfNumeroPersonal.getText();
          String contrasena = pfContrasenia.getText();
         
