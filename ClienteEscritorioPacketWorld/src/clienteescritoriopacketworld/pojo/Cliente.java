@@ -13,11 +13,15 @@ public class Cliente {
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
+    private Integer idCalle;
     private String calle;
     private String numeroDeCasa;
+    private Integer idColonia;
     private String colonia;
     private String codigoPostal;
+    private Integer idCiudad;
     private String ciudad;
+    private Integer idEstado;
     private String estado;
     private String telefono;
     private String correo;
@@ -25,21 +29,25 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(Integer idCliente, String nombre, String apellidoPaterno, String apellidoMaterno, String calle, String numeroDeCasa, String colonia, String codigoPostal, String ciudad, String estado, String telefono, String correo) {
+    public Cliente(Integer idCliente, String nombre, String apellidoPaterno, String apellidoMaterno, Integer idCalle, String calle, String numeroDeCasa, Integer idColonia, String colonia, String codigoPostal, Integer idCiudad, String ciudad, Integer idEstado, String estado, String telefono, String correo) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
+        this.idCalle = idCalle;
         this.calle = calle;
         this.numeroDeCasa = numeroDeCasa;
+        this.idColonia = idColonia;
         this.colonia = colonia;
         this.codigoPostal = codigoPostal;
+        this.idCiudad = idCiudad;
         this.ciudad = ciudad;
+        this.idEstado = idEstado;
         this.estado = estado;
         this.telefono = telefono;
         this.correo = correo;
     }
-
+    
     public Integer getIdCliente() {
         return idCliente;
     }
@@ -86,6 +94,22 @@ public class Cliente {
 
     public String getCorreo() {
         return correo;
+    }
+
+    public Integer getIdCalle() {
+        return idCalle;
+    }
+
+    public Integer getIdColonia() {
+        return idColonia;
+    }
+
+    public Integer getIdCiudad() {
+        return idCiudad;
+    }
+
+    public Integer getIdEstado() {
+        return idEstado;
     }
 
     public void setIdCliente(Integer idCliente) {
@@ -136,6 +160,22 @@ public class Cliente {
         this.correo = correo;
     }
 
+    public void setIdCalle(Integer idCalle) {
+        this.idCalle = idCalle;
+    }
+
+    public void setIdColonia(Integer idColonia) {
+        this.idColonia = idColonia;
+    }
+
+    public void setIdCiudad(Integer idCiudad) {
+        this.idCiudad = idCiudad;
+    }
+
+    public void setIdEstado(Integer idEstado) {
+        this.idEstado = idEstado;
+    }
+    
     @Override
     public String toString() {
         return correo;

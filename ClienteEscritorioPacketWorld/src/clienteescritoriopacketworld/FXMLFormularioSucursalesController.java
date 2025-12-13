@@ -7,6 +7,10 @@ package clienteescritoriopacketworld;
 import clienteescritoriopacketworld.dominio.SucursalImp;
 import clienteescritoriopacketworld.dto.Mensaje;
 import clienteescritoriopacketworld.interfaz.NotificadoOperacion;
+import clienteescritoriopacketworld.pojo.Calle;
+import clienteescritoriopacketworld.pojo.Ciudad;
+import clienteescritoriopacketworld.pojo.Colonia;
+import clienteescritoriopacketworld.pojo.Estado;
 import clienteescritoriopacketworld.pojo.Sucursal;
 import clienteescritoriopacketworld.utilidad.Utilidades;
 import java.net.URL;
@@ -16,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -86,12 +91,12 @@ public class FXMLFormularioSucursalesController implements Initializable {
         sucursal.setCodigoSucursal(tfCodigoSucursal.getText());
         sucursal.setNombre(tfNombre.getText());
         sucursal.setEstatus(tfEstatus.getText());
-        sucursal.setCalle(tfCalle.getText());
+        sucursal.setCalle(cbCalle.getText());
         sucursal.setNumero(tfNumero.getText());
-        sucursal.setColonia(tfColonia.getText());
+        sucursal.setColonia(cbColonia.getText());
         sucursal.setCodigoPostal(tfCodigoPostal.getText());
-        sucursal.setCiudad(tfCiudad.getText());
-        sucursal.setEstado(tfEstado.getText());
+        sucursal.setCiudad(cbCiudad.getText());
+        sucursal.setEstado(cbEstado.getText());
         if(validarCampos(sucursal)){
             if(!modoEdicion){
                 guardarDatosSucursal(sucursal);
@@ -162,11 +167,11 @@ public class FXMLFormularioSucursalesController implements Initializable {
     
     private void llenarcampos() {
         tfNombre.setText(sucursalEditado.getNombre());
-        tfCalle.setText(sucursalEditado.getCalle());
+        cbCalle.setText(sucursalEditado.getCalle());
         tfNumero.setText(sucursalEditado.getNumero());
-        tfColonia.setText(sucursalEditado.getColonia());
+        cbColonia.setText(sucursalEditado.getColonia());
         tfCodigoPostal.setText(sucursalEditado.getCodigoPostal());
-        tfEstado.setText(sucursalEditado.getEstado());
+        cbEstado.setText(sucursalEditado.getEstado());
         tfCodigoSucursal.setEditable(false);
         tfEstatus.setEditable(false);
     }

@@ -14,11 +14,15 @@ public class Envio {
     private String cliente;
     private String destino;
     private String origen;
+    private Integer idOrigenCalle;
     private String origenCalle;
     private String origenNumero;
+    private Integer idOrigenColonia;
     private String origenColonia;
     private String origenCodigoPostal;
+    private Integer idOrigenCiudad;
     private String origenCiudad;
+    private Integer idOrigenEstado;
     private String origenEstado;
     private String noGuia;
     private float costoDeEnvio;
@@ -26,21 +30,35 @@ public class Envio {
     private String estadoDeEnvio;
     private Integer idColaborador;
     private String colaborador;
+    private Integer idDestinoCalle;
+    private String destinoCalle;
+    private Integer idDestinoColonia;
+    private String destinoColonia;
+    private Integer idDestinoCiudad;
+    private String destinoCiudad;
+    private Integer idDestinoEstado;
+    private String destinoEstado;
+    private String destinoNumero;
+    private String destinoCodigoPostal;
 
     public Envio() {
     }
 
-    public Envio(Integer idEnvio, Integer idCliente, String cliente, String destino, String origen, String origenCalle, String origenNumero, String origenColonia, String origenCodigoPostal, String origenCiudad, String origenEstado, String noGuia, float costoDeEnvio, Integer idEstadoDeEnvio, String estadoDeEnvio, Integer idColaborador, String colaborador) {
+    public Envio(Integer idEnvio, Integer idCliente, String cliente, String destino, String origen, Integer idOrigenCalle, String origenCalle, String origenNumero, Integer idOrigenColonia, String origenColonia, String origenCodigoPostal, Integer idOrigenCiudad, String origenCiudad, Integer idOrigenEstado, String origenEstado, String noGuia, float costoDeEnvio, Integer idEstadoDeEnvio, String estadoDeEnvio, Integer idColaborador, String colaborador, Integer idDestinoCalle, String destinoCalle, Integer idDestinoColonia, String destinoColonia, Integer idDestinoCiudad, String destinoCiudad, Integer idDestinoEstado, String destinoEstado, String destinoNumero, String destinoCodigoPostal) {
         this.idEnvio = idEnvio;
         this.idCliente = idCliente;
         this.cliente = cliente;
         this.destino = destino;
         this.origen = origen;
+        this.idOrigenCalle = idOrigenCalle;
         this.origenCalle = origenCalle;
         this.origenNumero = origenNumero;
+        this.idOrigenColonia = idOrigenColonia;
         this.origenColonia = origenColonia;
         this.origenCodigoPostal = origenCodigoPostal;
+        this.idOrigenCiudad = idOrigenCiudad;
         this.origenCiudad = origenCiudad;
+        this.idOrigenEstado = idOrigenEstado;
         this.origenEstado = origenEstado;
         this.noGuia = noGuia;
         this.costoDeEnvio = costoDeEnvio;
@@ -48,6 +66,16 @@ public class Envio {
         this.estadoDeEnvio = estadoDeEnvio;
         this.idColaborador = idColaborador;
         this.colaborador = colaborador;
+        this.idDestinoCalle = idDestinoCalle;
+        this.destinoCalle = destinoCalle;
+        this.idDestinoColonia = idDestinoColonia;
+        this.destinoColonia = destinoColonia;
+        this.idDestinoCiudad = idDestinoCiudad;
+        this.destinoCiudad = destinoCiudad;
+        this.idDestinoEstado = idDestinoEstado;
+        this.destinoEstado = destinoEstado;
+        this.destinoNumero = destinoNumero;
+        this.destinoCodigoPostal = destinoCodigoPostal;
     }
 
     public Integer getIdEnvio() {
@@ -118,6 +146,62 @@ public class Envio {
         return colaborador;
     }
 
+    public Integer getIdOrigenCalle() {
+        return idOrigenCalle;
+    }
+
+    public Integer getIdOrigenColonia() {
+        return idOrigenColonia;
+    }
+
+    public Integer getIdOrigenCiudad() {
+        return idOrigenCiudad;
+    }
+
+    public Integer getIdOrigenEstado() {
+        return idOrigenEstado;
+    }
+
+    public Integer getIdDestinoCalle() {
+        return idDestinoCalle;
+    }
+
+    public String getDestinoCalle() {
+        return destinoCalle;
+    }
+
+    public Integer getIdDestinoColonia() {
+        return idDestinoColonia;
+    }
+
+    public String getDestinoColonia() {
+        return destinoColonia;
+    }
+
+    public Integer getIdDestinoCiudad() {
+        return idDestinoCiudad;
+    }
+
+    public String getDestinoCiudad() {
+        return destinoCiudad;
+    }
+
+    public Integer getIdDestinoEstado() {
+        return idDestinoEstado;
+    }
+
+    public String getDestinoEstado() {
+        return destinoEstado;
+    }
+
+    public String getDestinoNumero() {
+        return destinoNumero;
+    }
+
+    public String getDestinoCodigoPostal() {
+        return destinoCodigoPostal;
+    }
+    
     public void setIdEnvio(Integer idEnvio) {
         this.idEnvio = idEnvio;
     }
@@ -186,6 +270,62 @@ public class Envio {
         this.colaborador = colaborador;
     }
 
+    public void setIdOrigenCalle(Integer idOrigenCalle) {
+        this.idOrigenCalle = idOrigenCalle;
+    }
+
+    public void setIdOrigenColonia(Integer idOrigenColonia) {
+        this.idOrigenColonia = idOrigenColonia;
+    }
+
+    public void setIdOrigenCiudad(Integer idOrigenCiudad) {
+        this.idOrigenCiudad = idOrigenCiudad;
+    }
+
+    public void setIdOrigenEstado(Integer idOrigenEstado) {
+        this.idOrigenEstado = idOrigenEstado;
+    }
+
+    public void setIdDestinoCalle(Integer idDestinoCalle) {
+        this.idDestinoCalle = idDestinoCalle;
+    }
+
+    public void setDestinoCalle(String destinoCalle) {
+        this.destinoCalle = destinoCalle;
+    }
+
+    public void setIdDestinoColonia(Integer idDestinoColonia) {
+        this.idDestinoColonia = idDestinoColonia;
+    }
+
+    public void setDestinoColonia(String destinoColonia) {
+        this.destinoColonia = destinoColonia;
+    }
+
+    public void setIdDestinoCiudad(Integer idDestinoCiudad) {
+        this.idDestinoCiudad = idDestinoCiudad;
+    }
+
+    public void setDestinoCiudad(String destinoCiudad) {
+        this.destinoCiudad = destinoCiudad;
+    }
+
+    public void setIdDestinoEstado(Integer idDestinoEstado) {
+        this.idDestinoEstado = idDestinoEstado;
+    }
+
+    public void setDestinoEstado(String destinoEstado) {
+        this.destinoEstado = destinoEstado;
+    }
+
+    public void setDestinoNumero(String destinoNumero) {
+        this.destinoNumero = destinoNumero;
+    }
+
+    public void setDestinoCodigoPostal(String destinoCodigoPostal) {
+        this.destinoCodigoPostal = destinoCodigoPostal;
+    }
+    
     @Override
     public String toString() {
         return "noGuia: " + noGuia;
