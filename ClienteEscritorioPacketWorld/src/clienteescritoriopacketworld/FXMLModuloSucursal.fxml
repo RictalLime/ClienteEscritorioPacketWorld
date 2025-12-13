@@ -1,11 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLModuloSucursalController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLModuloSucursalController">
+   <children>
+      <Pane prefHeight="60.0" prefWidth="633.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fitHeight="53.0" fitWidth="54.0" layoutX="290.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/Packet%20World%20logo%20blanco.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgRegresar" fitHeight="53.0" fitWidth="43.0" layoutX="26.0" layoutY="9.0" onMouseClicked="#regresarPrincipal" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/arrow_back.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label layoutX="35.0" layoutY="94.0" text="Sucursales" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tvTablaSucursal" layoutX="22.0" layoutY="186.0" prefHeight="200.0" prefWidth="590.0" style="-fx-border-color: blue;">
+         <columns>
+            <TableColumn fx:id="colCodigoSucursal" prefWidth="69.0" text="Codigo Sucursal" />
+            <TableColumn fx:id="colNombre" prefWidth="62.0" text="Nombre" />
+            <TableColumn fx:id="colEstatus" prefWidth="62.0" text="Estatus" />
+            <TableColumn fx:id="colCalle" prefWidth="66.0" text="Calle" />
+            <TableColumn fx:id="colNumero" prefWidth="71.0" text="Numero" />
+            <TableColumn fx:id="colColonia" prefWidth="59.0" text="Colonia" />
+            <TableColumn fx:id="colCodigoPostal" prefWidth="78.0" text="Codigo Postal" />
+            <TableColumn fx:id="colCiudad" prefWidth="58.0" text="Ciudad" />
+            <TableColumn fx:id="colEstado" prefWidth="63.0" text="Estado" />
+         </columns>
+      </TableView>
+      <Pane layoutX="360.0" layoutY="124.0" prefHeight="53.0" prefWidth="53.0" style="-fx-border-color: blue;">
+         <children>
+            <ImageView fitHeight="43.0" fitWidth="53.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#irRegistrarSucursal" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/note_add_blue.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="451.0" layoutY="124.0" prefHeight="53.0" prefWidth="53.0" style="-fx-border-color: blue;">
+         <children>
+            <ImageView fitHeight="43.0" fitWidth="43.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#irEditarSucursal" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/edit_document_blue.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="538.0" layoutY="124.0" prefHeight="53.0" prefWidth="53.0" style="-fx-border-color: blue;">
+         <children>
+            <ImageView fitHeight="43.0" fitWidth="43.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#irEliminarUnidad" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/scan_delete_blue.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>

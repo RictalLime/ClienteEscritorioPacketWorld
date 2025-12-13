@@ -1,11 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLFormularioAsignacionesController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="clienteescritoriopacketworld.FXMLFormularioAsignacionesController">
+   <children>
+      <Pane prefHeight="60.0" prefWidth="633.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fitHeight="53.0" fitWidth="54.0" layoutX="290.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/Packet%20World%20logo%20blanco.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgRegresar" fitHeight="53.0" fitWidth="43.0" layoutX="26.0" layoutY="9.0" onMouseClicked="#regresarPrincipal" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/arrow_back.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label layoutX="201.0" layoutY="70.0" text="Asignacion de Vehiculos">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="169.0" layoutY="146.0" text="Conductor:" />
+      <TextField fx:id="tfColaborador" layoutX="123.0" layoutY="163.0" promptText="Conductor" style="-fx-border-color: black;" />
+      <Label fx:id="lEstadoUnidad" layoutX="167.0" layoutY="218.0" text="Colaborador:" />
+      <ComboBox fx:id="cbColaboradores" layoutX="123.0" layoutY="235.0" prefWidth="150.0" style="-fx-border-color: black;" />
+      <Button fx:id="btnGuardar" layoutX="286.0" layoutY="290.0" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: blue;" text="Guardar" textFill="WHITE" />
+      <TextField fx:id="tfUnidad" layoutX="354.0" layoutY="163.0" promptText="Vehiculo" style="-fx-border-color: black;" />
+      <Label layoutX="406.0" layoutY="146.0" text="Vehiculo:" />
+      <ComboBox fx:id="cbUnidades" layoutX="355.0" layoutY="235.0" prefWidth="150.0" style="-fx-border-color: black;" />
+      <Label layoutX="403.0" layoutY="218.0" text="Unidades:" />
+   </children>
 </AnchorPane>

@@ -27,6 +27,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -54,7 +55,7 @@ public class FXMLFormularioColaboradoresController implements Initializable {
     @FXML
     private TextField tfNumeroPersonal;
     @FXML
-    private TextField tfContrasena;
+    private PasswordField pfContrasena;
     @FXML
     private ImageView imgFotografia;
     @FXML
@@ -125,7 +126,7 @@ public class FXMLFormularioColaboradoresController implements Initializable {
         colaborador.setCurp(tfCurp.getText());
         colaborador.setCorreo(tfCorreo.getText());
         colaborador.setNoPersonal(tfNumeroPersonal.getText());
-        colaborador.setContrasena(tfContrasena.getText());
+        colaborador.setContrasena(pfContrasena.getText());
         colaborador.setIdRol((cbRol.getSelectionModel().getSelectedItem() != null)?
                 cbRol.getSelectionModel().getSelectedItem().getIdRol(): -1
         );
@@ -233,7 +234,7 @@ public class FXMLFormularioColaboradoresController implements Initializable {
         tfNombre.setText(colaboradorEditado.getNombre());
         tfApellidoMaterno.setText(colaboradorEditado.getApellidoMaterno());
         tfApellidoPaterno.setText(colaboradorEditado.getApellidoPaterno());
-        tfContrasena.setText(colaboradorEditado.getContrasena());
+        pfContrasena.setText(colaboradorEditado.getContrasena());
         tfCorreo.setText(colaboradorEditado.getCorreo());
         tfCurp.setText(colaboradorEditado.getCurp());
         tfNumeroPersonal.setText(colaboradorEditado.getNoPersonal());

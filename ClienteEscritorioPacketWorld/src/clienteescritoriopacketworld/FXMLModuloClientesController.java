@@ -44,7 +44,7 @@ public class FXMLModuloClientesController implements Initializable, NotificadoOp
     @FXML
     private ImageView imgRegresar;
     @FXML
-    private TextField ftBuscar;
+    private TextField tfBuscar;
     @FXML
     private ImageView imgRegistrarCliente;
     @FXML
@@ -125,8 +125,8 @@ public class FXMLModuloClientesController implements Initializable, NotificadoOp
 
     @FXML
     private void irBuscar(MouseEvent event) {
-        if(!ftBuscar.getText().isEmpty()){
-            String dato = ftBuscar.getText();
+        if(!tfBuscar.getText().isEmpty()){
+            String dato = tfBuscar.getText();
             buscarCliente(dato);
         }else{
             Utilidades.mostrarAlertaSimple("Error", "Campo de buscar Vacio", Alert.AlertType.ERROR);
@@ -154,7 +154,7 @@ public class FXMLModuloClientesController implements Initializable, NotificadoOp
            }
     }
     private void cerrarVentana(){
-            ((Stage) ftBuscar.getScene().getWindow()).close();
+            ((Stage) tfBuscar.getScene().getWindow()).close();
     } 
 
     @Override

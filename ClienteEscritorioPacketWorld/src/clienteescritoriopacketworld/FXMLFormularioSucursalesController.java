@@ -34,17 +34,17 @@ public class FXMLFormularioSucursalesController implements Initializable {
     @FXML
     private TextField tfEstatus;
     @FXML
-    private TextField tfCalle;
+    private ComboBox<Calle> cbCalle;
     @FXML
     private TextField tfNumero;
     @FXML
-    private TextField tfColonia;
+    private ComboBox<Colonia> cbColonia;
     @FXML
     private TextField tfCodigoPostal;
     @FXML
-    private TextField tfCiudad;
+    private ComboBox<Ciudad> cbCiudad;
     @FXML
-    private TextField tfEstado;
+    private ComboBox<Estado> cbEstado;
     @FXML
     private Button btnGuardar;
     //@FXML

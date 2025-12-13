@@ -46,7 +46,7 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
     @FXML
     private TextField tfBuscar;
     @FXML
-    private TableView<Colaborador> tablaColaboradores;
+    private TableView<Colaborador> tvTablaColaboradores;
     @FXML
     private TableColumn colNoPersonal;
     @FXML
@@ -87,7 +87,7 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
            List<Colaborador> lista = ColaboradorImp.obtenerColaboradores();
            if (lista != null) {
                colaboradores.addAll(lista);
-               tablaColaboradores.setItems(colaboradores);
+               tvTablaColaboradores.setItems(colaboradores);
            }else{
                Utilidades.mostrarAlertaSimple("ERROR", "Lo sentimos por el momento no se puede cargar la informacion"
                        + "de los Colaboradores, por favor intentélo más tarde", Alert.AlertType.ERROR);
@@ -139,7 +139,7 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
 
     @FXML
     private void irEliminarColaborador(MouseEvent event) {
-        Colaborador colaborador = tablaColaboradores.getSelectionModel().getSelectedItem();
+        Colaborador colaborador = tvTablaColaboradores.getSelectionModel().getSelectedItem();
         if(colaborador!= null){
             Mensaje mensaje = ColaboradorImp.eliminarColaborador(colaborador.getIdColaborador());
             if(!mensaje.isError()){
@@ -156,7 +156,7 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
 
     @FXML
     private void irEditarColaborador(MouseEvent event) {
-        Colaborador colaborador = tablaColaboradores.getSelectionModel().getSelectedItem();
+        Colaborador colaborador = tvTablaColaboradores.getSelectionModel().getSelectedItem();
         if(colaborador!= null){
             irAFormulario(this, colaborador);
         }else{
@@ -166,24 +166,24 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
 
     private void buscarColaborador(String dato) {
         colaboradores.clear();
-        tablaColaboradores.setItems(colaboradores);
+        tvTablaColaboradores.setItems(colaboradores);
         List<Colaborador> lista = ColaboradorImp.obtenerColaboradoresNoPersonal(dato);
         System.out.println(lista);
         if (lista!=null && !lista.isEmpty()) {
             colaboradores.addAll(lista);
-            tablaColaboradores.setItems(colaboradores);
+            tvTablaColaboradores.setItems(colaboradores);
         }else{
            lista = ColaboradorImp.obtenerColaboradoresNombre(dato);
            if (lista!=null && !lista.isEmpty()) {
                 colaboradores.addAll(lista);
-                tablaColaboradores.setItems(colaboradores);
+                tvTablaColaboradores.setItems(colaboradores);
            }else{
                Integer rol = obtenerRol(dato);
                if(rol>0){
                    lista = ColaboradorImp.obtenerColaboradoresRol(rol);
                    if(lista!=null && !lista.isEmpty()){
                         colaboradores.addAll(lista);
-                        tablaColaboradores.setItems(colaboradores);
+                        tvTablaColaboradores.setItems(colaboradores);
                    }
                }else{
                         Utilidades.mostrarAlertaSimple("Aviso", "No se encontro el colaborador", Alert.AlertType.WARNING);

@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -36,11 +37,11 @@ public class FXMLFormularioClientesController implements Initializable {
     @FXML
     private Button btnGuardar;
     @FXML
-    private TextField tfCalle;
+    private ComboBox<Calle> cbCalle;
     @FXML
     private TextField tfNumero;
     @FXML
-    private TextField tfColonia;
+    private ComboBox<Colonia> cbColonia;
     @FXML
     private TextField tfCodigoPostal;
     @FXML
@@ -48,9 +49,9 @@ public class FXMLFormularioClientesController implements Initializable {
     @FXML
     private TextField tfCorreo;
     @FXML
-    private TextField tfCiudad;
+    private ComboBox<Ciudad> cbCiudad;
     @FXML
-    private TextField tfEstado;
+    private ComboBox<Estado> cbEstado;
     /**
      * Initializes the controller class.
      */
@@ -87,14 +88,14 @@ public class FXMLFormularioClientesController implements Initializable {
         cliente.setNombre(tfNombre.getText());
         cliente.setApellidoPaterno(tfApellidoPaterno.getText());
         cliente.setApellidoMaterno(tfApellidoMaterno.getText());
-        cliente.setCalle(tfCalle.getText());
+        cliente.setCalle(cbCalle.getText());
         cliente.setNumeroDeCasa(tfNumero.getText());
-        cliente.setColonia(tfColonia.getText());
+        cliente.setColonia(cbColonia.getText());
         cliente.setCodigoPostal(tfCodigoPostal.getText());
         cliente.setTelefono(tfTelefono.getText());
         cliente.setCorreo(tfCorreo.getText());
-        cliente.setEstado(tfEstado.getText());
-        cliente.setCiudad(tfCiudad.getText());
+        cliente.setEstado(cbEstado.getText());
+        cliente.setCiudad(cbCiudad.getText());
         if(validarCampos(cliente)){
             if(!modoEdicion){
                 System.out.println("Agregar");
@@ -111,14 +112,14 @@ public class FXMLFormularioClientesController implements Initializable {
         tfNombre.setText(clienteEditado.getNombre());
         tfApellidoMaterno.setText(clienteEditado.getApellidoMaterno());
         tfApellidoPaterno.setText(clienteEditado.getApellidoPaterno());
-        tfCalle.setText(clienteEditado.getCalle());
+        cbCalle.setText(clienteEditado.getCalle());
         tfNumero.setText(clienteEditado.getNumeroDeCasa());
-        tfColonia.setText(clienteEditado.getColonia());
+        cbColonia.setText(clienteEditado.getColonia());
         tfCodigoPostal.setText(clienteEditado.getCodigoPostal());
         tfTelefono.setText(clienteEditado.getTelefono());
         tfCorreo.setText(clienteEditado.getCorreo());
-        tfCiudad.setText(clienteEditado.getCiudad());
-        tfEstado.setText(clienteEditado.getEstado());
+        cbCiudad.setText(clienteEditado.getCiudad());
+        cbEstado.setText(clienteEditado.getEstado());
     }
 
     private boolean validarCampos(Cliente cliente) {

@@ -44,7 +44,7 @@
       <ComboBox fx:id="cbTipoUnidad" layoutX="346.0" layoutY="272.0" prefWidth="150.0" style="-fx-border-color: black;" />
       <Label layoutX="379.0" layoutY="251.0" text="Tipo de unidad:" />
       <Label fx:id="lMotivo" layoutX="498.0" layoutY="192.0" text="Motivo:" />
-      <TextField fx:id="tfMotivo" layoutX="444.0" layoutY="209.0" style="-fx-border-color: black;" />
+      <TextField fx:id="tfMotivo" layoutX="444.0" layoutY="209.0" promptText="Escribe el motivo de la baja del vehículo" style="-fx-border-color: black;" />
       <Button fx:id="btnGuardar" layoutX="291.0" layoutY="332.0" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: blue;" text="Guardar" textFill="WHITE" />
    </children>
 </AnchorPane>

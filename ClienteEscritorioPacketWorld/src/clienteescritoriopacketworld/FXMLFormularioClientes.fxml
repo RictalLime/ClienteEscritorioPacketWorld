@@ -1,11 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLFormularioClientesController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="clienteescritoriopacketworld.FXMLFormularioClientesController">
+   <children>
+      <Pane prefHeight="60.0" prefWidth="633.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fitHeight="53.0" fitWidth="54.0" layoutX="290.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/Packet%20World%20logo%20blanco.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgRegresar" fitHeight="53.0" fitWidth="43.0" layoutX="26.0" layoutY="9.0" onMouseClicked="#regresarPrincipal" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/arrow_back.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label layoutX="225.0" layoutY="73.0" text="Formulario Clientes">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfNombre" layoutX="47.0" layoutY="127.0" promptText="Nombre" style="-fx-border-color: black;" />
+      <Label layoutX="272.0" layoutY="110.0" text="Apellido Paterno:" />
+      <Label fx:id="lEstadoUnidad" layoutX="302.0" layoutY="228.0" text="Calle:" />
+      <ComboBox fx:id="cbCalle" layoutX="242.0" layoutY="245.0" prefWidth="150.0" style="-fx-border-color: black;" />
+      <Button fx:id="btnGuardar" layoutX="288.0" layoutY="345.0" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: blue;" text="Guardar" textFill="WHITE" />
+      <ComboBox fx:id="cbColonia" layoutX="438.0" layoutY="245.0" prefWidth="150.0" style="-fx-border-color: black;" />
+      <ComboBox fx:id="cbEstado" layoutX="48.0" layoutY="298.0" prefWidth="150.0" style="-fx-border-color: black;" />
+      <ComboBox fx:id="cbCiudad" layoutX="439.0" layoutY="298.0" prefWidth="150.0" style="-fx-border-color: black;" />
+      <TextField fx:id="tfApellidoPaterno" layoutX="241.0" layoutY="127.0" promptText="Apellido Paterno" style="-fx-border-color: black;" />
+      <TextField fx:id="tfApellidoMaterno" layoutX="438.0" layoutY="127.0" promptText="Apellido Materno" style="-fx-border-color: black;" />
+      <TextField fx:id="tfTelefono" layoutX="47.0" layoutY="187.0" promptText="Telefono" style="-fx-border-color: black;" />
+      <TextField fx:id="tfCorreo" layoutX="241.0" layoutY="187.0" promptText="Correo Electronico" style="-fx-border-color: black;" />
+      <TextField fx:id="tfNumero" layoutX="438.0" layoutY="187.0" promptText="Numero" style="-fx-border-color: black;" />
+      <TextField fx:id="tfCodigoPostal" layoutX="47.0" layoutY="245.0" promptText="Codigo Postal" style="-fx-border-color: black;" />
+      <Label layoutX="101.0" layoutY="110.0" text="Nombre:" />
+      <Label layoutX="467.0" layoutY="110.0" text="Apellido Materno:" />
+      <Label layoutX="101.0" layoutY="170.0" text="Telefono:" />
+      <Label layoutX="266.0" layoutY="170.0" text="Correo Electronico:" />
+      <Label layoutX="492.0" layoutY="170.0" text="Numero:" />
+      <Label layoutX="84.0" layoutY="228.0" text="Codigo Postal:" />
+      <Label layoutX="491.0" layoutY="228.0" text="Colonia:" />
+      <Label layoutX="101.0" layoutY="281.0" text="Estado:" />
+      <Label layoutX="491.0" layoutY="281.0" text="Ciudad:" />
+   </children>
 </AnchorPane>

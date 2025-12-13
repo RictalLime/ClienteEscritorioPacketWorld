@@ -42,7 +42,7 @@ public class FXMLModuloPaquetesController implements Initializable, NotificadoOp
     @FXML
     private ImageView imgRegresar;
     @FXML
-    private TextField ftBuscar;
+    private TextField tfBuscar;
     @FXML
     private ImageView imgBuscar;
     @FXML
@@ -140,7 +140,7 @@ public class FXMLModuloPaquetesController implements Initializable, NotificadoOp
            }
     }
     private void cerrarVentana(){
-            ((Stage) ftBuscar.getScene().getWindow()).close();
+            ((Stage) tfBuscar.getScene().getWindow()).close();
     }
     
     private void irAFormulario(NotificadoOperacion observador, Paquete paquete){
@@ -164,8 +164,8 @@ public class FXMLModuloPaquetesController implements Initializable, NotificadoOp
 
     @FXML
     private void irABuscar(MouseEvent event) {
-        if(!ftBuscar.getText().isEmpty()){
-            String noGuia = ftBuscar.getText();
+        if(!tfBuscar.getText().isEmpty()){
+            String noGuia = tfBuscar.getText();
             buscarPaquete(noGuia);
         }else{
             Utilidades.mostrarAlertaSimple("Error", "Campo de buscar Vacio", Alert.AlertType.ERROR);

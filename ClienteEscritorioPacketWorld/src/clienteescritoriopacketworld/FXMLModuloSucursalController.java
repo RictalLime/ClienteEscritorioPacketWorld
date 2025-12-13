@@ -43,9 +43,7 @@ public class FXMLModuloSucursalController implements Initializable, NotificadoOp
     @FXML
     private ImageView imgRegresar;
     @FXML
-    private TextField tfBuscar;
-    @FXML
-    private TableView<Sucursal> tablaSucursal;
+    private TableView<Sucursal> tvTablaSucursal;
     @FXML
     private TableColumn colCodigoSucursal;
     @FXML
@@ -91,17 +89,17 @@ public class FXMLModuloSucursalController implements Initializable, NotificadoOp
            List<Sucursal> lista = SucursalImp.obtenerSucursales();
            if (lista != null) {
                sucursales.addAll(lista);
-               tablaSucursal.setItems(sucursales);
+               tvTablaSucursal.setItems(sucursales);
            }else{
                Utilidades.mostrarAlertaSimple("ERROR", "Lo sentimos por el momento no se puede cargar la informacion"
                        + "de los Colaboradores, por favor intentélo más tarde", Alert.AlertType.ERROR);
-               cerrarVentana();
+               //cerrarVentana();
            }
     }
     
-    private void cerrarVentana(){
+    /*private void cerrarVentana(){
             ((Stage) tfBuscar.getScene().getWindow()).close();
-    }
+    }*/
     
     public void irPantallaPrincipal(){
         try {
@@ -129,8 +127,8 @@ public class FXMLModuloSucursalController implements Initializable, NotificadoOp
     }
     
     @FXML
-    private void irEditarColaborador(MouseEvent event) {
-        Sucursal sucursal = tablaSucursal.getSelectionModel().getSelectedItem();
+    private void irEditarSucursal(MouseEvent event) {
+        Sucursal sucursal = tvTablaSucursal.getSelectionModel().getSelectedItem();
         if(sucursal!= null){
             irAFormulario(this, sucursal);
         }else{

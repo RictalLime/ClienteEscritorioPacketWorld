@@ -45,19 +45,19 @@ public class FXMLFormularioEnviosController implements Initializable {
     @FXML
     private Button btnGuardar;
     @FXML
-    private TextField tfCalle;
+    private ComboBox<Calle> cbCalle;
     @FXML
     private TextField tfNumero;
     @FXML
-    private TextField tfColonia;
+    private ComboBox<Colonia> cbColonia;
     @FXML
     private TextField tfCodigoPostal;
     @FXML
     private TextField tfNumeroGuia;
     @FXML
-    private TextField tfCiudad;
+    private ComboBox<Ciudad> cbCiudad;
     @FXML
-    private TextField tfEstado;
+    private ComboBox<Estado> cbEstado;
     @FXML
     private TextField tfCostoEnvio;
     @FXML
@@ -117,12 +117,12 @@ public class FXMLFormularioEnviosController implements Initializable {
     private void llenarcampos() {
         tfDestino.setText(envioEditado.getDestino());
         tfNumeroGuia.setText(envioEditado.getNoGuia());
-        tfCalle.setText(envioEditado.getOrigenCalle());
+        cbCalle.setText(envioEditado.getOrigenCalle());
         tfNumero.setText(envioEditado.getOrigenNumero());
         tfCodigoPostal.setText(envioEditado.getOrigenCodigoPostal());
-        tfCiudad.setText(envioEditado.getOrigenCiudad());
-        tfEstado.setText(envioEditado.getOrigenEstado());
-        tfColonia.setText(envioEditado.getOrigenColonia());
+        cbCiudad.setText(envioEditado.getOrigenCiudad());
+        cbEstado.setText(envioEditado.getOrigenEstado());
+        cbColonia.setText(envioEditado.getOrigenColonia());
         tfCostoEnvio.setText(""+envioEditado.getCostoDeEnvio());
         int pocisionCliente = buscarCliente(envioEditado.getIdCliente());
         int pocisionConductor = buscarConductor(envioEditado.getIdColaborador());
@@ -137,12 +137,12 @@ public class FXMLFormularioEnviosController implements Initializable {
     @FXML
     private void onClickGuardar(ActionEvent event) {
         Envio envio = new Envio();
-        envio.setOrigenCalle(tfCalle.getText());
+        envio.setOrigenCalle(cbCalle.getText());
         envio.setOrigenNumero(tfNumero.getText());
-        envio.setOrigenColonia(tfColonia.getText());
+        envio.setOrigenColonia(cbColonia.getText());
         envio.setOrigenCodigoPostal(tfCodigoPostal.getText());
-        envio.setOrigenCiudad(tfCiudad.getText());
-        envio.setOrigenEstado(tfEstado.getText());
+        envio.setOrigenCiudad(cbCiudad.getText());
+        envio.setOrigenEstado(cbEstado.getText());
         envio.setNoGuia(tfNumeroGuia.getText());
         try {
             if (tfCostoEnvio.getText().trim().isEmpty()) {
@@ -174,7 +174,7 @@ public class FXMLFormularioEnviosController implements Initializable {
     }
     
     private void cerrarVentana(){
-        Stage base = (Stage) tfCalle.getScene().getWindow();
+        Stage base = (Stage) cbCalle.getScene().getWindow();
         base.close();
     }
 
