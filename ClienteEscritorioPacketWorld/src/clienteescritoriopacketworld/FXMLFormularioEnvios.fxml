@@ -8,8 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="clienteescritoriopacketworld.FXMLFormularioEnviosController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLFormularioEnviosController">
    <children>
       <Pane prefHeight="60.0" prefWidth="633.0" style="-fx-background-color: blue;">
          <children>
@@ -35,9 +34,9 @@
       <Label layoutX="124.0" layoutY="100.0" text="Cliente:" />
       <ComboBox fx:id="cbClientes" layoutX="69.0" layoutY="117.0" onAction="#detectarClientes" prefWidth="150.0" style="-fx-border-color: black;" />
       <Button fx:id="btnGuardar" layoutX="287.0" layoutY="338.0" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: blue;" text="Guardar" textFill="WHITE" />
-      <Label layoutX="438.0" layoutY="321.0" text="Estado de Envio:" />
+      <Label layoutX="450.0" layoutY="320.0" text="Estado de Envio:" />
       <ComboBox fx:id="cbEstadoDeEnvio" layoutX="418.0" layoutY="337.0" prefWidth="150.0" style="-fx-border-color: black;" />
-      <Label fx:id="lEstadoUnidad11" layoutX="437.0" layoutY="266.0" text="Conductor:" />
+      <Label fx:id="lEstadoUnidad11" layoutX="461.0" layoutY="266.0" text="Conductor:" />
       <ComboBox fx:id="cbConductores" layoutX="417.0" layoutY="285.0" prefWidth="150.0" style="-fx-border-color: black;" />
       <TextField fx:id="tfNumeroGuia" layoutX="416.0" layoutY="117.0" promptText="Num. Guia" style="-fx-border-color: black;" />
       <Label layoutX="454.0" layoutY="100.0" text="Numero Guia:" />
@@ -55,7 +54,7 @@
       <Label layoutX="291.0" layoutY="266.0" text="Costo:" />
       <ComboBox fx:id="cbCiudad" layoutX="69.0" layoutY="173.0" prefWidth="150.0" style="-fx-border-color: black;" />
       <ComboBox fx:id="cbEstado" layoutX="242.0" layoutY="173.0" prefWidth="150.0" style="-fx-border-color: black;" />
-      <ComboBox fx:id="cbColonia" layoutX="418.0" layoutY="173.0" prefWidth="150.0" style="-fx-border-color: black;" />
-      <ComboBox fx:id="cbCalle" layoutX="67.0" layoutY="229.0" prefWidth="150.0" style="-fx-border-color: black;" />
+      <TextField fx:id="tfColonia" layoutX="415.0" layoutY="173.0" promptText="Colonia" style="-fx-border-color: black;" />
+      <TextField fx:id="tfCalle" layoutX="67.0" layoutY="229.0" promptText="Calle" style="-fx-border-color: black;" />
    </children>
 </AnchorPane>

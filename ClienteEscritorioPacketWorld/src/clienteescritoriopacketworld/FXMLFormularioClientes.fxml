@@ -8,8 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="clienteescritoriopacketworld.FXMLFormularioClientesController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLFormularioClientesController">
    <children>
       <Pane prefHeight="60.0" prefWidth="633.0" style="-fx-background-color: blue;">
          <children>
@@ -33,9 +32,7 @@
       <TextField fx:id="tfNombre" layoutX="47.0" layoutY="127.0" promptText="Nombre" style="-fx-border-color: black;" />
       <Label layoutX="272.0" layoutY="110.0" text="Apellido Paterno:" />
       <Label fx:id="lEstadoUnidad" layoutX="302.0" layoutY="228.0" text="Calle:" />
-      <ComboBox fx:id="cbCalle" layoutX="242.0" layoutY="245.0" prefWidth="150.0" style="-fx-border-color: black;" />
       <Button fx:id="btnGuardar" layoutX="288.0" layoutY="345.0" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: blue;" text="Guardar" textFill="WHITE" />
-      <ComboBox fx:id="cbColonia" layoutX="438.0" layoutY="245.0" prefWidth="150.0" style="-fx-border-color: black;" />
       <ComboBox fx:id="cbEstado" layoutX="48.0" layoutY="298.0" prefWidth="150.0" style="-fx-border-color: black;" />
       <ComboBox fx:id="cbCiudad" layoutX="439.0" layoutY="298.0" prefWidth="150.0" style="-fx-border-color: black;" />
       <TextField fx:id="tfApellidoPaterno" layoutX="241.0" layoutY="127.0" promptText="Apellido Paterno" style="-fx-border-color: black;" />
@@ -53,5 +50,7 @@
       <Label layoutX="491.0" layoutY="228.0" text="Colonia:" />
       <Label layoutX="101.0" layoutY="281.0" text="Estado:" />
       <Label layoutX="491.0" layoutY="281.0" text="Ciudad:" />
+      <TextField fx:id="tfCalle" layoutX="242.0" layoutY="245.0" promptText="Calle" style="-fx-border-color: black;" />
+      <TextField fx:id="tfColonia" layoutX="440.0" layoutY="245.0" promptText="Colonia" style="-fx-border-color: black;" />
    </children>
 </AnchorPane>

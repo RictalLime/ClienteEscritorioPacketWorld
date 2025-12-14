@@ -8,8 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="clienteescritoriopacketworld.FXMLFormularioSucursalesController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLFormularioSucursalesController">
    <children>
       <Pane prefHeight="60.0" prefWidth="633.0" style="-fx-background-color: blue;">
          <children>
@@ -33,7 +32,6 @@
       <Label layoutX="76.0" layoutY="145.0" text="Codigo Sucursal" />
       <TextField fx:id="tfCodigoSucursal" layoutX="43.0" layoutY="163.0" promptText="Codigo Sucursal" style="-fx-border-color: black;" />
       <Label layoutX="106.0" layoutY="215.0" text="Calle" />
-      <ComboBox fx:id="cbCalle" layoutX="44.0" layoutY="232.0" onAction="#detectarCalle" prefWidth="150.0" style="-fx-border-color: black;" />
       <Button fx:id="btnGuardar" layoutX="305.0" layoutY="353.0" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: blue;" text="Guardar" textFill="WHITE" />
       <TextField fx:id="tfNombre" layoutX="241.0" layoutY="163.0" promptText="Nombre" style="-fx-border-color: black;" />
       <Label layoutX="295.0" layoutY="145.0" text="Nombre" />
@@ -41,7 +39,6 @@
       <Label layoutX="486.0" layoutY="145.0" text="Estatus" />
       <Label layoutX="295.0" layoutY="215.0" text="Numero" />
       <TextField fx:id="tfNumero" layoutX="242.0" layoutY="232.0" promptText="Numero" style="-fx-border-color: black;" />
-      <ComboBox fx:id="cbColonia" layoutX="432.0" layoutY="232.0" onAction="#detectarColonia" prefWidth="150.0" style="-fx-border-color: black;" />
       <Label layoutX="484.0" layoutY="215.0" text="Colonia" />
       <TextField fx:id="tfCodigoPostal" layoutX="241.0" layoutY="294.0" promptText="Codigo Postal" style="-fx-border-color: black;" />
       <Label layoutX="280.0" layoutY="277.0" text="Codigo Postal" />
@@ -49,5 +46,7 @@
       <ComboBox fx:id="cbEstado" layoutX="432.0" layoutY="294.0" onAction="#detectarEstado" prefWidth="150.0" style="-fx-border-color: black;" />
       <Label layoutX="106.0" layoutY="277.0" text="Ciudad" />
       <Label layoutX="494.0" layoutY="277.0" text="Estado" />
+      <TextField fx:id="tfNumero1" layoutX="43.0" layoutY="232.0" promptText="Calle" style="-fx-border-color: black;" />
+      <TextField fx:id="tfColonia" layoutX="432.0" layoutY="232.0" promptText="Colonia" style="-fx-border-color: black;" />
    </children>
 </AnchorPane>

@@ -22,7 +22,7 @@ import java.util.List;
 public class SucursalImp {
     public static List<Sucursal> obtenerSucursales(){
         List<Sucursal> sucursales = null;
-        String url = Constantes.URL_WS+"sucursal/obtenerSucursal";
+        String url = Constantes.URL_WS + "sucursal/obtenerSucursales";
         RespuestaHTTP respuesta = ConexionAPI.peticionGET(url);
         if (respuesta.getCodigo()==HttpURLConnection.HTTP_OK){
             Gson gson = new Gson();
@@ -37,12 +37,12 @@ public class SucursalImp {
         return sucursales;
     }
     
-    public static Mensaje registrarSucursal(Sucursal sucursales){
+    public static Mensaje registrarSucursal(Sucursal sucursal){
         Mensaje msj = new Mensaje();
         String url = Constantes.URL_WS + "sucursal/registrar";
         Gson gson = new Gson();
         try {
-            String parametros = gson.toJson(sucursales);
+            String parametros = gson.toJson(sucursal);
             RespuestaHTTP respuesta = ConexionAPI.peticionBody(url,Constantes.PETICION_POST, parametros, Constantes.APPLICATION_JSON);
             if(respuesta.getCodigo()== HttpURLConnection.HTTP_OK){
                 msj = gson.fromJson(respuesta.getContenido(), Mensaje.class);
@@ -78,13 +78,13 @@ public class SucursalImp {
         return msj;
     }
     
-    public static Mensaje actualizarEstatusSucursal(String parametros, Integer idSucursal){
+    public static Mensaje actualizarEstatusSucursal(Integer idSucursal){
         Mensaje msj = new Mensaje();
         String url = Constantes.URL_WS + "sucursal/actualizarEstatus/"+idSucursal;
         Gson gson = new Gson();
         try {
             //String parametros = gson.toJson(sucursal);
-            RespuestaHTTP respuesta = ConexionAPI.peticionBody(url, "PUT", parametros, Constantes.APPLICATION_JSON);
+            RespuestaHTTP respuesta = ConexionAPI.peticionSinBody(url, Constantes.PETICION_PUT);
             if(respuesta.getCodigo()== HttpURLConnection.HTTP_OK){
                 msj = gson.fromJson(respuesta.getContenido(), Mensaje.class);
             }else{
