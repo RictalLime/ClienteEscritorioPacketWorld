@@ -8,7 +8,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLModuloSucursalController">
    <children>
       <Pane prefHeight="60.0" prefWidth="633.0" style="-fx-background-color: blue;">
@@ -63,7 +62,7 @@
       </Pane>
       <Pane layoutX="538.0" layoutY="124.0" prefHeight="53.0" prefWidth="53.0" style="-fx-border-color: blue;">
          <children>
-            <ImageView fitHeight="43.0" fitWidth="43.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#irEliminarUnidad" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="43.0" fitWidth="43.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#irDarDeBajaSucursal" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@recursos/scan_delete_blue.png" />
                </image>
