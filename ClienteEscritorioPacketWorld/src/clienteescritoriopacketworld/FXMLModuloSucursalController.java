@@ -52,7 +52,7 @@ public class FXMLModuloSucursalController implements Initializable, NotificadoOp
     @FXML private TableColumn colCodigoPostal;
     @FXML private TableColumn colCiudad;
     @FXML private TableColumn colEstado;
-    @FXML private TextField tfBuscar;
+    //@FXML private TextField tfBuscar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -132,7 +132,7 @@ public class FXMLModuloSucursalController implements Initializable, NotificadoOp
         }
     }
 
-    @FXML
+    /*@FXML
     private void irBuscarSucursal(MouseEvent event) {
         if (!tfBuscar.getText().isEmpty()) {
             String criterio = tfBuscar.getText().toLowerCase();
@@ -140,7 +140,7 @@ public class FXMLModuloSucursalController implements Initializable, NotificadoOp
         } else {
             Utilidades.mostrarAlertaSimple("Error", "Campo de búsqueda vacío", Alert.AlertType.ERROR);
         }
-    }
+    }*/
 
     private void buscarSucursal(String criterio) {
         sucursales.clear();

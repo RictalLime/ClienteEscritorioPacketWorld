@@ -22,7 +22,7 @@ import java.util.List;
 public class SucursalImp {
     public static List<Sucursal> obtenerSucursales(){
         List<Sucursal> sucursales = null;
-        String url = Constantes.URL_WS + "sucursal/obtenerSucursales";
+        String url = Constantes.URL_WS + "sucursal/obtenerSucursal";
         RespuestaHTTP respuesta = ConexionAPI.peticionGET(url);
         if (respuesta.getCodigo()==HttpURLConnection.HTTP_OK){
             Gson gson = new Gson();

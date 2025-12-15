@@ -46,7 +46,7 @@
       <ComboBox fx:id="cbEstado" layoutX="432.0" layoutY="294.0" onAction="#detectarEstado" prefWidth="150.0" style="-fx-border-color: black;" />
       <Label layoutX="106.0" layoutY="277.0" text="Ciudad" />
       <Label layoutX="494.0" layoutY="277.0" text="Estado" />
-      <TextField fx:id="tfNumero1" layoutX="43.0" layoutY="232.0" promptText="Calle" style="-fx-border-color: black;" />
+      <TextField fx:id="tfCalle" layoutX="43.0" layoutY="232.0" promptText="Calle" style="-fx-border-color: black;" />
       <TextField fx:id="tfColonia" layoutX="432.0" layoutY="232.0" promptText="Colonia" style="-fx-border-color: black;" />
    </children>
 </AnchorPane>

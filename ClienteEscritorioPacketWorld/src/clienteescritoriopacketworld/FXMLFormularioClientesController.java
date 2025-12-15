@@ -12,10 +12,14 @@ import clienteescritoriopacketworld.interfaz.NotificadoOperacion;
 import clienteescritoriopacketworld.pojo.Ciudad;
 import clienteescritoriopacketworld.pojo.Cliente;
 import clienteescritoriopacketworld.pojo.Estado;
+import clienteescritoriopacketworld.utilidad.Constantes;
 import clienteescritoriopacketworld.utilidad.Utilidades;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -51,6 +55,9 @@ public class FXMLFormularioClientesController implements Initializable {
     private Cliente clienteEditado;
     private boolean modoEdicion = false;
     
+    private ObservableList<Estado> estados;
+    private ObservableList<Ciudad> ciudades;
+    
     /**
      * Initializes the controller class.
      */
@@ -73,26 +80,30 @@ public class FXMLFormularioClientesController implements Initializable {
     }
     
     private void cargarEstados() {
-        List<Estado> estados = EstadoImp.obtenerTodosLosEstados();
-
-        if (estados != null && !estados.isEmpty()) {
-            cbEstado.getItems().addAll(estados);
-        } else {
-            Utilidades.mostrarAlertaSimple("Error", "No se pudieron cargar los estados.", Alert.AlertType.ERROR);
+        HashMap<String, Object> respuesta = EstadoImp.obtenerTodosLosEstados();
+        if(!(boolean)respuesta.get(Constantes.KEY_ERROR)){
+            List<Estado> estadosAPI = (List<Estado>) respuesta.get(Constantes.KEY_LISTA);
+            estados = FXCollections.observableArrayList();
+            estados.addAll(estadosAPI);
+            cbEstado.setItems(estados);
+        }else{
+            Utilidades.mostrarAlertaSimple("Error", respuesta.get(Constantes.KEY_MENSAJE).toString(), Alert.AlertType.ERROR);
+            cerrarVentana();
         }
     }
     
     private void cargarCiudades() {
         Estado estadoSel = cbEstado.getValue();
         if (estadoSel == null) return;
-
-        List<Ciudad> ciudades = CiudadImp.obtenerCiudadesPorIdEstado(estadoSel.getIdEstado());
-        cbCiudad.getItems().clear();
-
-        if (ciudades != null && !ciudades.isEmpty()) {
-            cbCiudad.getItems().addAll(ciudades);
-        } else {
-            Utilidades.mostrarAlertaSimple("Error", "No se pudieron cargar las ciudades.", Alert.AlertType.ERROR);
+        HashMap<String, Object> respuesta = CiudadImp.obtenerCiudadesPorIdEstado(estadoSel.getIdEstado());
+        if(!(boolean)respuesta.get(Constantes.KEY_ERROR)){
+            List<Ciudad> ciudadesAPI = (List<Ciudad>) respuesta.get(Constantes.KEY_LISTA);
+            ciudades = FXCollections.observableArrayList();
+            ciudades.addAll(ciudadesAPI);
+            cbCiudad.setItems(ciudades);
+        }else{
+            Utilidades.mostrarAlertaSimple("Error", respuesta.get(Constantes.KEY_MENSAJE).toString(), Alert.AlertType.ERROR);
+            cerrarVentana();
         }
     }
     

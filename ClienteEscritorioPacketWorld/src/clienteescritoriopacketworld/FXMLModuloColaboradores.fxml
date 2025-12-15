@@ -8,8 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="clienteescritoriopacketworld.FXMLModuloColaboradoresController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLModuloColaboradoresController">
    <children>
       <Pane prefHeight="60.0" prefWidth="633.0" style="-fx-background-color: blue;">
          <children>
@@ -30,7 +29,6 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="tfBuscar" layoutX="33.0" layoutY="150.0" prefHeight="19.0" prefWidth="205.0" style="-fx-border-color: blue;" text="busca por nombre, núm de personal o rol. " />
       <ImageView fx:id="imgBuscar" fitHeight="33.0" fitWidth="28.0" layoutX="253.0" layoutY="146.0" onMouseClicked="#irBuscar" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@recursos/search_black.png" />
@@ -74,5 +72,6 @@
             </ImageView>
          </children>
       </Pane>
+      <TextField fx:id="tfBuscar" layoutX="48.0" layoutY="147.0" prefHeight="25.0" prefWidth="205.0" promptText="busca por nombre, núm de personal o rol. " style="-fx-border-color: blue;" />
    </children>
 </AnchorPane>

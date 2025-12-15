@@ -47,4 +47,9 @@ public class Ciudad {
     public void setIdEstado(Integer idEstado) {
         this.idEstado = idEstado;
     }
+    
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

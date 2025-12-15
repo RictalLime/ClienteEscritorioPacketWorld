@@ -20,7 +20,7 @@ import java.util.List;
  * @author Tron7
  */
 public class ConductoresAsignadosImp {
-    public static List<ConductoresAsignados> obtenerTodos() {
+    /*public static List<ConductoresAsignados> obtenerTodos() {
         List<ConductoresAsignados> lista = null;
         String url = Constantes.URL_WS + "conductores-asignados/obtener-todos";
         RespuestaHTTP respuesta = ConexionAPI.peticionGET(url);
@@ -35,12 +35,29 @@ public class ConductoresAsignadosImp {
             }
         }
         return lista;
+    }*/
+    
+    public static List<ConductoresAsignados> obtenerTodos() {
+        String url = Constantes.URL_WS + "conductor-asignado/obtener-todos";
+        RespuestaHTTP respuesta = ConexionAPI.peticionGET(url);
+        if (respuesta.getCodigo() == HttpURLConnection.HTTP_OK && respuesta.getContenido() != null) {
+            try {
+                Gson gson = new Gson();
+                Type tipoLista = new TypeToken<List<ConductoresAsignados>>() {}.getType();
+                return gson.fromJson(respuesta.getContenido(), tipoLista);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return java.util.Collections.emptyList();
     }
+
+
 
 
     public static Mensaje registrar(ConductoresAsignados conductor) {
         Mensaje mensaje = new Mensaje();
-        String url = Constantes.URL_WS + "conductores-asignados/agregar";
+        String url = Constantes.URL_WS + "conductor-asignados/agregar";
         Gson gson = new Gson();
 
         try {
@@ -63,7 +80,7 @@ public class ConductoresAsignadosImp {
  
     public static Mensaje editar(ConductoresAsignados conductor) {
         Mensaje mensaje = new Mensaje();
-        String url = Constantes.URL_WS + "conductores-asignados/editar";
+        String url = Constantes.URL_WS + "conductor-asignados/editar";
         Gson gson = new Gson();
 
         try {
@@ -86,7 +103,7 @@ public class ConductoresAsignadosImp {
   
     public static Mensaje eliminar(int idConductoresAsignados) {
         Mensaje mensaje = new Mensaje();
-        String url = Constantes.URL_WS + "conductores-asignados/eliminar/" + idConductoresAsignados;
+        String url = Constantes.URL_WS + "conductor-asignados/eliminar/" + idConductoresAsignados;
         Gson gson = new Gson();
 
         try {

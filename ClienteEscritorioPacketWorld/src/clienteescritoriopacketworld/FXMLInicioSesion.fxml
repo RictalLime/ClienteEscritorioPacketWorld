@@ -20,14 +20,16 @@
             <Pane layoutX="7.0" layoutY="7.0" prefHeight="236.0" prefWidth="388.0" style="-fx-background-color: white;">
                <children>
                   <TextField fx:id="tfNumeroPersonal" layoutX="68.0" layoutY="56.0" prefHeight="25.0" prefWidth="253.0" promptText="Num. Personal" style="-fx-border-color: blue;" />
-                  <Label layoutX="74.0" layoutY="33.0" text="Numero Personal" />
+                  <Label layoutX="74.0" layoutY="39.0" text="Numero Personal" />
                   <Label layoutX="74.0" layoutY="101.0" text="Contraseña" />
-                  <TextField fx:id="pfContrasena" layoutX="68.0" layoutY="127.0" prefHeight="25.0" prefWidth="253.0" promptText="*****" style="-fx-border-color: blue;" />
                   <Button layoutX="151.0" layoutY="187.0" mnemonicParsing="false" onAction="#btnIniciarSesion" style="-fx-background-color: blue;" text="Iniciar Sesion" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
+                  <PasswordField fx:id="pfContrasenia" layoutX="68.0" layoutY="118.0" prefHeight="25.0" prefWidth="253.0" promptText="****" style="-fx-border-color: blue;" />
+                  <Label fx:id="errorContraseña" layoutX="40.0" layoutY="179.0" />
+                  <Label fx:id="errorNumeroPersonal" layoutX="307.0" layoutY="188.0" />
                </children>
             </Pane>
          </children>

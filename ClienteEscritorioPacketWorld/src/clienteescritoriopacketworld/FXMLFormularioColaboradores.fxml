@@ -8,8 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="clienteescritoriopacketworld.FXMLFormularioColaboradoresController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLFormularioColaboradoresController">
    <children>
       <Pane prefHeight="60.0" prefWidth="633.0" style="-fx-background-color: blue;">
          <children>
@@ -41,7 +40,7 @@
       <TextField fx:id="tfCorreo" layoutX="242.0" layoutY="187.0" promptText="Correo" style="-fx-border-color: black;" />
       <TextField fx:id="tfNumeroPersonal" layoutX="430.0" layoutY="187.0" promptText="Num. De Personal" style="-fx-border-color: black;" />
       <TextField fx:id="tfNoLicencia" layoutX="53.0" layoutY="249.0" promptText="No. Licencia" style="-fx-border-color: black;" />
-      <ImageView fx:id="imgFotografia" fitHeight="60.0" fitWidth="53.0" layoutX="99.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgFotografia" fitHeight="60.0" fitWidth="53.0" layoutX="100.0" layoutY="296.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@recursos/background_replace.png" />
          </image>
@@ -52,8 +51,9 @@
       <Label layoutX="267.0" layoutY="170.0" text="Correo Electronico:" />
       <Label layoutX="458.0" layoutY="170.0" text="Numero Personal:" />
       <Label layoutX="285.0" layoutY="232.0" text="Contraseña:" />
-      <Label layoutX="87.0" layoutY="232.0" text="No. Licencia:" />
-      <Button fx:id="btnSeleccionarFoto" layoutX="74.0" layoutY="341.0" mnemonicParsing="false" onAction="#selecionarFoto" style="-fx-background-color: gray;" text="Seleccionar Foto" />
+      <Label fx:id="lNoLicencia" layoutX="87.0" layoutY="232.0" text="No. Licencia:" />
+      <Button fx:id="btnSeleccionarFoto" layoutX="74.0" layoutY="349.0" mnemonicParsing="false" onAction="#selecionarFoto" style="-fx-background-color: gray;" text="Seleccionar Foto" />
       <PasswordField fx:id="pfContrasena" layoutX="242.0" layoutY="249.0" promptText="*****" style="-fx-border-color: black;" />
+      <Label fx:id="lFoto" layoutX="114.0" layoutY="279.0" text="Foto" />
    </children>
 </AnchorPane>

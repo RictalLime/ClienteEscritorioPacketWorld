@@ -31,7 +31,7 @@ public class IniciarSesionImp {
             respuesta.setColaborador(colaborador);
         }else if(respuestaWS.getCodigo()== HttpURLConnection.HTTP_NOT_FOUND){
             respuesta.setError(true);
-            respuesta.setMensaje("Error en el servidor Favor de intentarlo más tarde");
+            respuesta.setMensaje("Error no se pudo Encontrar el Recurso Favor de intentarlo más tarde");
         }else{
            respuesta.setError(true);
            respuesta.setMensaje("Numero Personal y/o Contraseña incorrecta");   
