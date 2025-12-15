@@ -22,14 +22,14 @@
                   <TextField fx:id="tfNumeroPersonal" layoutX="68.0" layoutY="56.0" prefHeight="25.0" prefWidth="253.0" promptText="Num. Personal" style="-fx-border-color: blue;" />
                   <Label layoutX="74.0" layoutY="39.0" text="Numero Personal" />
                   <Label layoutX="74.0" layoutY="101.0" text="Contraseña" />
-                  <Button layoutX="151.0" layoutY="187.0" mnemonicParsing="false" onAction="#btnIniciarSesion" style="-fx-background-color: blue;" text="Iniciar Sesion" textFill="WHITE">
+                  <Button layoutX="134.0" layoutY="185.0" mnemonicParsing="false" onAction="#btnIniciarSesion" style="-fx-background-color: blue;" text="Iniciar Sesion" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
                   <PasswordField fx:id="pfContrasenia" layoutX="68.0" layoutY="118.0" prefHeight="25.0" prefWidth="253.0" promptText="****" style="-fx-border-color: blue;" />
-                  <Label fx:id="errorContraseña" layoutX="40.0" layoutY="179.0" />
-                  <Label fx:id="errorNumeroPersonal" layoutX="307.0" layoutY="188.0" />
+                  <Label fx:id="errorContraseña" layoutX="74.0" layoutY="145.0" textFill="#f8160e" />
+                  <Label fx:id="errorNumeroPersonal" layoutX="74.0" layoutY="83.0" textFill="#f8160e" />
                </children>
             </Pane>
          </children>

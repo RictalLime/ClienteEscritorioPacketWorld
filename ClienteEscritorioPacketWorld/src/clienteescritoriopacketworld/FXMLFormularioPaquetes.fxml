@@ -8,8 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="clienteescritoriopacketworld.FXMLFormularioPaquetesController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLFormularioPaquetesController">
    <children>
       <Pane prefHeight="60.0" prefWidth="633.0" style="-fx-background-color: blue;">
          <children>
@@ -32,8 +31,8 @@
       </Label>
       <Label layoutX="99.0" layoutY="136.0" text="Peso:" />
       <TextField fx:id="tfPeso" layoutX="37.0" layoutY="153.0" promptText="Peso" style="-fx-border-color: black;" />
-      <ComboBox fx:id="cbEnvios" layoutX="447.0" layoutY="252.0" onAction="#detectarEnvios" prefWidth="150.0" style="-fx-border-color: black;" />
-      <Label layoutX="503.0" layoutY="236.0" text="Envios:" />
+      <ComboBox fx:id="cbEnvios" layoutX="447.0" layoutY="252.0" prefWidth="150.0" style="-fx-border-color: black;" />
+      <Label layoutX="476.0" layoutY="236.0" text="Numero de Guia:" />
       <Button fx:id="btnGuardar" layoutX="287.0" layoutY="342.0" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: blue;" text="Guardar" textFill="WHITE" />
       <TextField fx:id="tfAlto" layoutX="241.0" layoutY="153.0" promptText="Alto" style="-fx-border-color: black;" />
       <TextField fx:id="tfAncho" layoutX="446.0" layoutY="153.0" promptText="Ancho" style="-fx-border-color: black;" />

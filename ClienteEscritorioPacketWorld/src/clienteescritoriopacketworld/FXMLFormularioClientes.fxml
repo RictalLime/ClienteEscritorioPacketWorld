@@ -31,26 +31,26 @@
       </Label>
       <TextField fx:id="tfNombre" layoutX="47.0" layoutY="127.0" promptText="Nombre" style="-fx-border-color: black;" />
       <Label layoutX="272.0" layoutY="110.0" text="Apellido Paterno:" />
-      <Label fx:id="lEstadoUnidad" layoutX="302.0" layoutY="228.0" text="Calle:" />
+      <Label fx:id="lEstadoUnidad" layoutX="108.0" layoutY="281.0" text="Calle:" />
       <Button fx:id="btnGuardar" layoutX="288.0" layoutY="345.0" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: blue;" text="Guardar" textFill="WHITE" />
-      <ComboBox fx:id="cbEstado" layoutX="48.0" layoutY="298.0" prefWidth="150.0" style="-fx-border-color: black;" />
-      <ComboBox fx:id="cbCiudad" layoutX="439.0" layoutY="298.0" prefWidth="150.0" style="-fx-border-color: black;" />
+      <ComboBox fx:id="cbEstado" layoutX="48.0" layoutY="245.0" prefWidth="150.0" style="-fx-border-color: black;" />
+      <ComboBox fx:id="cbCiudad" layoutX="243.0" layoutY="245.0" prefWidth="150.0" style="-fx-border-color: black;" />
       <TextField fx:id="tfApellidoPaterno" layoutX="241.0" layoutY="127.0" promptText="Apellido Paterno" style="-fx-border-color: black;" />
       <TextField fx:id="tfApellidoMaterno" layoutX="438.0" layoutY="127.0" promptText="Apellido Materno" style="-fx-border-color: black;" />
       <TextField fx:id="tfTelefono" layoutX="47.0" layoutY="187.0" promptText="Telefono" style="-fx-border-color: black;" />
       <TextField fx:id="tfCorreo" layoutX="241.0" layoutY="187.0" promptText="Correo Electronico" style="-fx-border-color: black;" />
       <TextField fx:id="tfNumero" layoutX="438.0" layoutY="187.0" promptText="Numero" style="-fx-border-color: black;" />
-      <TextField fx:id="tfCodigoPostal" layoutX="47.0" layoutY="245.0" promptText="Codigo Postal" style="-fx-border-color: black;" />
+      <TextField fx:id="tfCodigoPostal" layoutX="242.0" layoutY="296.0" promptText="Codigo Postal" style="-fx-border-color: black;" />
       <Label layoutX="101.0" layoutY="110.0" text="Nombre:" />
       <Label layoutX="467.0" layoutY="110.0" text="Apellido Materno:" />
       <Label layoutX="101.0" layoutY="170.0" text="Telefono:" />
       <Label layoutX="266.0" layoutY="170.0" text="Correo Electronico:" />
       <Label layoutX="492.0" layoutY="170.0" text="Numero:" />
-      <Label layoutX="84.0" layoutY="228.0" text="Codigo Postal:" />
+      <Label layoutX="280.0" layoutY="281.0" text="Codigo Postal:" />
       <Label layoutX="491.0" layoutY="228.0" text="Colonia:" />
-      <Label layoutX="101.0" layoutY="281.0" text="Estado:" />
-      <Label layoutX="491.0" layoutY="281.0" text="Ciudad:" />
-      <TextField fx:id="tfCalle" layoutX="242.0" layoutY="245.0" promptText="Calle" style="-fx-border-color: black;" />
+      <Label layoutX="103.0" layoutY="228.0" text="Estado:" />
+      <Label layoutX="297.0" layoutY="228.0" text="Ciudad:" />
+      <TextField fx:id="tfCalle" layoutX="47.0" layoutY="296.0" promptText="Calle" style="-fx-border-color: black;" />
       <TextField fx:id="tfColonia" layoutX="440.0" layoutY="245.0" promptText="Colonia" style="-fx-border-color: black;" />
    </children>
 </AnchorPane>
