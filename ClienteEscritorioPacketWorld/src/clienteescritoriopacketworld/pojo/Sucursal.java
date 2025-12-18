@@ -136,4 +136,8 @@ public class Sucursal {
         this.idEstado = idEstado;
     }
     
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

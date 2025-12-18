@@ -36,11 +36,12 @@ public class Envio {
     private String destinoEstado;
     private String destinoNumero;
     private String destinoCodigoPostal;
+    private Integer idSucursal;
     
     public Envio() {
     }
-    
-    public Envio(Integer idEnvio, Integer idCliente, String cliente, String destino, String origen, String origenCalle, String origenNumero, String origenColonia, String origenCodigoPostal, Integer idOrigenCiudad, String origenCiudad, Integer idOrigenEstado, String origenEstado, String noGuia, float costoDeEnvio, Integer idEstadoDeEnvio, String estadoDeEnvio, Integer idColaborador, String colaborador, String destinoCalle, String destinoColonia, Integer idDestinoCiudad, String destinoCiudad, Integer idDestinoEstado, String destinoEstado, String destinoNumero, String destinoCodigoPostal) {
+
+    public Envio(Integer idEnvio, Integer idCliente, String cliente, String destino, String origen, String origenCalle, String origenNumero, String origenColonia, String origenCodigoPostal, Integer idOrigenCiudad, String origenCiudad, Integer idOrigenEstado, String origenEstado, String noGuia, float costoDeEnvio, Integer idEstadoDeEnvio, String estadoDeEnvio, Integer idColaborador, String colaborador, String destinoCalle, String destinoColonia, Integer idDestinoCiudad, String destinoCiudad, Integer idDestinoEstado, String destinoEstado, String destinoNumero, String destinoCodigoPostal, Integer idSucursal) {
         this.idEnvio = idEnvio;
         this.idCliente = idCliente;
         this.cliente = cliente;
@@ -68,6 +69,7 @@ public class Envio {
         this.destinoEstado = destinoEstado;
         this.destinoNumero = destinoNumero;
         this.destinoCodigoPostal = destinoCodigoPostal;
+        this.idSucursal = idSucursal;
     }
     
     public Integer getIdEnvio() {
@@ -177,6 +179,10 @@ public class Envio {
     public String getDestinoCodigoPostal() {
         return destinoCodigoPostal;
     }
+
+    public Integer getIdSucursal() {
+        return idSucursal;
+    }
     
     public void setIdEnvio(Integer idEnvio) {
         this.idEnvio = idEnvio;
@@ -284,6 +290,10 @@ public class Envio {
 
     public void setDestinoCodigoPostal(String destinoCodigoPostal) {
         this.destinoCodigoPostal = destinoCodigoPostal;
+    }
+
+    public void setIdSucursal(Integer idSucursal) {
+        this.idSucursal = idSucursal;
     }
     
     @Override

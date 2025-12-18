@@ -115,19 +115,19 @@ public class FXMLFormularioClientesController implements Initializable {
         tfCalle.setText(clienteEditado.getCalle());
         tfNumero.setText(clienteEditado.getNumeroDeCasa());
         tfColonia.setText(clienteEditado.getColonia());
-        tfCodigoPostal.setText(clienteEditado.getCodigoPostal());
+        tfCodigoPostal.setText(clienteEditado.getCp());
         tfTelefono.setText(clienteEditado.getTelefono());
         tfCorreo.setText(clienteEditado.getCorreo());
         
         for (Estado e : cbEstado.getItems()) {
-            if (e.getNombre().equals(clienteEditado.getEstado())) {
+            if (e.getNombre().equals(clienteEditado.getNombreEstado())) {
                 cbEstado.setValue(e);
                 break;
             }
         }
         cargarCiudades();
         for (Ciudad c : cbCiudad.getItems()) {
-            if (c.getNombre().equals(clienteEditado.getCiudad())) {
+            if (c.getNombre().equals(clienteEditado.getNombreCiudad())) {
                 cbCiudad.setValue(c);
                 break;
             }
@@ -149,14 +149,17 @@ public class FXMLFormularioClientesController implements Initializable {
         cliente.setCalle(tfCalle.getText());
         cliente.setNumeroDeCasa(tfNumero.getText());
         cliente.setColonia(tfColonia.getText());
-        cliente.setCodigoPostal(tfCodigoPostal.getText());
+        cliente.setCp(tfCodigoPostal.getText());
         cliente.setTelefono(tfTelefono.getText());
         cliente.setCorreo(tfCorreo.getText());
         Estado estadoSel = cbEstado.getValue();
         Ciudad ciudadSel = cbCiudad.getValue();
 
-        cliente.setEstado(estadoSel != null ? estadoSel.getNombre() : null);
-        cliente.setCiudad(ciudadSel != null ? ciudadSel.getNombre() : null);
+        cliente.setIdEstado(estadoSel != null ? estadoSel.getIdEstado() : null);
+        cliente.setIdCiudad(ciudadSel != null ? ciudadSel.getIdCiudad() : null);
+
+        cliente.setNombreEstado(estadoSel != null ? estadoSel.getNombre() : null);
+        cliente.setNombreCiudad(ciudadSel != null ? ciudadSel.getNombre() : null);
 
         if (validarCampos(cliente)) {
             if (!modoEdicion) {
@@ -200,17 +203,17 @@ public class FXMLFormularioClientesController implements Initializable {
             return false;
         }
 
-        if (cliente.getCodigoPostal() == null || !cliente.getCodigoPostal().matches("\\d{5}")) {
+        if (cliente.getCp() == null || !cliente.getCp().matches("\\d{5}")) {
             Utilidades.mostrarAlertaSimple("Error", "El código postal debe tener exactamente 5 dígitos.", Alert.AlertType.ERROR);
             return false;
         }
 
-        if (cliente.getCiudad() == null || cliente.getCiudad().trim().isEmpty()) {
+        if (cliente.getNombreCiudad() == null || cliente.getNombreCiudad().trim().isEmpty()) {
             Utilidades.mostrarAlertaSimple("Error", "Debe seleccionar una ciudad.", Alert.AlertType.ERROR);
             return false;
         }
 
-        if (cliente.getEstado() == null || cliente.getEstado().trim().isEmpty()) {
+        if (cliente.getNombreEstado() == null || cliente.getNombreEstado().trim().isEmpty()) {
             Utilidades.mostrarAlertaSimple("Error", "Debe seleccionar un estado.", Alert.AlertType.ERROR);
             return false;
         }

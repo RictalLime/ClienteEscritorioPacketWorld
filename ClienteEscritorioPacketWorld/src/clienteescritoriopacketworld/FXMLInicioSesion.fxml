@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="474.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLInicioSesionController">
    <children>
-      <ImageView fitHeight="109.0" fitWidth="122.0" layoutX="183.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="123.0" fitWidth="136.0" layoutX="176.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@recursos/Packet%20World%20logo.png" />
          </image>

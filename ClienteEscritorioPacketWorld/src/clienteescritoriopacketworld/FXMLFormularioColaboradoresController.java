@@ -6,10 +6,12 @@ package clienteescritoriopacketworld;
 
 import clienteescritoriopacketworld.dominio.ColaboradorImp;
 import clienteescritoriopacketworld.dominio.RolImp;
+import clienteescritoriopacketworld.dominio.SucursalImp;
 import clienteescritoriopacketworld.dto.Mensaje;
 import clienteescritoriopacketworld.interfaz.NotificadoOperacion;
 import clienteescritoriopacketworld.pojo.Colaborador;
 import clienteescritoriopacketworld.pojo.Rol;
+import clienteescritoriopacketworld.pojo.Sucursal;
 import clienteescritoriopacketworld.utilidad.Utilidades;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,6 +19,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -64,6 +67,10 @@ public class FXMLFormularioColaboradoresController implements Initializable {
     private Button btnGuardar;
     @FXML
     private ComboBox<Rol> cbRol;
+    @FXML
+    private ComboBox<Sucursal> cbSucursal;
+    private ObservableList<Sucursal> sucursales;
+
 
     private NotificadoOperacion observador; 
     private Colaborador colaboradorEditado;
@@ -90,6 +97,7 @@ public class FXMLFormularioColaboradoresController implements Initializable {
         imgFotografia.setVisible(false);
         btnSeleccionarFoto.setVisible(false);
         cargarTiposDeUsuarios();
+        cargarSucursales(); 
     }    
     
     public void initializeValores(NotificadoOperacion observador, Colaborador colaboradorEditado){
@@ -131,6 +139,8 @@ public class FXMLFormularioColaboradoresController implements Initializable {
                 cbRol.getSelectionModel().getSelectedItem().getIdRol(): -1
         );
         colaborador.setNumeroDeLicencia(tfNoLicencia.getText());
+        Sucursal sucursalSel = cbSucursal.getValue();
+        colaborador.setIdSucursal(sucursalSel != null ? sucursalSel.getIdSucursal() : null);
         if(validarCampos(colaborador)){
             if(!modoEdicion){
                 guardarDatosColaborador(colaborador);
@@ -187,6 +197,10 @@ public class FXMLFormularioColaboradoresController implements Initializable {
         }
         if (colaborador.getIdRol() == 3 && (colaborador.getNumeroDeLicencia() == null || colaborador.getNumeroDeLicencia().trim().isEmpty())) {
             Utilidades.mostrarAlertaSimple("Validación", "El número de licencia es obligatorio para este rol.", Alert.AlertType.WARNING);
+            return false;
+        }
+        if (colaborador.getIdSucursal() == null || colaborador.getIdSucursal() <= 0) {
+            Utilidades.mostrarAlertaSimple("Validación", "Debe seleccionar una sucursal.", Alert.AlertType.WARNING);
             return false;
         }
         return true;
@@ -318,4 +332,12 @@ public class FXMLFormularioColaboradoresController implements Initializable {
             return baos.toByteArray();
         }
     }    
+    
+    private void cargarSucursales() {
+        List<Sucursal> listaAPI = SucursalImp.obtenerSucursales();
+        sucursales = FXCollections.observableArrayList();
+        sucursales.addAll(listaAPI);
+        cbSucursal.setItems(sucursales);
+    }
+
 }

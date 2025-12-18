@@ -29,7 +29,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="99.0" layoutY="136.0" text="Peso:" />
+      <Label layoutX="87.0" layoutY="136.0" text="(KG) Peso:" />
       <TextField fx:id="tfPeso" layoutX="37.0" layoutY="153.0" promptText="Peso" style="-fx-border-color: black;" />
       <ComboBox fx:id="cbEnvios" layoutX="447.0" layoutY="252.0" prefWidth="150.0" style="-fx-border-color: black;" />
       <Label layoutX="476.0" layoutY="236.0" text="Numero de Guia:" />
@@ -37,7 +37,7 @@
       <TextField fx:id="tfAlto" layoutX="241.0" layoutY="153.0" promptText="Alto" style="-fx-border-color: black;" />
       <TextField fx:id="tfAncho" layoutX="446.0" layoutY="153.0" promptText="Ancho" style="-fx-border-color: black;" />
       <TextField fx:id="tfProfundidad" layoutX="37.0" layoutY="252.0" promptText="Profundidad" style="-fx-border-color: black;" />
-      <Label layoutX="304.0" layoutY="136.0" text="Alto:" />
+      <Label layoutX="296.0" layoutY="136.0" text="Metros:" />
       <Label layoutX="503.0" layoutY="136.0" text="Ancho:" />
       <Label layoutX="79.0" layoutY="236.0" text="Profundidad:" />
       <Label layoutX="282.0" layoutY="236.0" text="Description:" />

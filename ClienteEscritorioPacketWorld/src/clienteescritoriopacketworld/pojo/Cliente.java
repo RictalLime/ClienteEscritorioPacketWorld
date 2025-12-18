@@ -4,6 +4,8 @@
  */
 package clienteescritoriopacketworld.pojo;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  *
  * @author Tron7
@@ -13,39 +15,39 @@ public class Cliente {
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
+    private String telefono;
+    private String correo;
     private String calle;
     private String numeroDeCasa;
     private String colonia;
-    private String codigoPostal;
+    //private String codigoPostal;
+    @SerializedName("codigoPostal")
+    private String cp;
     private Integer idCiudad;
-    private String ciudad;
+    private String nombreCiudad;
     private Integer idEstado;
-    private String estado;
-    private String telefono;
-    private String correo;
+    private String nombreEstado;
 
     public Cliente() {
     }
 
-    public Cliente(Integer idCliente, String nombre, String apellidoPaterno, String apellidoMaterno, String calle, String numeroDeCasa, String colonia, String codigoPostal, Integer idCiudad, String ciudad, Integer idEstado, String estado, String telefono, String correo) {
+    public Cliente(Integer idCliente, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, String calle, String numeroDeCasa, String colonia, String cp, Integer idCiudad, String nombreCiudad, Integer idEstado, String nombreEstado) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
+        this.telefono = telefono;
+        this.correo = correo;
         this.calle = calle;
         this.numeroDeCasa = numeroDeCasa;
         this.colonia = colonia;
-        this.codigoPostal = codigoPostal;
+        this.cp = cp;
         this.idCiudad = idCiudad;
-        this.ciudad = ciudad;
+        this.nombreCiudad = nombreCiudad;
         this.idEstado = idEstado;
-        this.estado = estado;
-        this.telefono = telefono;
-        this.correo = correo;
+        this.nombreEstado = nombreEstado;
     }
 
-    
-    
     public Integer getIdCliente() {
         return idCliente;
     }
@@ -62,6 +64,14 @@ public class Cliente {
         return apellidoMaterno;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
     public String getCalle() {
         return calle;
     }
@@ -74,32 +84,24 @@ public class Cliente {
         return colonia;
     }
 
-    public String getCodigoPostal() {
-        return codigoPostal;
-    }
-
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public String getCorreo() {
-        return correo;
+    public String getCp() {
+        return cp;
     }
 
     public Integer getIdCiudad() {
         return idCiudad;
     }
 
+    public String getNombreCiudad() {
+        return nombreCiudad;
+    }
+
     public Integer getIdEstado() {
         return idEstado;
+    }
+
+    public String getNombreEstado() {
+        return nombreEstado;
     }
 
     public void setIdCliente(Integer idCliente) {
@@ -118,6 +120,14 @@ public class Cliente {
         this.apellidoMaterno = apellidoMaterno;
     }
 
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
     public void setCalle(String calle) {
         this.calle = calle;
     }
@@ -130,36 +140,28 @@ public class Cliente {
         this.colonia = colonia;
     }
 
-    public void setCodigoPostal(String codigoPostal) {
-        this.codigoPostal = codigoPostal;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setCp(String cp) {
+        this.cp = cp;
     }
 
     public void setIdCiudad(Integer idCiudad) {
         this.idCiudad = idCiudad;
     }
 
+    public void setNombreCiudad(String nombreCiudad) {
+        this.nombreCiudad = nombreCiudad;
+    }
+
     public void setIdEstado(Integer idEstado) {
         this.idEstado = idEstado;
+    }
+
+    public void setNombreEstado(String nombreEstado) {
+        this.nombreEstado = nombreEstado;
     }
     
     @Override
     public String toString() {
-        return correo;
+        return nombre;
     }
 }

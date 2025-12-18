@@ -22,12 +22,13 @@ public class Colaborador {
     private String fotografia;
     private byte[] foto;
     private String numeroDeLicencia;
+    private Integer idSucursal;
 
     // Constructor sin argumentos
     public Colaborador() {
     }
 
-    public Colaborador(Integer idColaborador, String nombre, String apellidoPaterno, String apellidoMaterno, String curp, String correo, String noPersonal, String contrasena, Integer idRol, String rol, String fotografia, byte[] foto, String numeroDeLicencia) {
+    public Colaborador(Integer idColaborador, String nombre, String apellidoPaterno, String apellidoMaterno, String curp, String correo, String noPersonal, String contrasena, Integer idRol, String rol, String fotografia, byte[] foto, String numeroDeLicencia, Integer idSucursal) {
         this.idColaborador = idColaborador;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -41,6 +42,7 @@ public class Colaborador {
         this.fotografia = fotografia;
         this.foto = foto;
         this.numeroDeLicencia = numeroDeLicencia;
+        this.idSucursal = idSucursal;
     }
 
     public Integer getIdColaborador() {
@@ -89,6 +91,10 @@ public class Colaborador {
 
     public byte[] getFoto() {
         return foto;
+    }
+
+    public Integer getIdSucursal() {
+        return idSucursal;
     }
 
     public String getNumeroDeLicencia() {
@@ -145,6 +151,10 @@ public class Colaborador {
 
     public void setNumeroDeLicencia(String numeroDeLicencia) {
         this.numeroDeLicencia = numeroDeLicencia;
+    }
+
+    public void setIdSucursal(Integer idSucursal) {
+        this.idSucursal = idSucursal;
     }
 
     @Override

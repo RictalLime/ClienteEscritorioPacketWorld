@@ -56,5 +56,7 @@
       <ComboBox fx:id="cbEstado" layoutX="69.0" layoutY="173.0" prefWidth="150.0" style="-fx-border-color: black;" />
       <TextField fx:id="tfColonia" layoutX="415.0" layoutY="173.0" promptText="Colonia" style="-fx-border-color: black;" />
       <TextField fx:id="tfCalle" layoutX="67.0" layoutY="229.0" promptText="Calle" style="-fx-border-color: black;" />
+      <Label layoutX="100.0" layoutY="320.0" text="Sucursal Origen:" />
+      <ComboBox fx:id="cbSucursal" layoutX="69.0" layoutY="338.0" prefWidth="150.0" style="-fx-border-color: black;" />
    </children>
 </AnchorPane>

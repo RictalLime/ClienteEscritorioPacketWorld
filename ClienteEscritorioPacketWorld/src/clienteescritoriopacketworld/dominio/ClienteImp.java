@@ -118,16 +118,16 @@ public class ClienteImp {
         } 
         return mensaje;
     }
+    
     public static Mensaje eliminarCliente(Integer idCliente){
         Mensaje mensaje = new Mensaje();
-        String url =Constantes.URL_WS+"cliente/eliminar-cliente";
+        String url = Constantes.URL_WS + "cliente/eliminar-cliente/" + idCliente;
         Gson gson = new Gson();
         try {
-            String parametros = String.format("idCliente=%s", idCliente);
             RespuestaHTTP respuesta = ConexionAPI.peticionSinBody(url, Constantes.PETICION_DELETE);
-            if(respuesta.getCodigo()== HttpURLConnection.HTTP_OK){
+            if(respuesta.getCodigo() == HttpURLConnection.HTTP_OK){
                 mensaje = gson.fromJson(respuesta.getContenido(), Mensaje.class);
-            }else{
+            } else {
                 mensaje.setError(true);
                 mensaje.setMensaje(respuesta.getContenido());
             }

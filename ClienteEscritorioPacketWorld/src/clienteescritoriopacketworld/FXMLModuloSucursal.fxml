@@ -64,7 +64,7 @@
          <children>
             <ImageView fitHeight="43.0" fitWidth="43.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#irDarDeBajaSucursal" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@recursos/scan_delete_blue.png" />
+                  <Image url="@recursos/change_circle.png" />
                </image>
             </ImageView>
          </children>

@@ -10,6 +10,7 @@ import clienteescritoriopacketworld.dominio.EnvioImp;
 import clienteescritoriopacketworld.dominio.HistorialDeEnvioImp;
 import clienteescritoriopacketworld.dominio.CiudadImp;
 import clienteescritoriopacketworld.dominio.EstadoImp;
+import clienteescritoriopacketworld.dominio.SucursalImp;
 import clienteescritoriopacketworld.dto.Mensaje;
 import clienteescritoriopacketworld.interfaz.NotificadoOperacion;
 import clienteescritoriopacketworld.pojo.Cliente;
@@ -19,6 +20,7 @@ import clienteescritoriopacketworld.pojo.Envio;
 import clienteescritoriopacketworld.pojo.Ciudad;
 import clienteescritoriopacketworld.pojo.Estado;
 import clienteescritoriopacketworld.pojo.HistorialDeEnvio;
+import clienteescritoriopacketworld.pojo.Sucursal;
 import clienteescritoriopacketworld.utilidad.Constantes;
 import clienteescritoriopacketworld.utilidad.Utilidades;
 import javafx.collections.ObservableList;
@@ -90,6 +92,9 @@ public class FXMLFormularioEnviosController implements Initializable {
     ObservableList<EstadoDeEnvio> tiposDeEstadosDeEnvio;
     private ObservableList<Estado> estados;
     private ObservableList<Ciudad> ciudades;
+    @FXML
+    private ComboBox<Sucursal> cbSucursal;
+    private ObservableList<Sucursal> sucursales;
 
     /**
      * Initializes the controller class.
@@ -100,6 +105,7 @@ public class FXMLFormularioEnviosController implements Initializable {
         cargarConductores();
         cargarEstadosDeEnvio();
         cargarEstados();
+        cargarSucursales();
         cbEstado.setOnAction(event -> cargarCiudades());
         // Ocultar controles de edición
         lEstadoEnvio.setVisible(false);
@@ -155,6 +161,13 @@ public class FXMLFormularioEnviosController implements Initializable {
         }
     }
     
+    private void cargarSucursales() {
+        List<Sucursal> listaAPI = SucursalImp.obtenerSucursales();
+        sucursales = FXCollections.observableArrayList();
+        sucursales.addAll(listaAPI);
+        cbSucursal.setItems(sucursales);
+    }
+    
     private void llenarCampos() {
         tfDestino.setText(envioEditado.getDestino());
         tfNumeroGuia.setText(envioEditado.getNoGuia());
@@ -188,9 +201,17 @@ public class FXMLFormularioEnviosController implements Initializable {
         envio.setOrigenNumero(tfNumero.getText());
         envio.setOrigenColonia(tfColonia.getText());
         envio.setOrigenCodigoPostal(tfCodigoPostal.getText());
-        envio.setOrigenCiudad(cbCiudad.getValue() != null ? cbCiudad.getValue().getNombre() : null);
-        envio.setOrigenEstado(cbEstado.getValue() != null ? cbEstado.getValue().getNombre() : null);
+        envio.setIdOrigenCiudad(cbCiudad.getValue() != null ? cbCiudad.getValue().getIdCiudad() : null);
+        envio.setIdOrigenEstado(cbEstado.getValue() != null ? cbEstado.getValue().getIdEstado() : null);
+        envio.setIdDestinoCiudad(cbCiudad.getValue() != null ? cbCiudad.getValue().getIdCiudad() : null);
+        envio.setIdDestinoEstado(cbEstado.getValue() != null ? cbEstado.getValue().getIdEstado() : null);
         envio.setNoGuia(tfNumeroGuia.getText());
+        
+        envio.setDestinoCalle(envio.getOrigenCalle());
+        envio.setDestinoNumero(envio.getOrigenNumero());
+        envio.setDestinoColonia(envio.getOrigenColonia());
+        envio.setDestinoCodigoPostal(envio.getOrigenCodigoPostal());
+
 
         try {
             if (tfCostoEnvio.getText().trim().isEmpty()) {
@@ -208,6 +229,9 @@ public class FXMLFormularioEnviosController implements Initializable {
         envio.setIdEstadoDeEnvio(cbEstadoDeEnvio.getValue() != null ? cbEstadoDeEnvio.getValue().getIdEstadoDeEnvio() : 1);
 
         envio.setDestino(tfDestino.getText());
+        
+        Sucursal sucursalSel = cbSucursal.getValue();
+        envio.setIdSucursal(sucursalSel != null ? sucursalSel.getIdSucursal() : null);
 
         if (validarCampos(envio)) {
             if (!modoEdicion) {
@@ -287,12 +311,20 @@ public class FXMLFormularioEnviosController implements Initializable {
             Utilidades.mostrarAlertaSimple("Validación", "El campo Código Postal es obligatorio.", Alert.AlertType.WARNING);
             return false;
         }
-        if (envio.getOrigenCiudad() == null || envio.getOrigenCiudad().trim().isEmpty()) {
-            Utilidades.mostrarAlertaSimple("Validación", "El campo Ciudad es obligatorio.", Alert.AlertType.WARNING);
+        if (envio.getIdOrigenCiudad() == null || envio.getIdOrigenCiudad() <= 0) {
+            Utilidades.mostrarAlertaSimple("Validación", "Debe seleccionar una ciudad.", Alert.AlertType.WARNING);
             return false;
         }
-        if (envio.getOrigenEstado() == null || envio.getOrigenEstado().trim().isEmpty()) {
-            Utilidades.mostrarAlertaSimple("Validación", "El campo Estado es obligatorio.", Alert.AlertType.WARNING);
+        if (envio.getIdOrigenEstado() == null || envio.getIdOrigenEstado() <= 0) {
+            Utilidades.mostrarAlertaSimple("Validación", "Debe seleccionar un estado.", Alert.AlertType.WARNING);
+            return false;
+        }
+        if (envio.getIdDestinoCiudad() == null || envio.getIdDestinoCiudad() <= 0) {
+            Utilidades.mostrarAlertaSimple("Validación", "Debe seleccionar una ciudad destino.", Alert.AlertType.WARNING);
+            return false;
+        }
+        if (envio.getIdDestinoEstado() == null || envio.getIdDestinoEstado() <= 0) {
+            Utilidades.mostrarAlertaSimple("Validación", "Debe seleccionar un estado destino.", Alert.AlertType.WARNING);
             return false;
         }
         if (envio.getDestino() == null || envio.getDestino().trim().isEmpty()) {
@@ -314,7 +346,10 @@ public class FXMLFormularioEnviosController implements Initializable {
             Utilidades.mostrarAlertaSimple("Validación", "Debe ingresar un motivo para estados 'Cancelado' o 'Detenido'.", Alert.AlertType.WARNING);
             return false;
         }
-
+        if (envio.getIdSucursal() == null || envio.getIdSucursal() <= 0) {
+            Utilidades.mostrarAlertaSimple("Validación", "Debe seleccionar una sucursal.", Alert.AlertType.WARNING);
+            return false;
+        }
         return true;
     }
 
