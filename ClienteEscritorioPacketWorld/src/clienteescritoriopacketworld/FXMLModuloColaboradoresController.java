@@ -8,6 +8,7 @@ import clienteescritoriopacketworld.dominio.ColaboradorImp;
 import clienteescritoriopacketworld.dto.Mensaje;
 import clienteescritoriopacketworld.interfaz.NotificadoOperacion;
 import clienteescritoriopacketworld.pojo.Colaborador;
+import clienteescritoriopacketworld.pojo.Sesion;
 import clienteescritoriopacketworld.utilidad.Utilidades;
 import java.io.IOException;
 import java.net.URL;
@@ -70,8 +71,7 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
         configurarTabla();
         cargarLaInformacion();
     }
-
-
+    
     private void configurarTabla() {
            colNoPersonal.setCellValueFactory(new PropertyValueFactory("noPersonal"));
            colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
@@ -81,7 +81,7 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
            colRol.setCellValueFactory(new PropertyValueFactory("rol"));
            colCurp.setCellValueFactory(new PropertyValueFactory("curp"));
     }
-
+    
     private void cargarLaInformacion() {
            colaboradores = FXCollections.observableArrayList();
            List<Colaborador> lista = ColaboradorImp.obtenerColaboradores();
@@ -95,11 +95,10 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
            }
 
     }
-
-    private void cerrarVentana(){
-            ((Stage) tfBuscar.getScene().getWindow()).close();
-    }    
     
+    private void cerrarVentana(){
+        ((Stage) tfBuscar.getScene().getWindow()).close();
+    }
     
     public void irPantallaPrincipal(){
         try {
@@ -121,7 +120,6 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
         irPantallaPrincipal();
     }
 
-
     @FXML
     private void irBuscar(MouseEvent event) {
         if(!tfBuscar.getText().isEmpty()){
@@ -131,19 +129,19 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
             Utilidades.mostrarAlertaSimple("Error", "Campo de buscar Vacio", Alert.AlertType.ERROR);
         }
     }
-
+    
     @FXML
     private void irRegistrarColaboradors(MouseEvent event) {
         irAFormulario(this, null);
     }
-
+    
     @FXML
     private void irEliminarColaborador(MouseEvent event) {
         Colaborador colaborador = tvTablaColaboradores.getSelectionModel().getSelectedItem();
         if(colaborador!= null){
             Mensaje mensaje = ColaboradorImp.eliminarColaborador(colaborador.getIdColaborador());
             if(!mensaje.isError()){
-                Utilidades.mostrarAlertaSimple("Correcto", "Colaborador Eliminado correctamente", Alert.AlertType.INFORMATION);
+                Utilidades.mostrarAlertaSimple("Correcto", "Colaborador Eliminado correctamente", Alert.AlertType.WARNING);
                 cargarLaInformacion();
             }else{
                 Utilidades.mostrarAlertaSimple("Error", "No puedes Eliminar un colaborador que este asignado a una unidad.", Alert.AlertType.ERROR);
@@ -153,7 +151,7 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
             Utilidades.mostrarAlertaSimple("Error", "Selecciona un colaborador", Alert.AlertType.ERROR);
         }
     }
-
+    
     @FXML
     private void irEditarColaborador(MouseEvent event) {
         Colaborador colaborador = tvTablaColaboradores.getSelectionModel().getSelectedItem();
@@ -163,7 +161,7 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
             Utilidades.mostrarAlertaSimple("Error", "Selecciona un colaborador", Alert.AlertType.ERROR);
         }
     }
-
+    
     private void buscarColaborador(String dato) {
         colaboradores.clear();
         tvTablaColaboradores.setItems(colaboradores);
@@ -211,8 +209,7 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
             Logger.getLogger(FXMLModuloColaboradoresController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-
+    
     private Integer obtenerRol(String dato) {
        Integer rol = -1;
        switch (dato) {
@@ -228,7 +225,7 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
         }
        return rol;
     }
-
+    
     public void notificarOperacion(String tipo, String nombre) {
         //System.out.println("tipo:" + tipo +"Nombre:" + nombre);
         cargarLaInformacion();

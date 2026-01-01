@@ -59,7 +59,8 @@ public class FXMLModuloAsignacionController implements Initializable, Notificado
     public void initialize(URL url, ResourceBundle rb) {
         configurarTabla();
         cargarLaInformacion();
-    }    
+    }
+    
     public void irPantallaPrincipal(){
         try {
             Stage escenarioBase = (Stage) imgRegresar.getScene().getWindow();
@@ -73,17 +74,17 @@ public class FXMLModuloAsignacionController implements Initializable, Notificado
             Utilidades.mostrarAlertaSimple("Error", "No podemos ir a la pantalla principal :(", Alert.AlertType.ERROR);
         }
     }
-
+    
     @FXML
     private void regresarPrincipal(MouseEvent event) {
         irPantallaPrincipal();
     }
-
+    
     @FXML
     private void agregarAsignacion(MouseEvent event) {
         irAFormulario(this, null);
     }
-
+    
     @FXML
     private void editarAsignacion(MouseEvent event) {
         ConductoresAsignados conductoresAsignados = tvTablaAsignaciones.getSelectionModel().getSelectedItem();
@@ -93,17 +94,17 @@ public class FXMLModuloAsignacionController implements Initializable, Notificado
             Utilidades.mostrarAlertaSimple("Error", "Selecciona una Asignación", Alert.AlertType.ERROR);
         }
     }
-
+    
     @FXML
     private void eliminarAsignacion(MouseEvent event) {
         ConductoresAsignados conductoresAsignados = tvTablaAsignaciones.getSelectionModel().getSelectedItem();
         if(conductoresAsignados!= null){
             Mensaje mensaje = ConductoresAsignadosImp.eliminar(conductoresAsignados.getIdConductoresAsignados());
             if(!mensaje.isError()){
-                Utilidades.mostrarAlertaSimple("Correcto", "Asignación Eliminada correctamente", Alert.AlertType.INFORMATION);
+                Utilidades.mostrarAlertaSimple("Correcto", "Asignación Eliminada correctamente", Alert.AlertType.WARNING);
                 cargarLaInformacion();
             }else{
-                Utilidades.mostrarAlertaSimple("Error", "No s epudo eliminar la Asignación", Alert.AlertType.ERROR);
+                Utilidades.mostrarAlertaSimple("Error", "No se pudo eliminar la Asignación", Alert.AlertType.ERROR);
             }
             
         }else{
@@ -111,27 +112,28 @@ public class FXMLModuloAsignacionController implements Initializable, Notificado
         }
     }
     
-     private void configurarTabla() {
+    private void configurarTabla() {
         colNombreColaborador.setCellValueFactory(new PropertyValueFactory("conductor"));
         colCarro.setCellValueFactory(new PropertyValueFactory("unidad"));
         colVin.setCellValueFactory(new PropertyValueFactory("vin"));
     }
 
     private void cargarLaInformacion() {
-           conductoresAsignados = FXCollections.observableArrayList();
-           List<ConductoresAsignados> lista = ConductoresAsignadosImp.obtenerTodos();
-           if (lista != null) {
-               conductoresAsignados.addAll(lista);
-               tvTablaAsignaciones.setItems(conductoresAsignados);
-           }else{
-               Utilidades.mostrarAlertaSimple("ERROR", "Lo sentimos por el momento no se puede cargar la informacion"
-                       + "de las Asignaciones, por favor intentélo mas tarde", Alert.AlertType.ERROR);
-               cerrarVentana();
-           }
+        conductoresAsignados = FXCollections.observableArrayList();
+        List<ConductoresAsignados> lista = ConductoresAsignadosImp.obtenerTodos();
+        if (lista != null) {
+            conductoresAsignados.addAll(lista);
+            tvTablaAsignaciones.setItems(conductoresAsignados);
+        }else{
+            Utilidades.mostrarAlertaSimple("ERROR", "Lo sentimos por el momento no se puede cargar la informacion"
+                    + "de las Asignaciones, por favor intentélo mas tarde", Alert.AlertType.ERROR);
+            cerrarVentana();
+        }
     }
     private void cerrarVentana(){
-            ((Stage) imgRegresar.getScene().getWindow()).close();
-    } 
+        ((Stage) imgRegresar.getScene().getWindow()).close();
+    }
+    
     private void irAFormulario(NotificadoOperacion observador, ConductoresAsignados conductorAsignado){
          try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLFormularioAsignaciones.fxml"));
@@ -150,10 +152,9 @@ public class FXMLModuloAsignacionController implements Initializable, Notificado
             Logger.getLogger(FXMLModuloColaboradoresController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @Override
     public void notificarOperacion(String tipo, String nombre) {
         cargarLaInformacion();
-    }   
-    
+    }
 }

@@ -79,7 +79,8 @@ public class FXMLFormularioUnidadesController implements Initializable {
         tfMotivo.setVisible(false);
         cargarTiposDeUnidad();
         cargarEstadoUnidad();
-    }    
+    }
+    
     public void initializeValores(NotificadoOperacion observador, Unidad unidadEditada){
         this.unidadEditada = unidadEditada;
         this.observador = observador;
@@ -102,32 +103,30 @@ public class FXMLFormularioUnidadesController implements Initializable {
     private void regresarPrincipal(MouseEvent event) {
         cerrarVentana();
     }
-
-
+    
     @FXML
     private void onClickGuardar(ActionEvent event) {
-       Unidad unidad= new Unidad();
-       unidad.setMarca(tfMarca.getText());
-       unidad.setModelo(tfModelo.getText());
-       unidad.setVin(tfVin.getText());
-       unidad.setNii(tfNumeroIdentificacion.getText());
-       unidad.setAnio(tfAnio.getText());
-       unidad.setIdTipoUnidad((cbTipoUnidad.getSelectionModel().getSelectedItem()!= null)?
-               cbTipoUnidad.getSelectionModel().getSelectedItem().getIdTipoUnidad(): -1);
-       unidad.setIdEstadoUnidad((cbEstadoUnidad.getSelectionModel().getSelectedItem()!= null)?
-               cbEstadoUnidad.getSelectionModel().getSelectedItem().getIdEstadoUnidad(): 1);
-       if(validarCampos(unidad)){
-           if(!modoEdicion){
-               guardarDatosUnidad(unidad);
-           }else{
-               unidad.setIdUnidad(unidadEditada.getIdUnidad());
-               if(unidad.getIdEstadoUnidad()==2){
-                   unidad.setMotivo(tfMotivo.getText());
-               }
-               editarUnidad(unidad);
-           }
-       }
-        
+        Unidad unidad= new Unidad();
+        unidad.setMarca(tfMarca.getText());
+        unidad.setModelo(tfModelo.getText());
+        unidad.setVin(tfVin.getText());
+        unidad.setNii(tfNumeroIdentificacion.getText());
+        unidad.setAnio(tfAnio.getText());
+        unidad.setIdTipoUnidad((cbTipoUnidad.getSelectionModel().getSelectedItem()!= null)?
+                cbTipoUnidad.getSelectionModel().getSelectedItem().getIdTipoUnidad(): -1);
+        unidad.setIdEstadoUnidad((cbEstadoUnidad.getSelectionModel().getSelectedItem()!= null)?
+                cbEstadoUnidad.getSelectionModel().getSelectedItem().getIdEstadoUnidad(): 1);
+        if(validarCampos(unidad)){
+            if(!modoEdicion){
+                guardarDatosUnidad(unidad);
+            }else{
+                unidad.setIdUnidad(unidadEditada.getIdUnidad());
+                if(unidad.getIdEstadoUnidad()==2){
+                    unidad.setMotivo(tfMotivo.getText());
+                }
+                editarUnidad(unidad);
+            }
+        }
     }
     
     private void llenarcampos() {
@@ -143,7 +142,8 @@ public class FXMLFormularioUnidadesController implements Initializable {
         int pocicionUnidad = buscarIdEstadoUnidad(unidadEditada.getIdEstadoUnidad());
         cbEstadoUnidad.getSelectionModel().select(pocicionUnidad);
     }
-     private int buscarIdTipoUnidad(int idTipoUnidad){
+    
+    private int buscarIdTipoUnidad(int idTipoUnidad){
         for(int i=0; i<tiposDeUnidades.size();i++){
             if(tiposDeUnidades.get(i).getIdTipoUnidad() == idTipoUnidad){
                 return i;
@@ -168,37 +168,30 @@ public class FXMLFormularioUnidadesController implements Initializable {
             Utilidades.mostrarAlertaSimple("Error", "La marca es obligatoria.", Alert.AlertType.ERROR);
             return false;
         }
-
         if (unidad.getModelo() == null || unidad.getModelo().trim().isEmpty()) {
             Utilidades.mostrarAlertaSimple("Error", "El modelo es obligatorio.", Alert.AlertType.ERROR);
             return false;
         }
-
         if (unidad.getAnio() == null || !unidad.getAnio().matches("\\d{4}")) {
             Utilidades.mostrarAlertaSimple("Error", "El año debe ser un valor numérico de 4 dígitos.", Alert.AlertType.ERROR);
             return false;
         }
-
         if (unidad.getVin() == null || !unidad.getVin().matches("[A-HJ-NPR-Z0-9]{17}")) {
             Utilidades.mostrarAlertaSimple("Error", "El VIN debe tener exactamente 17 caracteres alfanuméricos (sin las letras I, O, Q).", Alert.AlertType.ERROR);
             return false;
         }
-
         if (unidad.getNii() == null || !unidad.getNii().equals(generarNII(unidad))) {
             Utilidades.mostrarAlertaSimple("", "El Número de Identificación Interno (NII) no coincide con el formato requerido (Año + primeros 4 caracteres del VIN).",Alert.AlertType.ERROR);
             return false;
         }
-
         if (unidad.getIdTipoUnidad() == null || unidad.getIdTipoUnidad() < 0) {
             Utilidades.mostrarAlertaSimple("Error", "Selecciona un Tipo De Unidad.", Alert.AlertType.ERROR);
             return false;
         }
-
         if (unidad.getIdEstadoUnidad() == null || unidad.getIdEstadoUnidad() < 0) {
             Utilidades.mostrarAlertaSimple("Error", "Selecciona un Estado de la unidad", Alert.AlertType.ERROR);
             return false;
         }
-
         return true;
     }
 
@@ -210,7 +203,6 @@ public class FXMLFormularioUnidadesController implements Initializable {
         }
         return null;
     }
-
     
     private void guardarDatosUnidad(Unidad unidad){
         Mensaje msj = UnidadImp.agregarUnidad(unidad);
@@ -223,7 +215,8 @@ public class FXMLFormularioUnidadesController implements Initializable {
             Utilidades.mostrarAlertaSimple("Error", "No se puede Guardar la unidad", Alert.AlertType.ERROR);
         }
     }
-     private void editarUnidad(Unidad unidad){
+    
+    private void editarUnidad(Unidad unidad){
         if(unidad.getIdEstadoUnidad()==2 && historial == null){
             HistorialDeBaja baja = new HistorialDeBaja();
             baja.setIdUnidad(unidad.getIdUnidad());

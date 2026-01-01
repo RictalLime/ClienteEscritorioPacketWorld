@@ -61,8 +61,9 @@ public class FXMLFormularioPaquetesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarEnvios();
-    }    
-     public void initializeValores(NotificadoOperacion observador, Paquete paqueteEditado ){
+    }
+    
+    public void initializeValores(NotificadoOperacion observador, Paquete paqueteEditado ){
         this.paqueteEditado = paqueteEditado;
         this.observador = observador;
         if(paqueteEditado!= null){
@@ -72,13 +73,12 @@ public class FXMLFormularioPaquetesController implements Initializable {
             btnGuardar.setText("Editar");
         }
     }
-
+    
     @FXML
     private void regresarPrincipal(MouseEvent event) {
         cerrarVentana();    
     }
-
-
+    
     @FXML
     private void onClickGuardar(ActionEvent event) {
         Paquete paquete = new Paquete();
@@ -127,8 +127,7 @@ public class FXMLFormularioPaquetesController implements Initializable {
            }
         }
     }
-
-
+    
     private void llenarcampos() {
         tfPeso.setText(""+paqueteEditado.getPeso());
         tfAlto.setText(""+paqueteEditado.getAlto());
@@ -138,13 +137,13 @@ public class FXMLFormularioPaquetesController implements Initializable {
         int poscicion = buscarIdEnvio(paqueteEditado.getIdEnvio());
         cbEnvios.getSelectionModel().select(poscicion);
     }
-
+    
     private void cargarEnvios() {
         listaEnvios = FXCollections.observableArrayList();
         listaEnvios.addAll(EnvioImp.obtenerEnvios());  
         cbEnvios.setItems(listaEnvios);
     }
-
+    
     private int buscarIdEnvio(Integer idEnvio) {
         for(int i=0; i<listaEnvios.size();i++){
             if(listaEnvios.get(i).getIdEnvio()== idEnvio){
@@ -153,66 +152,72 @@ public class FXMLFormularioPaquetesController implements Initializable {
         }
         return -1;
     }
-
+    
     private boolean validarCampos(Paquete paquete) {
         if (paquete.getDescripcion() == null || paquete.getDescripcion().trim().isEmpty()) {
             Utilidades.mostrarAlertaSimple("Error", "La descripción del paquete es obligatoria.", Alert.AlertType.ERROR);
             return false;
         }
-
         if (paquete.getPeso() <= 0) {
             Utilidades.mostrarAlertaSimple("Error", "El peso del paquete debe ser un valor positivo.", Alert.AlertType.ERROR);
             return false;
         }
-
         if (paquete.getAlto() <= 0) {
             Utilidades.mostrarAlertaSimple("Error", "La altura del paquete debe ser un valor positivo.", Alert.AlertType.ERROR);
             return false;
         }
-
         if (paquete.getAncho() <= 0) {
             Utilidades.mostrarAlertaSimple("Error", "El ancho del paquete debe ser un valor positivo.", Alert.AlertType.ERROR);
             return false;
         }
-
         if (paquete.getProfundidad() <= 0) {
             Utilidades.mostrarAlertaSimple("Error", "La profundidad del paquete debe ser un valor positivo.", Alert.AlertType.ERROR);
             return false;
         }
-
         if (paquete.getIdEnvio() == null || paquete.getIdEnvio() <= 0) {
             Utilidades.mostrarAlertaSimple("Error", "Debe seleccionarse un envío válido para el paquete.", Alert.AlertType.ERROR);
             return false;
         }
-
         return true;
     }
-
-
+    
     private void guardarDatosPaquete(Paquete paquete) {
         Mensaje msj = PaqueteImp.registrarPaquete(paquete);
-        if(!msj.isError()){
+        if (!msj.isError()) {
             Utilidades.mostrarAlertaSimple("Registro Exitoso", "Paquete Agregado", Alert.AlertType.INFORMATION);
-            observador.notificarOperacion("Guardar", ""+paquete.getIdEnvio());
+
+            actualizarCostoEnvio(paquete.getIdEnvio());
+
+            observador.notificarOperacion("Guardar", "" + paquete.getIdEnvio());
             cerrarVentana();
-        }else{
-            paquete = null;
+        } else {
             Utilidades.mostrarAlertaSimple("Error", "No se pudo agregar el paquete", Alert.AlertType.ERROR);
         }
     }
-
+    
     private void editarDatosPaquete(Paquete paquete) {
         Mensaje msj = PaqueteImp.editarPaquete(paquete);
-        if(!msj.isError()){
+        if (!msj.isError()) {
             Utilidades.mostrarAlertaSimple("Edición", "Paquete Editado", Alert.AlertType.INFORMATION);
-            observador.notificarOperacion("Guardar", ""+paquete.getIdEnvio());
+
+            actualizarCostoEnvio(paquete.getIdEnvio());
+
+            observador.notificarOperacion("Editar", "" + paquete.getIdEnvio());
             cerrarVentana();
-        }else{
-            paquete = null;
+        } else {
             Utilidades.mostrarAlertaSimple("Error", "No se puede editar el paquete", Alert.AlertType.ERROR);
         }
     }
-
+    
+    private void actualizarCostoEnvio(int idEnvio) {
+        Mensaje msj = EnvioImp.recalcularCostoEnvio(idEnvio);
+        if (!msj.isError()) {
+            Utilidades.mostrarAlertaSimple("Costo actualizado", msj.getMensaje(), Alert.AlertType.INFORMATION);
+        } else {
+            Utilidades.mostrarAlertaSimple("Error", "No se pudo recalcular el costo del envío.", Alert.AlertType.ERROR);
+        }
+    }
+    
     private void cerrarVentana() {
         Stage base = (Stage) tfAlto.getScene().getWindow();
         base.close();

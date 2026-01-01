@@ -93,7 +93,7 @@ public class FXMLModuloUnidadesController implements Initializable, NotificadoOp
 
     @FXML
     private void irRegistrarUnidad(MouseEvent event) {
-         irAFormulario(this, null);
+        irAFormulario(this, null);
     }
 
     @FXML
@@ -112,12 +112,11 @@ public class FXMLModuloUnidadesController implements Initializable, NotificadoOp
         if(unidad!= null){
             Mensaje mensaje = UnidadImp.eliminarUnidad(unidad.getIdUnidad());
             if(!mensaje.isError()){
-                Utilidades.mostrarAlertaSimple("Correcto", "Unidad Eliminada correctamente", Alert.AlertType.INFORMATION);
+                Utilidades.mostrarAlertaSimple("Correcto", "Unidad Eliminada correctamente", Alert.AlertType.WARNING);
                 cargarLaInformacion();
             }else{
                 Utilidades.mostrarAlertaSimple("Error", "No se pudo eliminar la Unidad", Alert.AlertType.ERROR);
-            }
-            
+            }    
         }else{
             Utilidades.mostrarAlertaSimple("Error", "Selecciona una Unidad", Alert.AlertType.ERROR);
         }
@@ -134,28 +133,29 @@ public class FXMLModuloUnidadesController implements Initializable, NotificadoOp
     }
     
     private void configurarTabla() {
-           colMarca.setCellValueFactory(new PropertyValueFactory("marca"));
-           colModelo.setCellValueFactory(new PropertyValueFactory("modelo"));
-           colAnio.setCellValueFactory(new PropertyValueFactory("anio"));
-           colVin.setCellValueFactory(new PropertyValueFactory("vin"));
-           colTipoDeUnidad.setCellValueFactory(new PropertyValueFactory("tipoUnidad"));
-           colNii.setCellValueFactory(new PropertyValueFactory("nii"));
+        colMarca.setCellValueFactory(new PropertyValueFactory("marca"));
+        colModelo.setCellValueFactory(new PropertyValueFactory("modelo"));
+        colAnio.setCellValueFactory(new PropertyValueFactory("anio"));
+        colVin.setCellValueFactory(new PropertyValueFactory("vin"));
+        colTipoDeUnidad.setCellValueFactory(new PropertyValueFactory("tipoUnidad"));
+        colNii.setCellValueFactory(new PropertyValueFactory("nii"));
     }
 
     private void cargarLaInformacion() {
-           unidades = FXCollections.observableArrayList();
-           List<Unidad> lista = UnidadImp.obtenerUnidades();
-           if (lista != null) {
-               unidades.addAll(lista);
-               tvTablaUnidades.setItems(unidades);
-           }else{
-               Utilidades.mostrarAlertaSimple("ERROR", "Lo sentimos por el momento no se puede cargar la informacion"
-                       + "de las Unidades, por favor intentélo mas tarde", Alert.AlertType.ERROR);
-               cerrarVentana();
-           }
+        unidades = FXCollections.observableArrayList();
+        List<Unidad> lista = UnidadImp.obtenerUnidades();
+        if (lista != null) {
+            unidades.addAll(lista);
+            tvTablaUnidades.setItems(unidades);
+        }else{
+            Utilidades.mostrarAlertaSimple("ERROR", "Lo sentimos por el momento no se puede cargar la informacion"
+                    + "de las Unidades, por favor intentélo mas tarde", Alert.AlertType.ERROR);
+            cerrarVentana();
+        }
     }
+    
     private void cerrarVentana(){
-            ((Stage) tfBuscar.getScene().getWindow()).close();
+        ((Stage) tfBuscar.getScene().getWindow()).close();
     }
     
     private void buscarUnidad(String dato) {
@@ -167,20 +167,20 @@ public class FXMLModuloUnidadesController implements Initializable, NotificadoOp
                 unidades.addAll(lista);
                 tvTablaUnidades.setItems(unidades);
             }else{
-               lista = UnidadImp.obtenerUnidadesPorNii(dato);
-               if (!lista.isEmpty()) {
-                   unidades.addAll(lista);
-                   tvTablaUnidades.setItems(unidades);
-               }else{
-                   lista = UnidadImp.obtenerUnidadesPorVin(dato);
-                   if(!lista.isEmpty()){
+                lista = UnidadImp.obtenerUnidadesPorNii(dato);
+                if (!lista.isEmpty()) {
+                    unidades.addAll(lista);
+                    tvTablaUnidades.setItems(unidades);
+                }else{
+                    lista = UnidadImp.obtenerUnidadesPorVin(dato);
+                    if(!lista.isEmpty()){
                         unidades.addAll(lista);
                         tvTablaUnidades.setItems(unidades);
-                   }else{
-                       Utilidades.mostrarAlertaSimple("Aviso", "No se encontro la(s) Unidades", Alert.AlertType.WARNING);
-                       cargarLaInformacion();
-                   }
-               }
+                    }else{
+                        Utilidades.mostrarAlertaSimple("Aviso", "No se encontro la(s) Unidades", Alert.AlertType.WARNING);
+                        cargarLaInformacion();
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

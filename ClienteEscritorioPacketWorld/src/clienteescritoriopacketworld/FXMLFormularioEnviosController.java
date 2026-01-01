@@ -53,6 +53,29 @@ public class FXMLFormularioEnviosController implements Initializable {
     private ImageView imgRegresar;
     @FXML 
     private Button btnGuardar;
+    
+    //Origen
+    @FXML 
+    private TextField tfNumeroGuia;
+    @FXML 
+    private TextField tfCostoEnvio;
+    @FXML 
+    private ComboBox<Colaborador> cbConductores;
+    ObservableList<Colaborador> tiposDeConductores;
+    @FXML 
+    private Label lEstadoEnvio;
+    @FXML 
+    private ComboBox<EstadoDeEnvio> cbEstadoDeEnvio;
+    ObservableList<EstadoDeEnvio> tiposDeEstadosDeEnvio;
+    @FXML 
+    private Label lMotivo;
+    @FXML 
+    private TextField tfMotivo;
+    @FXML
+    private ComboBox<Sucursal> cbSucursal;
+    private ObservableList<Sucursal> sucursales;
+    
+    //Destino
     @FXML 
     private TextField tfCalle;
     @FXML 
@@ -62,40 +85,19 @@ public class FXMLFormularioEnviosController implements Initializable {
     @FXML 
     private TextField tfCodigoPostal;
     @FXML 
-    private TextField tfNumeroGuia;
-    @FXML 
-    private TextField tfCostoEnvio;
-    @FXML 
-    private TextField tfDestino;
-    @FXML 
     private ComboBox<Ciudad> cbCiudad;
+    private ObservableList<Ciudad> ciudades;
     @FXML 
     private ComboBox<Estado> cbEstado;
+    private ObservableList<Estado> estados;
     @FXML 
     private ComboBox<Cliente> cbClientes;
-    @FXML 
-    private ComboBox<Colaborador> cbConductores;
-    @FXML 
-    private ComboBox<EstadoDeEnvio> cbEstadoDeEnvio;
-    @FXML 
-    private Label lEstadoEnvio;
-    @FXML 
-    private Label lMotivo;
-    @FXML 
-    private TextField tfMotivo;
+    ObservableList<Cliente> tiposDeClientes;
+    
     private NotificadoOperacion observador;
     private Envio envioEditado;
     private Colaborador colaboradorLoguiado;
     private boolean modoEdicion = false;
-    ObservableList<Cliente> tiposDeClientes;
-    ObservableList<Colaborador> tiposDeConductores;
-    ObservableList<EstadoDeEnvio> tiposDeEstadosDeEnvio;
-    private ObservableList<Estado> estados;
-    private ObservableList<Ciudad> ciudades;
-    @FXML
-    private ComboBox<Sucursal> cbSucursal;
-    private ObservableList<Sucursal> sucursales;
-
     /**
      * Initializes the controller class.
      */
@@ -107,7 +109,6 @@ public class FXMLFormularioEnviosController implements Initializable {
         cargarEstados();
         cargarSucursales();
         cbEstado.setOnAction(event -> cargarCiudades());
-        // Ocultar controles de edición
         lEstadoEnvio.setVisible(false);
         cbEstadoDeEnvio.setVisible(false);
         lMotivo.setVisible(false);
@@ -121,8 +122,11 @@ public class FXMLFormularioEnviosController implements Initializable {
 
         if (envioEditado != null) {
             modoEdicion = true;
+            btnGuardar.setText("Editar");
 
+            tfNumeroGuia.setText(envioEditado.getNoGuia());
             tfNumeroGuia.setEditable(false);
+            tfCostoEnvio.setEditable(false);
 
             lEstadoEnvio.setVisible(true);
             cbEstadoDeEnvio.setVisible(true);
@@ -130,7 +134,52 @@ public class FXMLFormularioEnviosController implements Initializable {
             tfMotivo.setVisible(true);
 
             llenarCampos();
+        } else {
+            modoEdicion = false;
+
+            tfNumeroGuia.setText(EnvioImp.generarNoGuia());
+            tfNumeroGuia.setEditable(false);
+            tfCostoEnvio.setEditable(false);
+
+            lEstadoEnvio.setVisible(false);
+            cbEstadoDeEnvio.setVisible(false);
+            lMotivo.setVisible(false);
+            tfMotivo.setVisible(false);
         }
+    }
+
+    private void llenarCampos() {
+        tfCostoEnvio.setText("" + envioEditado.getCostoDeEnvio());
+        tfCalle.setText(envioEditado.getDestinoCalle());
+        tfNumero.setText(envioEditado.getDestinoNumero());
+        tfColonia.setText(envioEditado.getDestinoColonia());
+        tfCodigoPostal.setText(envioEditado.getDestinoCodigoPostal());
+
+        for (Sucursal s : cbSucursal.getItems()) {
+            if (s.getIdSucursal().equals(envioEditado.getIdSucursal())) {
+                cbSucursal.setValue(s);
+                break;
+            }
+        }
+        
+        for (Estado e : cbEstado.getItems()) {
+            if (e.getIdEstado().equals(envioEditado.getIdDestinoEstado())) {
+                cbEstado.setValue(e);
+                break;
+            }
+        }
+        
+        cargarCiudades();
+        for (Ciudad c : cbCiudad.getItems()) {
+            if (c.getIdCiudad().equals(envioEditado.getIdDestinoCiudad())) {
+                cbCiudad.setValue(c);
+                break;
+            }
+        }
+        
+        cbClientes.getSelectionModel().select(buscarCliente(envioEditado.getIdCliente()));
+        cbConductores.getSelectionModel().select(buscarConductor(envioEditado.getIdColaborador()));
+        cbEstadoDeEnvio.getSelectionModel().select(buscarEstadoEnvio(envioEditado.getIdEstadoDeEnvio()));
     }
     
     private void cargarEstados() {        
@@ -168,70 +217,51 @@ public class FXMLFormularioEnviosController implements Initializable {
         cbSucursal.setItems(sucursales);
     }
     
-    private void llenarCampos() {
-        tfDestino.setText(envioEditado.getDestino());
-        tfNumeroGuia.setText(envioEditado.getNoGuia());
-        tfCalle.setText(envioEditado.getOrigenCalle());
-        tfNumero.setText(envioEditado.getOrigenNumero());
-        tfCodigoPostal.setText(envioEditado.getOrigenCodigoPostal());
-        tfColonia.setText(envioEditado.getOrigenColonia());
-        tfCostoEnvio.setText("" + envioEditado.getCostoDeEnvio());
-        for (Estado e : cbEstado.getItems()) {
-            if (e.getNombre().equals(envioEditado.getOrigenEstado())) {
-                cbEstado.setValue(e);
-                break;
-            }
-        }
-        cargarCiudades();
-        for (Ciudad c : cbCiudad.getItems()) {
-            if (c.getNombre().equals(envioEditado.getOrigenCiudad())) {
-                cbCiudad.setValue(c);
-                break;
-            }
-        }
-        cbClientes.getSelectionModel().select(buscarCliente(envioEditado.getIdCliente()));
-        cbConductores.getSelectionModel().select(buscarConductor(envioEditado.getIdColaborador()));
-        cbEstadoDeEnvio.getSelectionModel().select(buscarEstadoEnvio(envioEditado.getIdEstadoDeEnvio()));
-    }
-    
     @FXML
     private void onClickGuardar(ActionEvent event) {
         Envio envio = new Envio();
-        envio.setOrigenCalle(tfCalle.getText());
-        envio.setOrigenNumero(tfNumero.getText());
-        envio.setOrigenColonia(tfColonia.getText());
-        envio.setOrigenCodigoPostal(tfCodigoPostal.getText());
-        envio.setIdOrigenCiudad(cbCiudad.getValue() != null ? cbCiudad.getValue().getIdCiudad() : null);
-        envio.setIdOrigenEstado(cbEstado.getValue() != null ? cbEstado.getValue().getIdEstado() : null);
+
+        // ORIGEN
+        Sucursal sucursalSel = cbSucursal.getValue();
+        if (sucursalSel != null) {
+            envio.setOrigenCalle(sucursalSel.getCalle());
+            envio.setOrigenNumero(sucursalSel.getNumero());
+            envio.setOrigenColonia(sucursalSel.getColonia());
+            envio.setOrigenCodigoPostal(sucursalSel.getCodigoPostal());
+            envio.setIdOrigenCiudad(sucursalSel.getIdCiudad());
+            envio.setIdOrigenEstado(sucursalSel.getIdEstado());
+            envio.setIdSucursal(sucursalSel.getIdSucursal());
+        }
+
+        // DESTINO
+        envio.setDestinoCalle(tfCalle.getText());
+        envio.setDestinoNumero(tfNumero.getText());
+        envio.setDestinoColonia(tfColonia.getText());
+        envio.setDestinoCodigoPostal(tfCodigoPostal.getText());
         envio.setIdDestinoCiudad(cbCiudad.getValue() != null ? cbCiudad.getValue().getIdCiudad() : null);
         envio.setIdDestinoEstado(cbEstado.getValue() != null ? cbEstado.getValue().getIdEstado() : null);
+
         envio.setNoGuia(tfNumeroGuia.getText());
-        
-        envio.setDestinoCalle(envio.getOrigenCalle());
-        envio.setDestinoNumero(envio.getOrigenNumero());
-        envio.setDestinoColonia(envio.getOrigenColonia());
-        envio.setDestinoCodigoPostal(envio.getOrigenCodigoPostal());
 
-
-        try {
-            if (tfCostoEnvio.getText().trim().isEmpty()) {
-                Utilidades.mostrarAlertaSimple("Error", "El costo del envío es obligatorio.", Alert.AlertType.ERROR);
+        List<Envio> enviosExistentes = EnvioImp.obtenerEnviosPorNoGuia(envio.getNoGuia());
+        if (!modoEdicion) {
+            if (enviosExistentes != null && !enviosExistentes.isEmpty()) {
+                Utilidades.mostrarAlertaSimple("Error", "El número de guía ya está registrado. Usa uno diferente.", Alert.AlertType.ERROR);
                 return;
             }
-            envio.setCostoDeEnvio(Float.parseFloat(tfCostoEnvio.getText()));
-        } catch (NumberFormatException e) {
-            Utilidades.mostrarAlertaSimple("Error", "El costo del envío debe ser un número válido.", Alert.AlertType.ERROR);
-            return;
+        } else {
+            if (enviosExistentes != null && !enviosExistentes.isEmpty()) {
+                Envio encontrado = enviosExistentes.get(0);
+                if (!encontrado.getIdEnvio().equals(envioEditado.getIdEnvio())) {
+                    Utilidades.mostrarAlertaSimple("Error", "El número de guía ya pertenece a otro envío.", Alert.AlertType.ERROR);
+                    return;
+                }
+            }
         }
 
         envio.setIdCliente(cbClientes.getValue() != null ? cbClientes.getValue().getIdCliente() : -1);
         envio.setIdColaborador(cbConductores.getValue() != null ? cbConductores.getValue().getIdColaborador() : -1);
         envio.setIdEstadoDeEnvio(cbEstadoDeEnvio.getValue() != null ? cbEstadoDeEnvio.getValue().getIdEstadoDeEnvio() : 1);
-
-        envio.setDestino(tfDestino.getText());
-        
-        Sucursal sucursalSel = cbSucursal.getValue();
-        envio.setIdSucursal(sucursalSel != null ? sucursalSel.getIdSucursal() : null);
 
         if (validarCampos(envio)) {
             if (!modoEdicion) {
@@ -247,7 +277,6 @@ public class FXMLFormularioEnviosController implements Initializable {
         Stage base = (Stage) tfCalle.getScene().getWindow();
         base.close();
     }
-
 
     @FXML
     private void irPantallaPrincipal(MouseEvent event) {
@@ -327,19 +356,10 @@ public class FXMLFormularioEnviosController implements Initializable {
             Utilidades.mostrarAlertaSimple("Validación", "Debe seleccionar un estado destino.", Alert.AlertType.WARNING);
             return false;
         }
-        if (envio.getDestino() == null || envio.getDestino().trim().isEmpty()) {
-            Utilidades.mostrarAlertaSimple("Validación", "El campo Destino es obligatorio.", Alert.AlertType.WARNING);
-            return false;
-        }
-        if (envio.getCostoDeEnvio() <= 0) {
-            Utilidades.mostrarAlertaSimple("Validación", "El costo del envío debe ser mayor a 0.", Alert.AlertType.WARNING);
-            return false;
-        }
         if (envio.getNoGuia() == null || envio.getNoGuia().trim().isEmpty()) {
             Utilidades.mostrarAlertaSimple("Validación", "El número de guía es obligatorio.", Alert.AlertType.WARNING);
             return false;
         }
-
         if ((envio.getIdEstadoDeEnvio() == 4 || envio.getIdEstadoDeEnvio() == 5) &&
             (tfMotivo.getText() == null || tfMotivo.getText().trim().isEmpty())) {
 
@@ -352,36 +372,43 @@ public class FXMLFormularioEnviosController implements Initializable {
         }
         return true;
     }
-
-
+    
     private void guardarDatosEnvio(Envio envio) {
         Mensaje msj = EnvioImp.agregarEnvio(envio);
 
         if (!msj.isError()) {
-            if (!enviarHistorial(envio)) {
-                Utilidades.mostrarAlertaSimple("Registro Exitoso", "Envío agregado correctamente.", Alert.AlertType.INFORMATION);
-                observador.notificarOperacion("Guardar", envio.getNoGuia());
-                cerrarVentana();
-            }
+            tfCostoEnvio.setText("" + envio.getCostoDeEnvio());
+            tfCostoEnvio.setEditable(false);
+
+            Utilidades.mostrarAlertaSimple("Registro Exitoso", 
+                "Envío agregado correctamente. Costo: $" + envio.getCostoDeEnvio(), 
+                Alert.AlertType.INFORMATION);
+
+            observador.notificarOperacion("Guardar", envio.getNoGuia());
+            cerrarVentana();
         } else {
             Utilidades.mostrarAlertaSimple("Error", msj.getMensaje(), Alert.AlertType.ERROR);
         }
     }
-
+    
     private void editarDatosEnvio(Envio envio) {
         Mensaje msj = EnvioImp.editarEnvio(envio);
 
         if (!msj.isError()) {
-            if (!enviarHistorial(envio)) {
-                Utilidades.mostrarAlertaSimple("Edición Exitosa", "Envío editado correctamente.", Alert.AlertType.INFORMATION);
-                observador.notificarOperacion("Edición", envio.getNoGuia());
-                cerrarVentana();
-            }
+            tfCostoEnvio.setText("" + envio.getCostoDeEnvio());
+            tfCostoEnvio.setEditable(false);
+
+            Utilidades.mostrarAlertaSimple("Edición Exitosa", 
+                "Envío editado correctamente. Costo: $" + envio.getCostoDeEnvio(), 
+                Alert.AlertType.INFORMATION);
+
+            observador.notificarOperacion("Edición", envio.getNoGuia());
+            cerrarVentana();
         } else {
             Utilidades.mostrarAlertaSimple("Error", msj.getMensaje(), Alert.AlertType.ERROR);
         }
     }
-
+    
     private boolean enviarHistorial(Envio envio) {
 
         HistorialDeEnvio historial = new HistorialDeEnvio();

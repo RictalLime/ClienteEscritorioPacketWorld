@@ -70,7 +70,6 @@ public class FXMLModuloClientesController implements Initializable, NotificadoOp
         cargarLaInformacion();
     }
     
-    
     public void irPantallaPrincipal(){
         try {
             Stage escenarioBase = (Stage) imgRegresar.getScene().getWindow();
@@ -89,19 +88,19 @@ public class FXMLModuloClientesController implements Initializable, NotificadoOp
     private void regresarPrincipal(MouseEvent event) {
         irPantallaPrincipal();
     }
-
+    
     @FXML
     private void irRegistrarCliente(MouseEvent event) {
         irAFormulario(this, null);
     }
-
+    
     @FXML
     private void irEliminarCliente(MouseEvent event) {
         Cliente cliente = tvTablaClientes.getSelectionModel().getSelectedItem();
         if(cliente!= null){
             Mensaje mensaje = ClienteImp.eliminarCliente(cliente.getIdCliente());
             if(!mensaje.isError()){
-                Utilidades.mostrarAlertaSimple("Correcto", "Cliente Eliminado correctamente", Alert.AlertType.INFORMATION);
+                Utilidades.mostrarAlertaSimple("Correcto", "Cliente Eliminado correctamente", Alert.AlertType.WARNING);
                 cargarLaInformacion();
             }else{
                 Utilidades.mostrarAlertaSimple("Error", "No se pudo eliminar el Cliente", Alert.AlertType.ERROR);
@@ -111,7 +110,7 @@ public class FXMLModuloClientesController implements Initializable, NotificadoOp
             Utilidades.mostrarAlertaSimple("Error", "Selecciona un cliente", Alert.AlertType.ERROR);
         }
     }
-
+    
     @FXML
     private void irEditarCliente(MouseEvent event) {
         Cliente cliente = tvTablaClientes.getSelectionModel().getSelectedItem();
@@ -121,8 +120,7 @@ public class FXMLModuloClientesController implements Initializable, NotificadoOp
             Utilidades.mostrarAlertaSimple("Error", "Selecciona un cliente", Alert.AlertType.ERROR);
         }
     }
-
-
+    
     @FXML
     private void irBuscar(MouseEvent event) {
         if(!tfBuscar.getText().isEmpty()){
@@ -140,7 +138,7 @@ public class FXMLModuloClientesController implements Initializable, NotificadoOp
            colApellidoMaterno.setCellValueFactory(new PropertyValueFactory("apellidoMaterno"));
            colCorreo.setCellValueFactory(new PropertyValueFactory("correo"));
     }
-
+    
     private void cargarLaInformacion() {
            clientes = FXCollections.observableArrayList();
            List<Cliente> lista = ClienteImp.obtenerClientes();
@@ -153,10 +151,11 @@ public class FXMLModuloClientesController implements Initializable, NotificadoOp
                cerrarVentana();
            }
     }
+    
     private void cerrarVentana(){
             ((Stage) tfBuscar.getScene().getWindow()).close();
     } 
-
+    
     @Override
     public void notificarOperacion(String tipo, String nombre) {
         cargarLaInformacion();

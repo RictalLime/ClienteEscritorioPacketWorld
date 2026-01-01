@@ -11,6 +11,7 @@ package clienteescritoriopacketworld.utilidad;
 public class Constantes {
     
     public static final String URL_WS = "http://localhost:8095/packet-world/api/";
+    public static final String SUBLIMAS_WS = "http://sublimas.com.mx:8080/calculadora/api/envios/distancia/";
     public static final int ERROR_MALFORMED_URL = 1001;
     public static final int ERROR_PETICION = 1002;
     public static final String MSJ_ERROR_URL = "Lo sentimos su solicitud no puede ser realizada en este momento, por favor intente mas tarde.";

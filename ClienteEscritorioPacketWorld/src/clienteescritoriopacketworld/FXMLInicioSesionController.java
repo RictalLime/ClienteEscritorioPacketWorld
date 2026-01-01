@@ -65,7 +65,6 @@ public class FXMLInicioSesionController implements Initializable {
         }   
     }
     
-    
     private boolean validarCampos(String noPersonal, String contrasena){
         boolean camposValidos = true;
         errorNumeroPersonal.setText("");
@@ -91,6 +90,7 @@ public class FXMLInicioSesionController implements Initializable {
             verificarCredenciales(noPersonal, contrasena);
         } 
     }
+    
     private void verificarCredenciales(String noPersonal, String password){
         RSAutenticacionLogin respuesta = IniciarSesionImp.iniciarSesion(noPersonal, password);
         if(!respuesta.isError()){
@@ -100,5 +100,4 @@ public class FXMLInicioSesionController implements Initializable {
             Utilidades.mostrarAlertaSimple("Atención", respuesta.getMensaje(), Alert.AlertType.ERROR);
         }
     }
-    
 }

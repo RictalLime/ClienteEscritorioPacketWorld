@@ -4,6 +4,7 @@
  */
 package clienteescritoriopacketworld;
 
+import clienteescritoriopacketworld.dominio.EnvioImp;
 import clienteescritoriopacketworld.dominio.PaqueteImp;
 import clienteescritoriopacketworld.dto.Mensaje;
 import clienteescritoriopacketworld.interfaz.NotificadoOperacion;
@@ -65,7 +66,7 @@ public class FXMLModuloPaquetesController implements Initializable, NotificadoOp
     }
 
     public void irPantallaPrincipal(){
-                try {
+        try {
             Stage escenarioBase = (Stage) imgRegresar.getScene().getWindow();
                     
             Parent principal = FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml"));
@@ -91,19 +92,26 @@ public class FXMLModuloPaquetesController implements Initializable, NotificadoOp
     @FXML
     private void irEliminarPaquete(MouseEvent event) {
         Paquete paquete = tvTablaPaquetes.getSelectionModel().getSelectedItem();
-        if(paquete!= null){
+        if (paquete != null) {
             Mensaje mensaje = PaqueteImp.eliminarPaquete(paquete.getIdPaquete());
-            if(!mensaje.isError()){
-                Utilidades.mostrarAlertaSimple("Correcto", "Paquete eliminado correctamente", Alert.AlertType.INFORMATION);
+            if (!mensaje.isError()) {
+                Utilidades.mostrarAlertaSimple("Correcto", "Paquete eliminado correctamente", Alert.AlertType.WARNING);
                 cargarLaInformacion();
-            }else{
+
+                Mensaje costoMsg = EnvioImp.recalcularCostoEnvio(paquete.getIdEnvio());
+                if (!costoMsg.isError()) {
+                    Utilidades.mostrarAlertaSimple("Costo actualizado", costoMsg.getMensaje(), Alert.AlertType.INFORMATION);
+                } else {
+                    Utilidades.mostrarAlertaSimple("Error", "No se pudo recalcular el costo del envío.", Alert.AlertType.ERROR);
+                }
+            } else {
                 Utilidades.mostrarAlertaSimple("Error", "No se pudo eliminar el paquete", Alert.AlertType.ERROR);
             }
-            
-        }else{
+        } else {
             Utilidades.mostrarAlertaSimple("Error", "Selecciona un Paquete", Alert.AlertType.ERROR);
         }
     }
+
 
     @FXML
     private void irEditarPaquete(MouseEvent event) {
@@ -119,7 +127,7 @@ public class FXMLModuloPaquetesController implements Initializable, NotificadoOp
     public void notificarOperacion(String tipo, String nombre) {
         cargarLaInformacion();
     }
-    
+        
     private void configurarTabla() {
         colNoGuia.setCellValueFactory(new PropertyValueFactory("noGuia"));
         colDimensiones.setCellValueFactory(new PropertyValueFactory("dimensiones"));
@@ -128,19 +136,19 @@ public class FXMLModuloPaquetesController implements Initializable, NotificadoOp
     }
 
     private void cargarLaInformacion() {
-           paquetes = FXCollections.observableArrayList();
-           List<Paquete> lista = PaqueteImp.obtenerPaquetes();
-           if (lista != null) {
-               paquetes.addAll(lista);
-               tvTablaPaquetes.setItems(paquetes);
-           }else{
-               Utilidades.mostrarAlertaSimple("ERROR", "Lo sentimos por el momento no se puede cargar la informacion"
-                       + "de los Paquetes, por favor intentélo mas tarde", Alert.AlertType.ERROR);
-               cerrarVentana();
-           }
+        paquetes = FXCollections.observableArrayList();
+        List<Paquete> lista = PaqueteImp.obtenerPaquetes();
+        if (lista != null) {
+            paquetes.addAll(lista);
+            tvTablaPaquetes.setItems(paquetes);
+        }else{
+            Utilidades.mostrarAlertaSimple("ERROR", "Lo sentimos por el momento no se puede cargar la informacion"
+                + "de los Paquetes, por favor intentélo mas tarde", Alert.AlertType.ERROR);
+            cerrarVentana();
+        }
     }
     private void cerrarVentana(){
-            ((Stage) tfBuscar.getScene().getWindow()).close();
+        ((Stage) tfBuscar.getScene().getWindow()).close();
     }
     
     private void irAFormulario(NotificadoOperacion observador, Paquete paquete){

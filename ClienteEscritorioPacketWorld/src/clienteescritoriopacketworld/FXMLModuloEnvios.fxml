@@ -29,14 +29,15 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <TableView fx:id="tvTablaEnvios" layoutX="21.0" layoutY="189.0" prefHeight="200.0" prefWidth="591.0" style="-fx-border-color: blue;">
+      <TableView fx:id="tvTablaEnvios" layoutX="22.0" layoutY="193.0" prefHeight="200.0" prefWidth="589.0" style="-fx-border-color: blue;">
          <columns>
             <TableColumn fx:id="colNoGuia" prefWidth="61.0" text="Num Guia" />
             <TableColumn fx:id="colOrigen" prefWidth="91.0" text="Origen" />
             <TableColumn fx:id="colDestino" prefWidth="84.0" text="Destino" />
-            <TableColumn fx:id="colConductor" prefWidth="128.0" text="Conductor" />
-            <TableColumn fx:id="colCliente" prefWidth="109.0" text="Cliente" />
-            <TableColumn fx:id="colEstado" prefWidth="115.0" text="Estado" />
+            <TableColumn fx:id="colConductor" prefWidth="98.0" text="Conductor" />
+            <TableColumn fx:id="colCliente" prefWidth="118.0" text="Cliente" />
+            <TableColumn fx:id="colEstado" prefWidth="71.0" text="Estado" />
+            <TableColumn fx:id="colCostoEnvio" prefWidth="64.0" text="Costo" />
          </columns>
       </TableView>
       <ImageView fx:id="imgBuscar" fitHeight="33.0" fitWidth="28.0" layoutX="249.0" layoutY="146.0" onMouseClicked="#irBuscar" pickOnBounds="true" preserveRatio="true">

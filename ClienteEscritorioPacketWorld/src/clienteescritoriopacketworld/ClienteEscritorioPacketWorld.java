@@ -28,7 +28,7 @@ public class ClienteEscritorioPacketWorld extends Application {
                     FXMLLoader.load(getClass().getResource("FXMLInicioSesion.fxml"));
             Scene escenaLogin = new Scene(vista);
             primaryStage.setScene(escenaLogin);
-            primaryStage.setTitle("Authentificación");
+            primaryStage.setTitle("Inicio de Sesion");
             primaryStage.show();
             
         } catch (IOException ex) {

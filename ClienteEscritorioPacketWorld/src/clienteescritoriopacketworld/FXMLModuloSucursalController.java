@@ -131,17 +131,7 @@ public class FXMLModuloSucursalController implements Initializable, NotificadoOp
             Utilidades.mostrarAlertaSimple("Error", "Selecciona una sucursal", Alert.AlertType.ERROR);
         }
     }
-
-    /*@FXML
-    private void irBuscarSucursal(MouseEvent event) {
-        if (!tfBuscar.getText().isEmpty()) {
-            String criterio = tfBuscar.getText().toLowerCase();
-            buscarSucursal(criterio);
-        } else {
-            Utilidades.mostrarAlertaSimple("Error", "Campo de búsqueda vacío", Alert.AlertType.ERROR);
-        }
-    }*/
-
+    
     private void buscarSucursal(String criterio) {
         sucursales.clear();
         tvTablaSucursal.setItems(sucursales);

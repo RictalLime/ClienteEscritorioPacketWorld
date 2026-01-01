@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -37,14 +38,15 @@ public class EnvioImp {
         return envios;
     }
     
-    public static List<Envio>obtenerEnviosPorNoGuia(String noGuia){
+    public static List<Envio> obtenerEnviosPorNoGuia(String noGuia) {
         List<Envio> envios = null;
-        String url = Constantes.URL_WS+"envio/obtener-envios-por-noguia/"+noGuia;
+        String url = Constantes.URL_WS + "envio/obtener-envios-por-noguia/" + noGuia;
         RespuestaHTTP respuesta = ConexionAPI.peticionGET(url);
-        if(respuesta.getCodigo()== HttpURLConnection.HTTP_OK){
+
+        if (respuesta != null && respuesta.getCodigo() == HttpURLConnection.HTTP_OK) {
             Gson gson = new Gson();
             try {
-                Type tipoLista = new TypeToken<List<Envio>>(){}.getType();
+                Type tipoLista = new TypeToken<List<Envio>>() {}.getType();
                 envios = gson.fromJson(respuesta.getContenido(), tipoLista);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -113,7 +115,7 @@ public class EnvioImp {
         return mensaje;
     }
     
-     public static List<EstadoDeEnvio>obtenerEstadosDeEnvios(){
+    public static List<EstadoDeEnvio>obtenerEstadosDeEnvios(){
         List<EstadoDeEnvio> envios = null;
         String url = Constantes.URL_WS+"envio/obtener-estados-envios";
         RespuestaHTTP respuesta = ConexionAPI.peticionGET(url);
@@ -128,4 +130,44 @@ public class EnvioImp {
         }
         return envios;
     }
+    
+    public static String generarNoGuia() {
+        String url = Constantes.URL_WS + "envio/ultimo-no-guia";
+        RespuestaHTTP respuesta = ConexionAPI.peticionGET(url);
+
+        if (respuesta != null && respuesta.getCodigo() == HttpURLConnection.HTTP_OK) {
+            String ultimoNoGuia = respuesta.getContenido();
+            if (ultimoNoGuia != null && ultimoNoGuia.startsWith("GUI")) {
+                try {
+                    int numero = Integer.parseInt(ultimoNoGuia.substring(3));
+                    numero++;
+                    return String.format("GUI%03d", numero);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return "GUI001";
+    }
+    
+    public static Mensaje recalcularCostoEnvio(int idEnvio) {
+        Mensaje mensaje = new Mensaje();
+        try {
+            String url = Constantes.URL_WS + "envio/recalcular-costo/" + idEnvio;
+            RespuestaHTTP respuesta = ConexionAPI.peticionSinBody(url, Constantes.PETICION_PUT);
+
+            if (respuesta != null && respuesta.getCodigo() == HttpURLConnection.HTTP_OK) {
+                Gson gson = new Gson();
+                mensaje = gson.fromJson(respuesta.getContenido(), Mensaje.class);
+            } else {
+                mensaje.setError(true);
+                mensaje.setMensaje("No se pudo recalcular el costo del envío.");
+            }
+        } catch (Exception e) {
+            mensaje.setError(true);
+            mensaje.setMensaje("Error al recalcular costo: " + e.getMessage());
+        }
+        return mensaje;
+    }
+
 }

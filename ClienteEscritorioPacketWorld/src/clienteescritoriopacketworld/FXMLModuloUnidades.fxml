@@ -29,15 +29,14 @@
             <Image url="@recursos/search_black.png" />
          </image>
       </ImageView>
-      <TableView fx:id="tvTablaUnidades" layoutX="23.0" layoutY="186.0" prefHeight="200.0" prefWidth="591.0" style="-fx-border-color: blue;">
+      <TableView fx:id="tvTablaUnidades" layoutX="23.0" layoutY="186.0" prefHeight="200.0" prefWidth="579.0" style="-fx-border-color: blue;">
         <columns>
           <TableColumn fx:id="colMarca" prefWidth="72.0" text="Marca" />
             <TableColumn fx:id="colModelo" text="Modelo" />
-            <TableColumn fx:id="colAnio" prefWidth="61.0" text="Año" />
-            <TableColumn fx:id="colVin" prefWidth="135.0" text="VIN" />
-            <TableColumn fx:id="colTipoDeUnidad" prefWidth="45.0" text="idTipoUnidad" />
-            <TableColumn prefWidth="156.0" text="NII" />
-            <TableColumn fx:id="colNii" prefWidth="41.0" text="idEstadoUnidad" />
+            <TableColumn fx:id="colAnio" prefWidth="44.0" text="Año" />
+            <TableColumn fx:id="colVin" prefWidth="164.0" text="VIN" />
+            <TableColumn fx:id="colTipoDeUnidad" prefWidth="135.0" text="Tipo Unidad" />
+            <TableColumn fx:id="colNii" prefWidth="82.0" text="NII" />
         </columns>
       </TableView>
       <Pane layoutX="350.0" layoutY="114.0" prefHeight="53.0" prefWidth="53.0" style="-fx-border-color: blue;">

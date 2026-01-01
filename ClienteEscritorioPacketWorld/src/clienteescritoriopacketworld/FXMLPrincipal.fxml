@@ -24,24 +24,6 @@
          </children></Pane>
       <Pane layoutX="454.0" layoutY="97.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
          <children>
-            <ImageView fx:id="moduloColaboradores" fitHeight="56.0" fitWidth="55.0" layoutX="18.0" layoutY="4.0" onMouseClicked="#irModuloColaboradores" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@recursos/badge.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="7.0" layoutY="57.0" text="Colaboradores" textFill="WHITE" />
-         </children></Pane>
-      <Pane layoutX="255.0" layoutY="97.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
-         <children>
-            <ImageView fx:id="moduloClientes" fitHeight="53.0" fitWidth="49.0" layoutX="21.0" layoutY="10.0" onMouseClicked="#irModuloClientes" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@recursos/person_3.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="24.0" layoutY="59.0" text="Clientes" textFill="WHITE" />
-         </children></Pane>
-      <Pane layoutX="64.0" layoutY="97.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
-         <children>
             <ImageView fx:id="moduloSucursales" fitHeight="56.0" fitWidth="53.0" layoutX="19.0" layoutY="4.0" onMouseClicked="#irModuloSucursales" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@recursos/add_business.png" />
@@ -49,14 +31,32 @@
             </ImageView>
             <Label layoutX="18.0" layoutY="57.0" text="Sucursales" textFill="WHITE" />
          </children></Pane>
-      <Pane layoutX="64.0" layoutY="207.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
+      <Pane layoutX="255.0" layoutY="97.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
          <children>
-            <ImageView fx:id="moduloUnidades" fitHeight="53.0" fitWidth="55.0" layoutX="19.0" layoutY="4.0" onMouseClicked="#irModuloUnidades" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="moduloUnidades" fitHeight="53.0" fitWidth="55.0" layoutX="19.0" layoutY="6.0" onMouseClicked="#irModuloUnidades" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@recursos/local_shipping.png" />
                </image>
             </ImageView>
             <Label layoutX="21.0" layoutY="57.0" text="Unidades" textFill="WHITE" />
+         </children></Pane>
+      <Pane layoutX="64.0" layoutY="97.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fx:id="moduloColaboradores" fitHeight="56.0" fitWidth="55.0" layoutX="18.0" onMouseClicked="#irModuloColaboradores" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/badge.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="7.0" layoutY="57.0" text="Colaboradores" textFill="WHITE" />
+         </children></Pane>
+      <Pane layoutX="64.0" layoutY="207.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fx:id="moduloClientes" fitHeight="53.0" fitWidth="49.0" layoutX="21.0" layoutY="8.0" onMouseClicked="#irModuloClientes" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/person_3.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="25.0" layoutY="57.0" text="Clientes" textFill="WHITE" />
          </children></Pane>
       <Pane layoutX="255.0" layoutY="207.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
          <children>
@@ -69,21 +69,21 @@
          </children></Pane>
       <Pane layoutX="454.0" layoutY="207.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
          <children>
-            <ImageView fx:id="moduloPaquetes" fitHeight="60.0" fitWidth="55.0" layoutX="18.0" layoutY="10.0" onMouseClicked="#irModuloPaquetes" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@recursos/package_2.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="21.0" layoutY="57.0" text="Paquetes" textFill="WHITE" />
-         </children></Pane>
-      <Pane layoutX="255.0" layoutY="307.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
-         <children>
+            <Label layoutX="29.0" layoutY="57.0" text="Envios" textFill="WHITE" />
             <ImageView fx:id="moduloEnvios" fitHeight="60.0" fitWidth="60.0" layoutX="16.0" onMouseClicked="#irModuloEnvios" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@recursos/delivery_truck_speed.png" />
                </image>
             </ImageView>
-            <Label layoutX="29.0" layoutY="55.0" text="Envios" textFill="WHITE" />
+         </children></Pane>
+      <Pane layoutX="255.0" layoutY="307.0" prefHeight="79.0" prefWidth="91.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fx:id="moduloPaquetes" fitHeight="60.0" fitWidth="55.0" layoutX="18.0" onMouseClicked="#irModuloPaquetes" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/package_2.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="21.0" layoutY="57.0" text="Paquetes" textFill="WHITE" />
          </children></Pane>
    </children>
 </AnchorPane>

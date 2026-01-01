@@ -60,6 +60,8 @@ public class FXMLModuloEnviosController implements Initializable, NotificadoOper
     private TableColumn colCliente;
     @FXML
     private TableColumn colEstado;
+    @FXML
+    private TableColumn colCostoEnvio;
 
     /**
      * Initializes the controller class.
@@ -91,6 +93,7 @@ public class FXMLModuloEnviosController implements Initializable, NotificadoOper
             Utilidades.mostrarAlertaSimple("Error", "No podemos ir a la pantalla principal :(", Alert.AlertType.ERROR);
         }
     }
+    
     private void configurarTabla() {
            colNoGuia.setCellValueFactory(new PropertyValueFactory("noGuia"));
            colOrigen.setCellValueFactory(new PropertyValueFactory("origen"));
@@ -98,29 +101,29 @@ public class FXMLModuloEnviosController implements Initializable, NotificadoOper
            colConductor.setCellValueFactory(new PropertyValueFactory("colaborador"));
            colCliente.setCellValueFactory(new PropertyValueFactory("cliente"));
            colEstado.setCellValueFactory(new PropertyValueFactory("estadoDeEnvio"));
+           colCostoEnvio.setCellValueFactory(new PropertyValueFactory("costoDeEnvio"));
     }
-
+    
     private void cargarLaInformacion() {
-           envios = FXCollections.observableArrayList();
-           List<Envio> lista = EnvioImp.obtenerEnvios();
+        envios = FXCollections.observableArrayList();
+        List<Envio> lista = EnvioImp.obtenerEnvios();
            
-           if (lista != null) {
-               envios.addAll(lista);
-               tvTablaEnvios.setItems(envios);
-           }else{
-               Utilidades.mostrarAlertaSimple("ERROR", "Lo sentimos por el momento no se puede cargar la informacion"
-                       + "de los Envios, por favor intentélo mas tarde", Alert.AlertType.ERROR);
-               cerrarVentana();
-           }
-
+        if (lista != null) {
+            envios.addAll(lista);
+            tvTablaEnvios.setItems(envios);
+        }else{
+            Utilidades.mostrarAlertaSimple("ERROR", "Lo sentimos por el momento no se puede cargar la informacion"
+                + "de los Envios, por favor intentélo mas tarde", Alert.AlertType.ERROR);
+            cerrarVentana();
+        }
     }
 
     private void cerrarVentana(){
-            ((Stage) tfBuscar.getScene().getWindow()).close();
+        ((Stage) tfBuscar.getScene().getWindow()).close();
     }
     
     private void irAFormulario(NotificadoOperacion observador, Envio envio){
-         try {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLFormularioEnvios.fxml"));
             Parent root = loader.load();
             
@@ -165,7 +168,7 @@ public class FXMLModuloEnviosController implements Initializable, NotificadoOper
         if(envio!= null){
             Mensaje mensaje = EnvioImp.eliminarEnvio(envio.getIdEnvio());
             if(!mensaje.isError()){
-                Utilidades.mostrarAlertaSimple("Correcto", "Envío Eliminado correctamente", Alert.AlertType.INFORMATION);
+                Utilidades.mostrarAlertaSimple("Correcto", "Envío Eliminado correctamente", Alert.AlertType.WARNING);
                 cargarLaInformacion();
             }else{
                 Utilidades.mostrarAlertaSimple("Error", "No se pudo eliminar el envío", Alert.AlertType.ERROR);

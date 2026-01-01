@@ -12,8 +12,8 @@ public class Envio {
     private Integer idEnvio;
     private Integer idCliente;
     private String cliente;
-    private String destino;
-    private String origen;
+    private String destino; // destinoCalle, destinoColonia, destinoEstado, destinoCiudad
+    private String origen; // origenCalle, origenColonia, origenCiudad, origenEstado
     private String origenCalle;
     private String origenNumero;
     private String origenColonia;
