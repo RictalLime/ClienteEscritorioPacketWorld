@@ -253,14 +253,26 @@ public class FXMLFormularioColaboradoresController implements Initializable {
         tfCurp.setText(colaboradorEditado.getCurp());
         tfNumeroPersonal.setText(colaboradorEditado.getNoPersonal());
         tfNumeroPersonal.setEditable(false);
+
         int posicion = buscarIdRol(colaboradorEditado.getIdRol());
         cbRol.getSelectionModel().select(posicion);
+
         tfNoLicencia.setText(colaboradorEditado.getNumeroDeLicencia());
+
+        for (Sucursal s : cbSucursal.getItems()) {
+            if (s.getIdSucursal().equals(colaboradorEditado.getIdSucursal())) {
+                cbSucursal.setValue(s);
+                break;
+            }
+        }
+
         colaboradorEditado.setFoto(ColaboradorImp.obtenerFoto(colaboradorEditado.getIdColaborador()));
-            if(colaboradorEditado.getFoto()!=null){
-                mostrarFotografia(colaboradorEditado.getFoto());
+        if (colaboradorEditado.getFoto() != null) {
+            mostrarFotografia(colaboradorEditado.getFoto());
         }
     }
+
+    
     private int buscarIdRol(int idRol){
         for(int i=0; i<tiposDeColaboradores.size();i++){
             if(tiposDeColaboradores.get(i).getIdRol() == idRol){
@@ -332,12 +344,39 @@ public class FXMLFormularioColaboradoresController implements Initializable {
             return baos.toByteArray();
         }
     }    
-    
+        
     private void cargarSucursales() {
         List<Sucursal> listaAPI = SucursalImp.obtenerSucursales();
-        sucursales = FXCollections.observableArrayList();
-        sucursales.addAll(listaAPI);
+        ObservableList<Sucursal> activas = FXCollections.observableArrayList();
+
+        for (Sucursal s : listaAPI) {
+            if (s.getEstatus() != null && s.getEstatus().equalsIgnoreCase("activa")) {
+                activas.add(s);
+            }
+        }
+        
+        if (modoEdicion && colaboradorEditado != null && colaboradorEditado.getIdSucursal() != null) {
+            boolean yaIncluida = activas.stream()
+                    .anyMatch(s -> s.getIdSucursal().equals(colaboradorEditado.getIdSucursal()));
+            if (!yaIncluida) {
+                listaAPI.stream()
+                        .filter(s -> s.getIdSucursal().equals(colaboradorEditado.getIdSucursal()))
+                        .findFirst()
+                        .ifPresent(activas::add);
+            }
+        }
+
+        sucursales = activas;
         cbSucursal.setItems(sucursales);
+        
+        if (modoEdicion && colaboradorEditado != null && colaboradorEditado.getIdSucursal() != null) {
+            for (Sucursal s : cbSucursal.getItems()) {
+                if (s.getIdSucursal().equals(colaboradorEditado.getIdSucursal())) {
+                    cbSucursal.setValue(s);
+                    break;
+                }
+            }
+        }
     }
 
 }

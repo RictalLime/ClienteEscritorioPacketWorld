@@ -64,6 +64,10 @@ public class FXMLFormularioAsignacionesController implements Initializable {
     public void initializeValores(NotificadoOperacion observador, ConductoresAsignados conductorAsignadoEditado){
         this.conductorAsignadoEditado = conductorAsignadoEditado;
         this.observador = observador;
+        
+        tfColaborador.setEditable(false);
+        tfUnidad.setEditable(false);
+        
         if(conductorAsignadoEditado!= null){
             modoEdicion = true;
             llenarcampos();

@@ -63,9 +63,6 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
     @FXML
     private TableColumn colCurp;
     
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configurarTabla();
@@ -103,14 +100,12 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
     public void irPantallaPrincipal(){
         try {
             Stage escenarioBase = (Stage) imgRegresar.getScene().getWindow();
-                    
             Parent principal = FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml"));
             Scene escenaPrincipal = new Scene(principal);
             escenarioBase.setScene(escenaPrincipal);
             escenarioBase.setTitle("Packet World Principal");
             escenarioBase.show();
         } catch (IOException ex) {
-            // Logger.getLogger(FXMLInicioSesionController.class.getName()).log(Level.SEVERE, null, ex);
             Utilidades.mostrarAlertaSimple("Error", "No podemos ir a la pantalla principal :(", Alert.AlertType.ERROR);
         }
     }
@@ -135,20 +130,40 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
         irAFormulario(this, null);
     }
     
+    // --- MÉTODO MODIFICADO CON LÓGICA DE SEGURIDAD ---
     @FXML
     private void irEliminarColaborador(MouseEvent event) {
-        Colaborador colaborador = tvTablaColaboradores.getSelectionModel().getSelectedItem();
-        if(colaborador!= null){
-            Mensaje mensaje = ColaboradorImp.eliminarColaborador(colaborador.getIdColaborador());
-            if(!mensaje.isError()){
-                Utilidades.mostrarAlertaSimple("Correcto", "Colaborador Eliminado correctamente", Alert.AlertType.WARNING);
-                cargarLaInformacion();
-            }else{
-                Utilidades.mostrarAlertaSimple("Error", "No puedes Eliminar un colaborador que este asignado a una unidad.", Alert.AlertType.ERROR);
+        Colaborador colaboradorSeleccionado = tvTablaColaboradores.getSelectionModel().getSelectedItem();
+        
+        if(colaboradorSeleccionado != null){
+            
+            // 1. Confirmación de seguridad
+            boolean confirmar = Utilidades.mostrarAlertaConfirmacion("Eliminar Colaborador", 
+                    "¿Estás seguro de eliminar a: " + colaboradorSeleccionado.getNombre() + "?");
+            
+            if(confirmar){
+                Mensaje mensaje = ColaboradorImp.eliminarColaborador(colaboradorSeleccionado.getIdColaborador());
+                
+                if(!mensaje.isError()){
+                    
+                    // 2. VALIDACIÓN DE AUTO-ELIMINACIÓN
+                    // Comparamos el ID del que acabamos de borrar con el ID del que tiene la sesión abierta
+                    if(colaboradorSeleccionado.getIdColaborador().equals(Sesion.getColaboradorActual().getIdColaborador())){
+                        Utilidades.mostrarAlertaSimple("Adiós", 
+                            "Has eliminado tu propia cuenta. El sistema se cerrará.", 
+                            Alert.AlertType.INFORMATION);
+                        System.exit(0); // Cierre total de la aplicación
+                    }
+
+                    Utilidades.mostrarAlertaSimple("Correcto", "Colaborador Eliminado correctamente", Alert.AlertType.INFORMATION);
+                    cargarLaInformacion();
+                }else{
+                    Utilidades.mostrarAlertaSimple("Error", mensaje.getMensaje(), Alert.AlertType.ERROR);
+                }
             }
             
         }else{
-            Utilidades.mostrarAlertaSimple("Error", "Selecciona un colaborador", Alert.AlertType.ERROR);
+            Utilidades.mostrarAlertaSimple("Atención", "Por favor, selecciona un colaborador de la tabla", Alert.AlertType.WARNING);
         }
     }
     
@@ -166,7 +181,6 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
         colaboradores.clear();
         tvTablaColaboradores.setItems(colaboradores);
         List<Colaborador> lista = ColaboradorImp.obtenerColaboradoresNoPersonal(dato);
-        System.out.println(lista);
         if (lista!=null && !lista.isEmpty()) {
             colaboradores.addAll(lista);
             tvTablaColaboradores.setItems(colaboradores);
@@ -226,8 +240,8 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
        return rol;
     }
     
+    @Override
     public void notificarOperacion(String tipo, String nombre) {
-        //System.out.println("tipo:" + tipo +"Nombre:" + nombre);
         cargarLaInformacion();
     }
 }

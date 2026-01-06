@@ -222,4 +222,13 @@ public class ColaboradorImp {
         }
         return colaboradores;
     }
+    
+    public static boolean verificarExistencia(Integer idColaborador) {
+        // Reutilizamos la URL de obtener foto porque ya sabemos que devuelve 200 si existe y algo distinto si no.
+        String url = Constantes.URL_WS + "colaborador/obtener-foto/" + idColaborador;
+        RespuestaHTTP respuesta = ConexionAPI.peticionGET(url);
+
+        // Si el código es HTTP_OK (200), el registro sigue en la base de datos.
+        return (respuesta.getCodigo() == HttpURLConnection.HTTP_OK);
+    }
 }

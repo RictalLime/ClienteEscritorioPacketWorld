@@ -213,8 +213,26 @@ public class FXMLFormularioEnviosController implements Initializable {
     private void cargarSucursales() {
         List<Sucursal> listaAPI = SucursalImp.obtenerSucursales();
         sucursales = FXCollections.observableArrayList();
-        sucursales.addAll(listaAPI);
+
+        for (Sucursal s : listaAPI) {
+            if (s.getEstatus() != null && s.getEstatus().equalsIgnoreCase("activa")) {
+                sucursales.add(s);
+            }
+        }
+
         cbSucursal.setItems(sucursales);
+        
+        if (modoEdicion && envioEditado != null && envioEditado.getIdSucursal() != null) {
+            boolean yaIncluida = sucursales.stream()
+                    .anyMatch(s -> s.getIdSucursal().equals(envioEditado.getIdSucursal()));
+            if (!yaIncluida) {
+                listaAPI.stream()
+                        .filter(s -> s.getIdSucursal().equals(envioEditado.getIdSucursal()))
+                        .findFirst()
+                        .ifPresent(sucursales::add);
+                cbSucursal.setItems(sucursales);
+            }
+        }
     }
     
     @FXML
