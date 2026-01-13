@@ -192,6 +192,33 @@ public class FXMLFormularioUnidadesController implements Initializable {
             Utilidades.mostrarAlertaSimple("Error", "Selecciona un Estado de la unidad", Alert.AlertType.ERROR);
             return false;
         }
+        if (!unidad.getMarca().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{1,50}$")) {
+            Utilidades.mostrarAlertaSimple("Error", "La marca solo puede contener letras y espacios (máx. 50).", Alert.AlertType.ERROR);
+            return false;
+        }
+        if (!unidad.getModelo().matches("^[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ\\s-]{1,50}$")) {
+            Utilidades.mostrarAlertaSimple("Error", "El modelo solo puede contener letras, números y guiones (máx. 50).", Alert.AlertType.ERROR);
+            return false;
+        }
+        int anioInt = Integer.parseInt(unidad.getAnio());
+        int anioActual = java.time.Year.now().getValue();
+        if (anioInt < 1980 || anioInt > anioActual + 1) {
+            Utilidades.mostrarAlertaSimple("Error", "El año debe estar entre 1980 y " + (anioActual + 1) + ".", Alert.AlertType.ERROR);
+            return false;
+        }
+        if (unidad.getVin().matches("^(0{17}|[A-Z0-9])\\1{16}$")) {
+            Utilidades.mostrarAlertaSimple("Error", "El VIN no puede ser repetitivo o inválido.", Alert.AlertType.ERROR);
+            return false;
+        }
+        if (unidad.getIdEstadoUnidad() == 2 && (unidad.getMotivo() == null || unidad.getMotivo().trim().length() < 5)) {
+            Utilidades.mostrarAlertaSimple("Error", "Debe ingresar un motivo válido (mínimo 5 caracteres).", Alert.AlertType.ERROR);
+            return false;
+        }
+        if (UnidadImp.obtenerUnidadesPorVin(unidad.getVin()) != null) {
+            Utilidades.mostrarAlertaSimple("Error", "Ya existe una unidad registrada con este VIN.", Alert.AlertType.ERROR);
+            return false;
+        }
+
         return true;
     }
 
