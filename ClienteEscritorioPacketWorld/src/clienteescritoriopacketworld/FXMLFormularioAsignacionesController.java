@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -44,6 +45,10 @@ public class FXMLFormularioAsignacionesController implements Initializable {
     private TextField tfColaborador;
     @FXML
     private TextField tfUnidad;
+    @FXML
+    private Label lbColaborador;
+    @FXML
+    private Label lbUnidad;
     
     ObservableList<Unidad> unidades;
     ObservableList<Colaborador> tiposDeConductores;
@@ -64,18 +69,25 @@ public class FXMLFormularioAsignacionesController implements Initializable {
     public void initializeValores(NotificadoOperacion observador, ConductoresAsignados conductorAsignadoEditado){
         this.conductorAsignadoEditado = conductorAsignadoEditado;
         this.observador = observador;
-        
+
         tfColaborador.setEditable(false);
         tfUnidad.setEditable(false);
-        
-        if(conductorAsignadoEditado!= null){
+
+        if(conductorAsignadoEditado != null){
             modoEdicion = true;
             llenarcampos();
             btnGuardar.setText("Editar");
+            tfColaborador.setVisible(true);
+            tfUnidad.setVisible(true);
         }else{
             validar();
+            lbColaborador.setVisible(false);
+            tfColaborador.setVisible(false);
+            lbUnidad.setVisible(false);
+            tfUnidad.setVisible(false);
         }
     }
+
 
     @FXML
     private void regresarPrincipal(MouseEvent event) {

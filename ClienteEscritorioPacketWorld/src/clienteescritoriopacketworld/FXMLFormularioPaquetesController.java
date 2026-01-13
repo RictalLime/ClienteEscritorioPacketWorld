@@ -158,24 +158,53 @@ public class FXMLFormularioPaquetesController implements Initializable {
             Utilidades.mostrarAlertaSimple("Error", "La descripción del paquete es obligatoria.", Alert.AlertType.ERROR);
             return false;
         }
+        if (paquete.getDescripcion().length() < 5 || paquete.getDescripcion().length() > 200) {
+            Utilidades.mostrarAlertaSimple("Error", "La descripción debe tener entre 5 y 200 caracteres.", Alert.AlertType.ERROR);
+            return false;
+        }
+        if (!paquete.getDescripcion().matches("^[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ\\s.,-]+$")) {
+            Utilidades.mostrarAlertaSimple("Error", "La descripción solo puede contener letras, números y signos básicos.", Alert.AlertType.ERROR);
+            return false;
+        }
         if (paquete.getPeso() <= 0) {
             Utilidades.mostrarAlertaSimple("Error", "El peso del paquete debe ser un valor positivo.", Alert.AlertType.ERROR);
+            return false;
+        }
+        if (paquete.getPeso() <= 0 || paquete.getPeso() > 1000) {
+            Utilidades.mostrarAlertaSimple("Error", "El peso debe ser mayor a 0 y menor a 1000 kg.", Alert.AlertType.ERROR);
             return false;
         }
         if (paquete.getAlto() <= 0) {
             Utilidades.mostrarAlertaSimple("Error", "La altura del paquete debe ser un valor positivo.", Alert.AlertType.ERROR);
             return false;
         }
+        if (paquete.getAlto() <= 0 || paquete.getAlto() > 200) {
+            Utilidades.mostrarAlertaSimple("Error", "La altura debe ser mayor a 0 y menor a 200 cm.", Alert.AlertType.ERROR);
+            return false;
+        }
         if (paquete.getAncho() <= 0) {
             Utilidades.mostrarAlertaSimple("Error", "El ancho del paquete debe ser un valor positivo.", Alert.AlertType.ERROR);
+            return false;
+        }
+        if (paquete.getAncho() <= 0 || paquete.getAncho() > 200) {
+            Utilidades.mostrarAlertaSimple("Error", "El ancho debe ser mayor a 0 y menor a 200 cm.", Alert.AlertType.ERROR);
             return false;
         }
         if (paquete.getProfundidad() <= 0) {
             Utilidades.mostrarAlertaSimple("Error", "La profundidad del paquete debe ser un valor positivo.", Alert.AlertType.ERROR);
             return false;
         }
+        if (paquete.getProfundidad() <= 0 || paquete.getProfundidad() > 200) {
+            Utilidades.mostrarAlertaSimple("Error", "La profundidad debe ser mayor a 0 y menor a 200 cm.", Alert.AlertType.ERROR);
+            return false;
+        }
         if (paquete.getIdEnvio() == null || paquete.getIdEnvio() <= 0) {
             Utilidades.mostrarAlertaSimple("Error", "Debe seleccionarse un envío válido para el paquete.", Alert.AlertType.ERROR);
+            return false;
+        }
+        Envio envioSel = cbEnvios.getSelectionModel().getSelectedItem();
+        if (envioSel != null && envioSel.getIdEstadoDeEnvio() == 4) {
+            Utilidades.mostrarAlertaSimple("Error", "No se pueden agregar paquetes a un envío cancelado.", Alert.AlertType.ERROR);
             return false;
         }
         return true;

@@ -388,6 +388,26 @@ public class FXMLFormularioEnviosController implements Initializable {
             Utilidades.mostrarAlertaSimple("Validación", "Debe seleccionar una sucursal.", Alert.AlertType.WARNING);
             return false;
         }
+        if (!envio.getDestinoCalle().matches("^[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ\\s]{1,100}$")) {
+            Utilidades.mostrarAlertaSimple("Validación", "La calle destino solo puede contener letras, números y espacios.", Alert.AlertType.WARNING);
+            return false;
+        }
+        if (!envio.getDestinoNumero().matches("\\d{1,10}")) {
+            Utilidades.mostrarAlertaSimple("Validación", "El número de casa destino debe contener solo dígitos (máx. 10).", Alert.AlertType.WARNING);
+            return false;
+        }
+        if (!envio.getDestinoCodigoPostal().matches("\\d{5}")) {
+            Utilidades.mostrarAlertaSimple("Validación", "El código postal destino debe tener exactamente 5 dígitos.", Alert.AlertType.WARNING);
+            return false;
+        }
+        if (envio.getIdCliente() == null || envio.getIdCliente() <= 0) {
+            Utilidades.mostrarAlertaSimple("Validación", "Debe seleccionar un cliente válido.", Alert.AlertType.WARNING);
+            return false;
+        }
+        if (envio.getIdColaborador() == null || envio.getIdColaborador() <= 0) {
+            Utilidades.mostrarAlertaSimple("Validación", "Debe seleccionar un conductor válido.", Alert.AlertType.WARNING);
+            return false;
+        }
         return true;
     }
     
