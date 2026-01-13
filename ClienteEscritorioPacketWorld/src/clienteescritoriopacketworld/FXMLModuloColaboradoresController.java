@@ -122,6 +122,7 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
             buscarColaborador(dato);
         }else{
             Utilidades.mostrarAlertaSimple("Error", "Campo de buscar Vacio", Alert.AlertType.ERROR);
+            cargarLaInformacion();
         }
     }
     

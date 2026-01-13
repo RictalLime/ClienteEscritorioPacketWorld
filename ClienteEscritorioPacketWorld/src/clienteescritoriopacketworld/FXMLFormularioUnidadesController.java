@@ -213,8 +213,10 @@ public class FXMLFormularioUnidadesController implements Initializable {
         }
         List<Unidad> unidades = UnidadImp.obtenerUnidadesPorVin(unidad.getVin());
         if (unidades != null && !unidades.isEmpty()) {
-            Utilidades.mostrarAlertaSimple("Error", "Ya existe una unidad registrada con este VIN.", Alert.AlertType.ERROR);
-            return false;
+            if (!modoEdicion || (modoEdicion && !unidades.get(0).getIdUnidad().equals(unidadEditada.getIdUnidad()))) {
+                Utilidades.mostrarAlertaSimple("Error", "Ya existe una unidad registrada con este VIN.", Alert.AlertType.ERROR);
+                return false;
+            }
         }
         if (unidad.getIdEstadoUnidad() == 2 && (unidad.getMotivo() == null || unidad.getMotivo().trim().length() < 5)) {
             Utilidades.mostrarAlertaSimple("Error", "Debe ingresar un motivo válido (mínimo 5 caracteres).", Alert.AlertType.ERROR);

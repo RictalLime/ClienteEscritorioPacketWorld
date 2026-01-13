@@ -177,6 +177,7 @@ public class FXMLModuloPaquetesController implements Initializable, NotificadoOp
             buscarPaquete(noGuia);
         }else{
             Utilidades.mostrarAlertaSimple("Error", "Campo de buscar Vacio", Alert.AlertType.ERROR);
+            cargarLaInformacion();
         }
     }
 

@@ -129,6 +129,7 @@ public class FXMLModuloUnidadesController implements Initializable, NotificadoOp
             buscarUnidad(dato);
         }else{
             Utilidades.mostrarAlertaSimple("Error", "Campo de buscar Vacio", Alert.AlertType.ERROR);
+            cargarLaInformacion();
         }
     }
     

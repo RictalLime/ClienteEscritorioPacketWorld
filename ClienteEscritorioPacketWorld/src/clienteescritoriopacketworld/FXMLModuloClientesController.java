@@ -128,6 +128,7 @@ public class FXMLModuloClientesController implements Initializable, NotificadoOp
             buscarCliente(dato);
         }else{
             Utilidades.mostrarAlertaSimple("Error", "Campo de buscar Vacio", Alert.AlertType.ERROR);
+            cargarLaInformacion();
         }
     }
     

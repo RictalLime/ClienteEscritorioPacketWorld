@@ -374,6 +374,10 @@ public class FXMLFormularioEnviosController implements Initializable {
             Utilidades.mostrarAlertaSimple("Validación", "Debe seleccionar un estado destino.", Alert.AlertType.WARNING);
             return false;
         }
+        if (envio.getDestinoColonia() == null || envio.getDestinoColonia().trim().isEmpty()) {
+            Utilidades.mostrarAlertaSimple("Validación", "El campo Colonia es obligatorio.", Alert.AlertType.WARNING);
+            return false;
+        }
         if (envio.getNoGuia() == null || envio.getNoGuia().trim().isEmpty()) {
             Utilidades.mostrarAlertaSimple("Validación", "El número de guía es obligatorio.", Alert.AlertType.WARNING);
             return false;
