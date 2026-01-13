@@ -167,16 +167,37 @@ public class FXMLFormularioColaboradoresController implements Initializable {
             Utilidades.mostrarAlertaSimple("Validación", "El campo Nombre es obligatorio.", Alert.AlertType.WARNING);
             return false;
         }
+        if (!colaborador.getNombre().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$")) {
+            Utilidades.mostrarAlertaSimple("Validación", "El nombre solo puede contener letras.", Alert.AlertType.WARNING);
+            return false;
+        }
         if (colaborador.getApellidoPaterno() == null || colaborador.getApellidoPaterno().trim().isEmpty()) {
             Utilidades.mostrarAlertaSimple("Validación", "El campo Apellido Paterno es obligatorio.", Alert.AlertType.WARNING);
+            return false;
+        }
+        if (!colaborador.getApellidoPaterno().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$")) {
+            Utilidades.mostrarAlertaSimple("Validación", "El apellido paterno solo puede contener letras.", Alert.AlertType.WARNING);
+            return false;
+        }
+        if (colaborador.getApellidoMaterno() == null || colaborador.getApellidoMaterno().trim().isEmpty()) {
+            Utilidades.mostrarAlertaSimple("Validación", "El campo Apellido Materno es obligatorio.", Alert.AlertType.WARNING);
             return false;
         }
         if (colaborador.getApellidoMaterno() != null && colaborador.getApellidoMaterno().trim().length() > 50) {
             Utilidades.mostrarAlertaSimple("Validación", "El Apellido Materno es obligatorio.", Alert.AlertType.WARNING);
             return false;
         }
+        if (colaborador.getApellidoMaterno() != null && !colaborador.getApellidoMaterno().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]*$")) {
+            Utilidades.mostrarAlertaSimple("Validación", "El apellido materno solo puede contener letras.", Alert.AlertType.WARNING);
+            return false;
+        }
         if (colaborador.getCurp() == null || colaborador.getCurp().length() != 18) {
             Utilidades.mostrarAlertaSimple("Validación", "La CURP debe tener exactamente 18 caracteres.", Alert.AlertType.WARNING);
+            return false;
+        }
+        // Solo mayúsculas y números
+        if (!colaborador.getCurp().matches("^[A-Z0-9]+$")) {
+            Utilidades.mostrarAlertaSimple("Validación", "La CURP solo puede contener letras en MAYÚSCULAS y números.", Alert.AlertType.WARNING);
             return false;
         }
         if (colaborador.getCorreo() == null || !colaborador.getCorreo().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
@@ -203,6 +224,7 @@ public class FXMLFormularioColaboradoresController implements Initializable {
             Utilidades.mostrarAlertaSimple("Validación", "Debe seleccionar una sucursal.", Alert.AlertType.WARNING);
             return false;
         }
+        
         return true;
     }
 

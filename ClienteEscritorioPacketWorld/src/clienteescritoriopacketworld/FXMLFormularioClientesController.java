@@ -177,14 +177,29 @@ public class FXMLFormularioClientesController implements Initializable {
             Utilidades.mostrarAlertaSimple("Error", "El nombre es obligatorio.", Alert.AlertType.ERROR);
             return false;
         }
+        
+        if (!cliente.getNombre().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$")) {
+            Utilidades.mostrarAlertaSimple("Error", "El nombre solo puede contener letras.", Alert.AlertType.ERROR);
+            return false;
+        }
 
         if (cliente.getApellidoPaterno() == null || cliente.getApellidoPaterno().trim().isEmpty() || cliente.getApellidoPaterno().length() > 50) {
             Utilidades.mostrarAlertaSimple("Error", "El apellido paterno es obligatorio.", Alert.AlertType.ERROR);
             return false;
         }
         
-        if (cliente.getApellidoMaterno() != null && cliente.getApellidoMaterno().length() > 50) {
-            Utilidades.mostrarAlertaSimple("Error", "El apellido materno no debe superar 50 caracteres.", Alert.AlertType.ERROR);
+        if (!cliente.getApellidoPaterno().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$")) {
+            Utilidades.mostrarAlertaSimple("Error", "El apellido paterno solo puede contener letras.", Alert.AlertType.ERROR);
+            return false;
+        }
+        
+        if (cliente.getApellidoMaterno() == null || cliente.getApellidoMaterno().trim().isEmpty() || cliente.getApellidoMaterno().length() > 50) {
+            Utilidades.mostrarAlertaSimple("Error", "El apellido paterno es obligatorio.", Alert.AlertType.ERROR);
+            return false;
+        }
+        
+        if (cliente.getApellidoMaterno() != null && !cliente.getApellidoMaterno().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]*$")) {
+            Utilidades.mostrarAlertaSimple("Error", "El apellido materno solo puede contener letras.", Alert.AlertType.ERROR);
             return false;
         }
 
@@ -227,7 +242,7 @@ public class FXMLFormularioClientesController implements Initializable {
             Utilidades.mostrarAlertaSimple("Error", "Debe ingresar un correo válido.", Alert.AlertType.ERROR);
             return false;
         }
-
+        
         return true;
     }
 

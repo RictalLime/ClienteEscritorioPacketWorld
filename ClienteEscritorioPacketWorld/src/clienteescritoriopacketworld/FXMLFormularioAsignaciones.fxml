@@ -8,8 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="clienteescritoriopacketworld.FXMLFormularioAsignacionesController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLFormularioAsignacionesController">
    <children>
       <Pane prefHeight="60.0" prefWidth="633.0" style="-fx-background-color: blue;">
          <children>
@@ -32,12 +31,12 @@
       </Label>
       <Label layoutX="169.0" layoutY="146.0" text="Conductor:" />
       <TextField fx:id="tfColaborador" layoutX="123.0" layoutY="163.0" promptText="Conductor" style="-fx-border-color: black;" />
-      <Label fx:id="lEstadoUnidad" layoutX="167.0" layoutY="218.0" text="Colaborador:" />
+      <Label fx:id="lEstadoUnidad" layoutX="167.0" layoutY="218.0" text="Conductores:" />
       <ComboBox fx:id="cbColaboradores" layoutX="123.0" layoutY="235.0" prefWidth="150.0" style="-fx-border-color: black;" />
       <Button fx:id="btnGuardar" layoutX="286.0" layoutY="290.0" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: blue;" text="Guardar" textFill="WHITE" />
       <TextField fx:id="tfUnidad" layoutX="354.0" layoutY="163.0" promptText="Vehiculo" style="-fx-border-color: black;" />
       <Label layoutX="406.0" layoutY="146.0" text="Vehiculo:" />
       <ComboBox fx:id="cbUnidades" layoutX="355.0" layoutY="235.0" prefWidth="150.0" style="-fx-border-color: black;" />
-      <Label layoutX="403.0" layoutY="218.0" text="Unidades:" />
+      <Label layoutX="403.0" layoutY="218.0" text="Vehiculos:" />
    </children>
 </AnchorPane>

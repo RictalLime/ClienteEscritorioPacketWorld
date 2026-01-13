@@ -39,13 +39,13 @@
       <TextField fx:id="tfApellidoMaterno" layoutX="438.0" layoutY="127.0" promptText="Apellido Materno" style="-fx-border-color: black;" />
       <TextField fx:id="tfTelefono" layoutX="47.0" layoutY="187.0" promptText="Telefono" style="-fx-border-color: black;" />
       <TextField fx:id="tfCorreo" layoutX="241.0" layoutY="187.0" promptText="Correo Electronico" style="-fx-border-color: black;" />
-      <TextField fx:id="tfNumero" layoutX="438.0" layoutY="187.0" promptText="Numero" style="-fx-border-color: black;" />
+      <TextField fx:id="tfNumero" layoutX="438.0" layoutY="296.0" promptText="Numero" style="-fx-border-color: black;" />
       <TextField fx:id="tfCodigoPostal" layoutX="242.0" layoutY="296.0" promptText="Codigo Postal" style="-fx-border-color: black;" />
       <Label layoutX="101.0" layoutY="110.0" text="Nombre:" />
       <Label layoutX="467.0" layoutY="110.0" text="Apellido Materno:" />
       <Label layoutX="101.0" layoutY="170.0" text="Telefono:" />
       <Label layoutX="266.0" layoutY="170.0" text="Correo Electronico:" />
-      <Label layoutX="492.0" layoutY="170.0" text="Numero:" />
+      <Label layoutX="489.0" layoutY="281.0" text="Numero:" />
       <Label layoutX="280.0" layoutY="281.0" text="Codigo Postal:" />
       <Label layoutX="491.0" layoutY="228.0" text="Colonia:" />
       <Label layoutX="103.0" layoutY="228.0" text="Estado:" />
