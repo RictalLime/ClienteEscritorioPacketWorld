@@ -120,22 +120,34 @@ public class FXMLFormularioSucursalesController implements Initializable {
             Utilidades.mostrarAlertaSimple("Validación", "El código de sucursal es obligatorio.", Alert.AlertType.WARNING);
             return false;
         }
-
+        if (!sucursal.getCodigoSucursal().matches("^[A-Za-z0-9]{1,10}$")) {
+            Utilidades.mostrarAlertaSimple("Validación", "El código de sucursal debe ser alfanumérico (máx. 10 caracteres).", Alert.AlertType.WARNING);
+            return false;
+        }
         if (sucursal.getNombre() == null || sucursal.getNombre().trim().isEmpty()) {
             Utilidades.mostrarAlertaSimple("Validación", "El campo Nombre es obligatorio.", Alert.AlertType.WARNING);
             return false;
         }
-
+        if (!sucursal.getNombre().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{1,50}$")) {
+            Utilidades.mostrarAlertaSimple("Validación", "El nombre solo puede contener letras y espacios (máx. 50).", Alert.AlertType.WARNING);
+            return false;
+        }
         if (sucursal.getCalle() == null || sucursal.getCalle().trim().isEmpty()) {
             Utilidades.mostrarAlertaSimple("Validación", "El campo Calle es obligatorio.", Alert.AlertType.WARNING);
             return false;
         }
-
+        if (!sucursal.getCalle().matches("^[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ\\s]{1,100}$")) {
+            Utilidades.mostrarAlertaSimple("Validación", "La calle solo puede contener letras, números y espacios (máx. 100).", Alert.AlertType.WARNING);
+            return false;
+        }
         if (sucursal.getNumero() == null || sucursal.getNumero().trim().isEmpty()) {
             Utilidades.mostrarAlertaSimple("Validación", "El campo Número es obligatorio.", Alert.AlertType.WARNING);
             return false;
         }
-
+        if (!sucursal.getNumero().matches("\\d{1,10}")) {
+            Utilidades.mostrarAlertaSimple("Validación", "El número debe contener solo dígitos (máx. 10).", Alert.AlertType.WARNING);
+            return false;
+        }
         if (sucursal.getColonia() == null || sucursal.getColonia().trim().isEmpty()) {
             Utilidades.mostrarAlertaSimple("Validación", "El campo Colonia es obligatorio.", Alert.AlertType.WARNING);
             return false;
@@ -150,12 +162,28 @@ public class FXMLFormularioSucursalesController implements Initializable {
             Utilidades.mostrarAlertaSimple("Validación", "El campo Estado es obligatorio.", Alert.AlertType.WARNING);
             return false;
         }
-
+        if (cbEstado.getSelectionModel().isEmpty()) {
+            Utilidades.mostrarAlertaSimple("Validación", "Debe seleccionar un estado.", Alert.AlertType.WARNING);
+            return false;
+        }
         if (sucursal.getIdCiudad() == null) {
             Utilidades.mostrarAlertaSimple("Validación", "El campo Ciudad es obligatorio.", Alert.AlertType.WARNING);
             return false;
         }
-
+        if (cbCiudad.getSelectionModel().isEmpty()) {
+            Utilidades.mostrarAlertaSimple("Validación", "Debe seleccionar una ciudad.", Alert.AlertType.WARNING);
+            return false;
+        }
+        if (sucursal.getEstatus() == null || 
+            !(sucursal.getEstatus().equalsIgnoreCase("activa") || sucursal.getEstatus().equalsIgnoreCase("inactiva"))) {
+             Utilidades.mostrarAlertaSimple("Validación", "El estatus debe ser 'activa' o 'inactiva'.", Alert.AlertType.WARNING);
+             return false;
+        }
+        int cp = Integer.parseInt(sucursal.getCodigoPostal());
+        if (cp < 1000 || cp > 99999) {
+            Utilidades.mostrarAlertaSimple("Validación", "El código postal debe estar dentro de un rango válido en México.", Alert.AlertType.WARNING);
+            return false;
+        }
         return true;
     }
 
