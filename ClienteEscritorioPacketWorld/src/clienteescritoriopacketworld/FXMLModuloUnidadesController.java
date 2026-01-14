@@ -35,61 +35,99 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Tron7
+ * @author b1nc0
  */
 public class FXMLModuloUnidadesController implements Initializable, NotificadoOperacion {
-    
+
     @FXML
     private ImageView imgRegresar;
     @FXML
-    private TextField tfBuscar;
-    @FXML
     private TableView<Unidad> tvTablaUnidades;
     @FXML
-    private TableColumn colMarca;
+    private TableColumn tcMarca;
     @FXML
-    private TableColumn colModelo;
+    private TableColumn tcModelo;
     @FXML
-    private TableColumn colAnio;
+    private TableColumn tcAnio;
     @FXML
-    private TableColumn colVin;
+    private TableColumn tcVin;
     @FXML
-    private TableColumn colTipoDeUnidad;
+    private TableColumn tcNii;
     @FXML
-    private TableColumn colNii;
+    private TextField tfBuscar;
     
+    private ObservableList<Unidad> listaUnidades;
+
     /**
      * Initializes the controller class.
      */
-    
-    private ObservableList<Unidad> unidades;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configurarTabla();
         cargarLaInformacion();
+        
+        // Listener para búsqueda en tiempo real
+        tfBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null || newValue.isEmpty()) {
+                tvTablaUnidades.setItems(listaUnidades);
+            } else {
+                filtrarUnidades(newValue);
+            }
+        });
     }    
     
+    private void configurarTabla(){
+        tcMarca.setCellValueFactory(new PropertyValueFactory("marca"));
+        tcModelo.setCellValueFactory(new PropertyValueFactory("modelo"));
+        tcAnio.setCellValueFactory(new PropertyValueFactory("anio"));
+        tcVin.setCellValueFactory(new PropertyValueFactory("vin"));
+        tcNii.setCellValueFactory(new PropertyValueFactory("nii"));
+    }
     
-    public void irPantallaPrincipal(){
-        try {
-            Stage escenarioBase = (Stage) imgRegresar.getScene().getWindow();
-                    
-            Parent principal = FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml"));
-            Scene escenaPrincipal = new Scene(principal);
-            escenarioBase.setScene(escenaPrincipal);
-            escenarioBase.setTitle("Packet World Principal");
-            escenarioBase.show();
-        } catch (IOException ex) {
-            // Logger.getLogger(FXMLInicioSesionController.class.getName()).log(Level.SEVERE, null, ex);
-            Utilidades.mostrarAlertaSimple("Error", "No podemos ir a la pantalla principal :(", Alert.AlertType.ERROR);
+    private void cargarLaInformacion(){
+        listaUnidades = FXCollections.observableArrayList();
+        UnidadImp unidadImp = new UnidadImp();
+        List<Unidad> lista = unidadImp.obtenerUnidades();
+        
+        if(lista != null){
+            listaUnidades.addAll(lista);
+            tvTablaUnidades.setItems(listaUnidades);
+        } else {
+             Utilidades.mostrarAlertaSimple("Error de conexión", "No se pudo recuperar la información de unidades.", Alert.AlertType.ERROR);
         }
+    }
+    
+    private void filtrarUnidades(String busqueda) {
+        ObservableList<Unidad> listaFiltrada = FXCollections.observableArrayList();
+        String filtro = busqueda.toLowerCase();
+
+        for (Unidad unidad : listaUnidades) {
+            // Verificamos VIN
+            String vin = unidad.getVin() != null ? unidad.getVin().toLowerCase() : "";
+            // Verificamos Marca
+            String marca = unidad.getMarca() != null ? unidad.getMarca().toLowerCase() : "";
+            // Verificamos NII
+            String nii = unidad.getNii() != null ? unidad.getNii().toLowerCase() : "";
+
+            // Si alguno coincide, se agrega
+            if (vin.contains(filtro) || marca.contains(filtro) || nii.contains(filtro)) {
+                listaFiltrada.add(unidad);
+            }
+        }
+        tvTablaUnidades.setItems(listaFiltrada);
     }
 
     @FXML
     private void regresarPrincipal(MouseEvent event) {
-        irPantallaPrincipal();
+        try {
+            Stage stage = (Stage) imgRegresar.getScene().getWindow();
+            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml")));
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLInicioSesionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
 
     @FXML
     private void irRegistrarUnidad(MouseEvent event) {
@@ -98,106 +136,35 @@ public class FXMLModuloUnidadesController implements Initializable, NotificadoOp
 
     @FXML
     private void irEditarUnidad(MouseEvent event) {
-        Unidad unidad = tvTablaUnidades.getSelectionModel().getSelectedItem();
-        if(unidad!= null){
+        int posicion = tvTablaUnidades.getSelectionModel().getSelectedIndex();
+        if(posicion != -1){
+            Unidad unidad = tvTablaUnidades.getItems().get(posicion);
             irAFormulario(this, unidad);
-        }else{
-            Utilidades.mostrarAlertaSimple("Error", "Selecciona una Unidad", Alert.AlertType.ERROR);
+        } else {
+            Utilidades.mostrarAlertaSimple("Selección requerida", "Debe seleccionar una unidad de la lista para editar.", Alert.AlertType.WARNING);
         }
     }
 
     @FXML
     private void irEliminarUnidad(MouseEvent event) {
-        Unidad unidad = tvTablaUnidades.getSelectionModel().getSelectedItem();
-        if (unidad != null) {
-            irAFormularioMotivo(this, unidad);
-        } else {
-            Utilidades.mostrarAlertaSimple("Error", "Selecciona una Unidad", Alert.AlertType.ERROR);
-        }
-    }
-
-    private void irAFormularioMotivo(NotificadoOperacion observador, Unidad unidad) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLFormularioMotivo.fxml"));
-            Parent root = loader.load();
-
-            FXMLFormularioMotivoController controlador = loader.getController();
-            controlador.initializeValores(observador, unidad);
-
-            Stage ecena = new Stage();
-            Scene ecenario = new Scene(root);
-            ecena.setScene(ecenario);
-            ecena.setTitle("Motivo de Baja");
-            ecena.initModality(Modality.APPLICATION_MODAL);
-            ecena.showAndWait();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLModuloUnidadesController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    @FXML
-    private void buscarUnidad(MouseEvent event) {
-        if(!tfBuscar.getText().isEmpty()){
-            String dato = tfBuscar.getText();
-            buscarUnidad(dato);
-        }else{
-            Utilidades.mostrarAlertaSimple("Error", "Campo de buscar Vacio", Alert.AlertType.ERROR);
-            cargarLaInformacion();
-        }
-    }
-    
-    private void configurarTabla() {
-        colMarca.setCellValueFactory(new PropertyValueFactory("marca"));
-        colModelo.setCellValueFactory(new PropertyValueFactory("modelo"));
-        colAnio.setCellValueFactory(new PropertyValueFactory("anio"));
-        colVin.setCellValueFactory(new PropertyValueFactory("vin"));
-        colTipoDeUnidad.setCellValueFactory(new PropertyValueFactory("tipoUnidad"));
-        colNii.setCellValueFactory(new PropertyValueFactory("nii"));
-    }
-
-    private void cargarLaInformacion() {
-        unidades = FXCollections.observableArrayList();
-        List<Unidad> lista = UnidadImp.obtenerUnidades();
-        if (lista != null) {
-            unidades.addAll(lista);
-            tvTablaUnidades.setItems(unidades);
-        }else{
-            Utilidades.mostrarAlertaSimple("ERROR", "Lo sentimos por el momento no se puede cargar la informacion"
-                    + "de las Unidades, por favor intentélo mas tarde", Alert.AlertType.ERROR);
-            cerrarVentana();
-        }
-    }
-    
-    private void cerrarVentana(){
-        ((Stage) tfBuscar.getScene().getWindow()).close();
-    }
-    
-    private void buscarUnidad(String dato) {
-        try {
-            unidades.clear();
-            tvTablaUnidades.setItems(unidades);
-            List<Unidad> lista = UnidadImp.obtenerUnidadesPorMarca(dato);
-            if (!lista.isEmpty()) {
-                unidades.addAll(lista);
-                tvTablaUnidades.setItems(unidades);
-            }else{
-                lista = UnidadImp.obtenerUnidadesPorNii(dato);
-                if (!lista.isEmpty()) {
-                    unidades.addAll(lista);
-                    tvTablaUnidades.setItems(unidades);
-                }else{
-                    lista = UnidadImp.obtenerUnidadesPorVin(dato);
-                    if(!lista.isEmpty()){
-                        unidades.addAll(lista);
-                        tvTablaUnidades.setItems(unidades);
-                    }else{
-                        Utilidades.mostrarAlertaSimple("Aviso", "No se encontro la(s) Unidades", Alert.AlertType.WARNING);
-                        cargarLaInformacion();
-                    }
+        int posicion = tvTablaUnidades.getSelectionModel().getSelectedIndex();
+        if(posicion != -1){
+            Unidad unidad = tvTablaUnidades.getItems().get(posicion);
+            boolean confirmar = Utilidades.mostrarAlertaConfirmacion("Eliminar Unidad", 
+                    "¿Está seguro de eliminar la unidad con VIN: " + unidad.getVin() + "?");
+            
+            if(confirmar){
+                UnidadImp unidadImp = new UnidadImp();
+                Mensaje msj = unidadImp.eliminarUnidad(unidad.getIdUnidad());
+                if(!msj.isError()){
+                    Utilidades.mostrarAlertaSimple("Éxito", msj.getMensaje(), Alert.AlertType.INFORMATION);
+                    cargarLaInformacion();
+                } else {
+                    Utilidades.mostrarAlertaSimple("Error", msj.getMensaje(), Alert.AlertType.ERROR);
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            Utilidades.mostrarAlertaSimple("Selección requerida", "Debe seleccionar una unidad de la lista para eliminar.", Alert.AlertType.WARNING);
         }
     }
     
@@ -216,13 +183,14 @@ public class FXMLModuloUnidadesController implements Initializable, NotificadoOp
             ecena.initModality(Modality.APPLICATION_MODAL);
             ecena.showAndWait();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLModuloColaboradoresController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLModuloUnidadesController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
     public void notificarOperacion(String tipo, String nombre) {
       cargarLaInformacion();
+      System.out.println("Operación: " + tipo + " realizada en unidad: " + nombre);
     }    
     
 }

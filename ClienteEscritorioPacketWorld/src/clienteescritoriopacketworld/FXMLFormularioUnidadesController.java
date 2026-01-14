@@ -26,264 +26,208 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author Tron7
+ * @author b1nc0
  */
 public class FXMLFormularioUnidadesController implements Initializable {
-    
+
     @FXML
-    private Button btnGuardar;
+    private ImageView imgRegresar;
     @FXML
     private TextField tfMarca;
     @FXML
     private TextField tfModelo;
     @FXML
-    private TextField tfNumeroIdentificacion;
-    @FXML
     private TextField tfVin;
-    @FXML
-    private ComboBox<TipoUnidad> cbTipoUnidad;
-    
-    /**
-     * Initializes the controller class.
-     */
-    
-    private NotificadoOperacion observador; 
-    private Unidad unidadEditada;
-    private boolean modoEdicion = false;
-    private HistorialDeBaja historial = null;
-    
-    ObservableList<TipoUnidad> tiposDeUnidades;
-    ObservableList<EstadoUnidad> tiposDeEstado;
-    
-    
-    @FXML
-    private TextField tfAnio;
-    @FXML
-    private Label lEstadoUnidad;
     @FXML
     private ComboBox<EstadoUnidad> cbEstadoUnidad;
     @FXML
-    private Label lMotivo;
+    private Label lEstadoUnidad;
+    @FXML
+    private TextField tfNumeroIdentificacion;
+    @FXML
+    private TextField tfAnio;
+    @FXML
+    private ComboBox<TipoUnidad> cbTipoUnidad;
     @FXML
     private TextField tfMotivo;
+    @FXML
+    private Label lMotivo;
+
+    private NotificadoOperacion observador;
+    private Unidad unidadEditada;
+    private boolean modoEdicion = false;
+    private ObservableList<TipoUnidad> tiposDeUnidad;
+    private ObservableList<EstadoUnidad> tiposDeEstado;
+    private HistorialDeBaja historial;
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        lEstadoUnidad.setVisible(false);
-        lMotivo.setVisible(false);
-        cbEstadoUnidad.setVisible(false);
-        tfMotivo.setVisible(false);
-        cargarTiposDeUnidad();
+        cargarTiposUnidad();
         cargarEstadoUnidad();
+        tfMotivo.setVisible(false);
+        lMotivo.setVisible(false);
+        cbEstadoUnidad.setDisable(true);
+        lEstadoUnidad.setVisible(false);
+        cbEstadoUnidad.setVisible(false);
+        
+        // Bloquear edición manual del NII, ya que es automático
+        tfNumeroIdentificacion.setEditable(false);
+        
+        // Listeners para generar NII en tiempo real
+        tfVin.textProperty().addListener((observable, oldValue, newValue) -> {
+            generarNII();
+        });
+        
+        tfAnio.textProperty().addListener((observable, oldValue, newValue) -> {
+            generarNII();
+        });
+    }    
+
+    public void initializeValores(NotificadoOperacion observador, Unidad unidadEditada) {
+        this.observador = observador;
+        this.unidadEditada = unidadEditada;
+        if (unidadEditada != null) {
+            modoEdicion = true;
+            cargarDatosEdicion();
+        }
     }
     
-    public void initializeValores(NotificadoOperacion observador, Unidad unidadEditada){
-        this.unidadEditada = unidadEditada;
-        this.observador = observador;
-        if(unidadEditada!= null){
-            modoEdicion = true;
-            agregarHistorial();
-            lEstadoUnidad.setVisible(true);
-            cbEstadoUnidad.setVisible(true);
-            llenarcampos();
-            btnGuardar.setText("Editar");
-             if(unidadEditada.getIdEstadoUnidad()==2){
-                lMotivo.setVisible(true);
-                tfMotivo.setVisible(true);
-                llenarMotivo();
+    private void cargarTiposUnidad() {
+        tiposDeUnidad = FXCollections.observableArrayList();
+        UnidadImp unidadImp = new UnidadImp();
+        // Corrección de nombre de método
+        List<TipoUnidad> lista = unidadImp.obtenerTiposUnidades();
+        if(lista != null){
+            tiposDeUnidad.addAll(lista);
+            cbTipoUnidad.setItems(tiposDeUnidad);
+        }
+    }
+
+    private void cargarDatosEdicion() {
+        cbEstadoUnidad.setDisable(false);
+        lEstadoUnidad.setVisible(true);
+        cbEstadoUnidad.setVisible(true);
+        
+        // Cargar tipos
+        int posicionTipo = buscarIdTipoUnidad(unidadEditada.getIdTipoUnidad());
+        cbTipoUnidad.getSelectionModel().select(posicionTipo);
+        
+        int posicionEstado = buscarIdEstadoUnidad(unidadEditada.getIdEstadoUnidad());
+        cbEstadoUnidad.getSelectionModel().select(posicionEstado);
+        
+        // Cargar campos de texto
+        tfMarca.setText(unidadEditada.getMarca());
+        tfModelo.setText(unidadEditada.getModelo());
+        tfAnio.setText(unidadEditada.getAnio());
+        tfVin.setText(unidadEditada.getVin());
+        
+        tfNumeroIdentificacion.setText(unidadEditada.getNii());
+    }
+
+    private int buscarIdTipoUnidad(Integer idTipoUnidad) {
+        for(int i = 0; i < tiposDeUnidad.size(); i++){
+            if(tiposDeUnidad.get(i).getIdTipoUnidad().equals(idTipoUnidad)){
+                return i;
             }
         }
+        return -1;
     }
 
     @FXML
     private void regresarPrincipal(MouseEvent event) {
         cerrarVentana();
     }
-    
+
     @FXML
-    private void onClickGuardar(ActionEvent event) {
-        Unidad unidad= new Unidad();
+    private void guardarDatos(ActionEvent event) {
+        if(tfMarca.getText().isEmpty() || tfModelo.getText().isEmpty() || tfAnio.getText().isEmpty() || tfVin.getText().isEmpty()){
+            Utilidades.mostrarAlertaSimple("Campos vacíos", "Por favor llene todos los campos", Alert.AlertType.WARNING);
+            return;
+        }
+        
+        // Validación de longitud del VIN (mínimo 4 caracteres para el NII)
+        if(tfVin.getText().length() < 4){
+             Utilidades.mostrarAlertaSimple("VIN inválido", "El VIN debe tener al menos 4 caracteres", Alert.AlertType.WARNING);
+             return;
+        }
+
+        Unidad unidad = new Unidad();
         unidad.setMarca(tfMarca.getText());
         unidad.setModelo(tfModelo.getText());
-        unidad.setVin(tfVin.getText());
-        unidad.setNii(tfNumeroIdentificacion.getText());
         unidad.setAnio(tfAnio.getText());
-        unidad.setIdTipoUnidad((cbTipoUnidad.getSelectionModel().getSelectedItem()!= null)?
-                cbTipoUnidad.getSelectionModel().getSelectedItem().getIdTipoUnidad(): -1);
-        unidad.setIdEstadoUnidad((cbEstadoUnidad.getSelectionModel().getSelectedItem()!= null)?
-                cbEstadoUnidad.getSelectionModel().getSelectedItem().getIdEstadoUnidad(): 1);
-        if(validarCampos(unidad)){
-            if(!modoEdicion){
-                guardarDatosUnidad(unidad);
-            }else{
-                unidad.setIdUnidad(unidadEditada.getIdUnidad());
-                if(unidad.getIdEstadoUnidad()==2){
-                    unidad.setMotivo(tfMotivo.getText());
-                }
-                editarUnidad(unidad);
-            }
-        }
-    }
-    
-    private void llenarcampos() {
-        tfMarca.setText(unidadEditada.getMarca());
-        tfModelo.setText(unidadEditada.getModelo());
-        tfVin.setText(unidadEditada.getVin());
-        tfVin.setEditable(false);
-        tfNumeroIdentificacion.setText(unidadEditada.getNii());
+        unidad.setVin(tfVin.getText());
+        unidad.setNii(tfNumeroIdentificacion.getText()); 
         
-        tfAnio.setText(unidadEditada.getAnio().substring(0, 4));
-        int poscicion = buscarIdTipoUnidad(unidadEditada.getIdTipoUnidad());
-        cbTipoUnidad.getSelectionModel().select(poscicion);
-        int pocicionUnidad = buscarIdEstadoUnidad(unidadEditada.getIdEstadoUnidad());
-        cbEstadoUnidad.getSelectionModel().select(pocicionUnidad);
-    }
-    
-    private int buscarIdTipoUnidad(int idTipoUnidad){
-        for(int i=0; i<tiposDeUnidades.size();i++){
-            if(tiposDeUnidades.get(i).getIdTipoUnidad() == idTipoUnidad){
-                return i;
-            }
+        if(cbTipoUnidad.getValue() != null){
+             unidad.setIdTipoUnidad(cbTipoUnidad.getValue().getIdTipoUnidad());
+        }else{
+            Utilidades.mostrarAlertaSimple("Selección requerida", "Seleccione un tipo de unidad", Alert.AlertType.WARNING);
+            return;
         }
-        return -1;
-    }
-     
-    private void cerrarVentana(){
-        Stage base = (Stage) tfModelo.getScene().getWindow();
-        base.close();
-    }
-     
-    private void cargarTiposDeUnidad(){
-        tiposDeUnidades = FXCollections.observableArrayList();
-        tiposDeUnidades.addAll(UnidadImp.obtenerTiposUnidades());  
-        cbTipoUnidad.setItems(tiposDeUnidades);
-    }
-    
-    private boolean validarCampos(Unidad unidad) {
-        if (unidad.getMarca() == null || unidad.getMarca().trim().isEmpty()) {
-            Utilidades.mostrarAlertaSimple("Error", "La marca es obligatoria.", Alert.AlertType.ERROR);
-            return false;
-        }
-        if (!unidad.getMarca().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{1,50}$")) {
-            Utilidades.mostrarAlertaSimple("Error", "La marca solo puede contener letras y espacios (máx. 50).", Alert.AlertType.ERROR);
-            return false;
-        }
-        if (unidad.getModelo() == null || unidad.getModelo().trim().isEmpty()) {
-            Utilidades.mostrarAlertaSimple("Error", "El modelo es obligatorio.", Alert.AlertType.ERROR);
-            return false;
-        }
-        if (!unidad.getModelo().matches("^[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ\\s-]{1,50}$")) {
-            Utilidades.mostrarAlertaSimple("Error", "El modelo solo puede contener letras, números y guiones (máx. 50).", Alert.AlertType.ERROR);
-            return false;
-        }
-        if (unidad.getAnio() == null || !unidad.getAnio().matches("\\d{4}")) {
-            Utilidades.mostrarAlertaSimple("Error", "El año debe ser un valor numérico de 4 dígitos.", Alert.AlertType.ERROR);
-            return false;
-        }
-        int anioInt = Integer.parseInt(unidad.getAnio());
-        int anioActual = java.time.Year.now().getValue();
-        if (anioInt < 1980 || anioInt > anioActual + 1) {
-            Utilidades.mostrarAlertaSimple("Error", "El año debe estar entre 1980 y " + (anioActual + 1) + ".", Alert.AlertType.ERROR);
-            return false;
-        }
-        if (unidad.getVin() == null || !unidad.getVin().matches("[A-HJ-NPR-Z0-9]{17}")) {
-            Utilidades.mostrarAlertaSimple("Error", "El VIN debe tener exactamente 17 caracteres alfanuméricos (sin las letras I, O, Q).", Alert.AlertType.ERROR);
-            return false;
-        }
-        if (unidad.getVin().matches("^(0{17}|[A-Z0-9])\\1{16}$")) {
-            Utilidades.mostrarAlertaSimple("Error", "El VIN no puede ser repetitivo o inválido.", Alert.AlertType.ERROR);
-            return false;
-        }
-        if (unidad.getNii() == null || !unidad.getNii().equals(generarNII(unidad))) {
-            Utilidades.mostrarAlertaSimple("", "El Número de Identificación Interno (NII) no coincide con el formato requerido (Año + primeros 4 caracteres del VIN).",Alert.AlertType.ERROR);
-            return false;
-        }
-        if (unidad.getIdTipoUnidad() == null || unidad.getIdTipoUnidad() < 0) {
-            Utilidades.mostrarAlertaSimple("Error", "Selecciona un Tipo De Unidad.", Alert.AlertType.ERROR);
-            return false;
-        }
-        if (unidad.getIdEstadoUnidad() == null || unidad.getIdEstadoUnidad() < 0) {
-            Utilidades.mostrarAlertaSimple("Error", "Selecciona un Estado de la unidad", Alert.AlertType.ERROR);
-            return false;
-        }
-        List<Unidad> unidades = UnidadImp.obtenerUnidadesPorVin(unidad.getVin());
-        if (unidades != null && !unidades.isEmpty()) {
-            if (!modoEdicion || (modoEdicion && !unidades.get(0).getIdUnidad().equals(unidadEditada.getIdUnidad()))) {
-                Utilidades.mostrarAlertaSimple("Error", "Ya existe una unidad registrada con este VIN.", Alert.AlertType.ERROR);
-                return false;
-            }
-        }
-        if (unidad.getIdEstadoUnidad() == 2 && (unidad.getMotivo() == null || unidad.getMotivo().trim().length() < 5)) {
-            Utilidades.mostrarAlertaSimple("Error", "Debe ingresar un motivo válido (mínimo 5 caracteres).", Alert.AlertType.ERROR);
-            return false;
-        }
-        return true;
-    }
+        
+        UnidadImp unidadImp = new UnidadImp();
 
-    private String generarNII(Unidad unidad) {
-        String anio = unidad.getAnio();
-        String vin = unidad.getVin();
-        if (anio != null && vin != null && vin.length() >= 4) {
-            return anio + vin.substring(0, 4);
-        }
-        return null;
-    }
-    
-    private void guardarDatosUnidad(Unidad unidad){
-        Mensaje msj = UnidadImp.agregarUnidad(unidad);
-        if(!msj.isError()){
-            Utilidades.mostrarAlertaSimple("Registro Exitoso", "Unidad: " + unidad.getMarca()+" Agregado", Alert.AlertType.INFORMATION);
-            observador.notificarOperacion("Guardar", unidad.getMarca());
-            cerrarVentana();
-        }else{
-            unidad = null;
-            Utilidades.mostrarAlertaSimple("Error", "No se puede Guardar la unidad", Alert.AlertType.ERROR);
-        }
-    }
-    
-    private void editarUnidad(Unidad unidad){
-        if(unidad.getIdEstadoUnidad()==2 && historial == null){
-            HistorialDeBaja baja = new HistorialDeBaja();
-            baja.setIdUnidad(unidad.getIdUnidad());
-            baja.setMotivo(unidad.getMotivo());
-            HistorialDeBajaImp.agregarHistorialDeBaja(baja);
-        }else{
-            if(unidad.getIdEstadoUnidad()==1 && historial != null){
-                HistorialDeBajaImp.eliminarHistorialDeBaja(historial.getIdHistorialDeBaja());
+        if(modoEdicion){
+            unidad.setIdUnidad(unidadEditada.getIdUnidad());
+            
+            // Estado
+            if(cbEstadoUnidad.getValue() != null){
+                unidad.setIdEstadoUnidad(cbEstadoUnidad.getValue().getIdEstadoUnidad());
+                
+                // Si es baja (id 2 segun lógica anterior), crear historial
+                if(cbEstadoUnidad.getValue().getIdEstadoUnidad() == 2 && !tfMotivo.getText().isEmpty()){
+                    agregarHistorial();
+                }
+            } else {
+                 unidad.setIdEstadoUnidad(unidadEditada.getIdEstadoUnidad());
             }
-        }
-        if(unidad.getIdEstadoUnidad()==2 && historial != null){
-            HistorialDeBaja baja = new HistorialDeBaja();
-            baja.setIdUnidad(unidad.getIdUnidad());
-            baja.setMotivo(unidad.getMotivo());
-            baja.setIdHistorialDeBaja(historial.getIdHistorialDeBaja());
-            HistorialDeBajaImp.editarHistorialDeBaja(baja);
-        }
-        Mensaje msj = UnidadImp.EditarUnidad(unidad);
-        if(!msj.isError()){
-            Utilidades.mostrarAlertaSimple("Editar", "Unidad editada correctamente", Alert.AlertType.INFORMATION);
-            observador.notificarOperacion("Guardar", unidad.getMarca());
-            cerrarVentana();
+
+            // Corrección: editarUnidad (minúscula)
+            Mensaje msj = unidadImp.EditarUnidad(unidad);
+            if(!msj.isError()){
+                Utilidades.mostrarAlertaSimple("Éxito", "Unidad editada correctamente", Alert.AlertType.INFORMATION);
+                if(observador != null) observador.notificarOperacion("Actualizar", unidad.getMarca());
+                cerrarVentana();
+            }else{
+                Utilidades.mostrarAlertaSimple("Error", msj.getMensaje(), Alert.AlertType.ERROR);
+            }
         }else{
-            unidad = null;
-            Utilidades.mostrarAlertaSimple("Error", "No se pudo editar la unidad", Alert.AlertType.ERROR);
+            // Corrección: registrarUnidad (nombre estándar)
+            Mensaje msj = unidadImp.agregarUnidad(unidad);
+            if(!msj.isError()){
+                Utilidades.mostrarAlertaSimple("Éxito", msj.getMensaje(), Alert.AlertType.INFORMATION);
+                if(observador != null) observador.notificarOperacion("Registrar", unidad.getMarca());
+                cerrarVentana();
+            }else{
+                Utilidades.mostrarAlertaSimple("Error", msj.getMensaje(), Alert.AlertType.ERROR);
+            }
         }
     }
 
     private void cargarEstadoUnidad() {
         tiposDeEstado = FXCollections.observableArrayList();
-        tiposDeEstado.addAll(UnidadImp.obtenerTiposDeEstados());  
-        cbEstadoUnidad.setItems(tiposDeEstado);
+        UnidadImp unidadImp = new UnidadImp();
+        // Corrección de nombre de método
+        List<EstadoUnidad> lista = unidadImp.obtenerTiposDeEstados();
+        if(lista != null){
+            tiposDeEstado.addAll(lista);  
+            cbEstadoUnidad.setItems(tiposDeEstado);
+        }
     }
 
     private int buscarIdEstadoUnidad(Integer idEstadoUnidad) {
         for(int i=0; i<tiposDeEstado.size();i++){
-            if(tiposDeEstado.get(i).getIdEstadoUnidad()== idEstadoUnidad){
+            if(tiposDeEstado.get(i).getIdEstadoUnidad().equals(idEstadoUnidad)){
                 return i;
             }
         }
@@ -292,20 +236,44 @@ public class FXMLFormularioUnidadesController implements Initializable {
 
     @FXML
     private void detectarEstado(ActionEvent event) {
-        if(cbEstadoUnidad.getSelectionModel().getSelectedItem().getIdEstadoUnidad()==2){
-            lMotivo.setVisible(true);
-            tfMotivo.setVisible(true);
-        }else{
-            lMotivo.setVisible(false);
-            tfMotivo.setVisible(false);
+        if(cbEstadoUnidad.getSelectionModel().getSelectedItem() != null){
+             if(cbEstadoUnidad.getSelectionModel().getSelectedItem().getIdEstadoUnidad() == 2){ // 2 = Baja
+                lMotivo.setVisible(true);
+                tfMotivo.setVisible(true);
+            }else{
+                lMotivo.setVisible(false);
+                tfMotivo.setVisible(false);
+            }
         }
     }
     
     private void agregarHistorial(){
-        historial = HistorialDeBajaImp.obtenerHistorialPorIdUnidad(unidadEditada.getIdUnidad());
+        historial = new HistorialDeBaja();
+        historial.setMotivo(tfMotivo.getText());
+        historial.setIdUnidad(unidadEditada.getIdUnidad());
+        
+        HistorialDeBajaImp historialImp = new HistorialDeBajaImp();
+        // Corrección: registrarBaja
+        Mensaje msj = historialImp.agregarHistorialDeBaja(historial);
     }
-
-    private void llenarMotivo() {
-        tfMotivo.setText(historial.getMotivo());
+    
+    private void cerrarVentana() {
+        Stage stage = (Stage) tfMarca.getScene().getWindow();
+        stage.close();
+    }
+    
+    /**
+     * Genera el Número de Identificación Interno (NII)
+     * Formato: Año + Primeros 4 caracteres del VIN
+     */
+    private void generarNII() {
+        String anio = tfAnio.getText();
+        String vin = tfVin.getText();
+        
+        // Solo generamos si tenemos datos suficientes
+        if (anio != null && !anio.isEmpty() && vin != null && vin.length() >= 4) {
+            String nii = anio + vin.substring(0, 4).toUpperCase();
+            tfNumeroIdentificacion.setText(nii);
+        }
     }
 }

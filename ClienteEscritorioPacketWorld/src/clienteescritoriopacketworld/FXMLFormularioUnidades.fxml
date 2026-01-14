@@ -22,29 +22,29 @@
                   <Image url="@recursos/arrow_back.png" />
                </image>
             </ImageView>
+            <Label layoutX="80.0" layoutY="16.0" text="Unidades" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
-      <Label layoutX="226.0" layoutY="74.0" text="Formulario Unidad">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="298.0" layoutY="126.0" text="Marca:" />
-      <TextField fx:id="tfMarca" layoutX="241.0" layoutY="143.0" promptText="Marca" style="-fx-border-color: black;" />
-      <Label layoutX="111.0" layoutY="126.0" text="Modelo:" />
-      <TextField fx:id="tfModelo" layoutX="58.0" layoutY="143.0" promptText="Modelo" style="-fx-border-color: black;" />
-      <Label layoutX="121.0" layoutY="192.0" text="VIN:" />
-      <TextField fx:id="tfVin" layoutX="58.0" layoutY="209.0" prefHeight="25.0" prefWidth="150.0" promptText="VIN (17 caracteres, sin las letras I, O, Q)" style="-fx-border-color: black;" />
-      <ComboBox fx:id="cbEstadoUnidad" layoutX="144.0" layoutY="272.0" onAction="#detectarEstado" prefWidth="150.0" style="-fx-border-color: black;" />
+      <TextField fx:id="tfMarca" layoutX="23.0" layoutY="143.0" prefHeight="25.0" prefWidth="180.0" promptText="Marca de la unidad" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: gray;" />
+      <Label layoutX="23.0" layoutY="126.0" text="Marca:" />
+      <Label layoutX="241.0" layoutY="126.0" text="Modelo:" />
+      <TextField fx:id="tfModelo" layoutX="227.0" layoutY="143.0" prefHeight="25.0" prefWidth="180.0" promptText="Modelo de la unidad" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: gray;" />
+      <Label layoutX="23.0" layoutY="192.0" text="Número de identificación vehicular (VIN):" />
+      <TextField fx:id="tfVin" layoutX="23.0" layoutY="209.0" prefHeight="25.0" prefWidth="180.0" promptText="VIN (Excluir letras I, O, Q)" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: gray;" />
+      <ComboBox fx:id="cbEstadoUnidad" layoutX="144.0" layoutY="272.0" onAction="#detectarEstado" prefWidth="150.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: white; -fx-border-color: gray;" />
       <Label fx:id="lEstadoUnidad" layoutX="164.0" layoutY="251.0" text="Estado de la Unidad:" />
       <Label layoutX="227.0" layoutY="192.0" text="Numero de identificacion interno:" />
-      <TextField fx:id="tfNumeroIdentificacion" layoutX="241.0" layoutY="209.0" prefHeight="25.0" prefWidth="150.0" promptText="NII (Año + primeros 4 caracteres del VIN)" style="-fx-border-color: black;" />
+      <TextField fx:id="tfNumeroIdentificacion" layoutX="241.0" layoutY="209.0" prefHeight="25.0" prefWidth="150.0" promptText="NII (Automático)" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: gray;" />
       <Label layoutX="506.0" layoutY="126.0" text="Año:" />
-      <TextField fx:id="tfAnio" layoutX="433.0" layoutY="143.0" prefHeight="25.0" prefWidth="170.0" promptText="Año (valor numérico de 4 dígitos)" style="-fx-border-color: black;" />
-      <ComboBox fx:id="cbTipoUnidad" layoutX="437.0" layoutY="209.0" prefWidth="150.0" style="-fx-border-color: black;" />
-      <Label layoutX="470.0" layoutY="192.0" text="Tipo de unidad:" />
-      <Label fx:id="lMotivo" layoutX="405.0" layoutY="251.0" text="Motivo:" />
-      <TextField fx:id="tfMotivo" layoutX="350.0" layoutY="272.0" promptText="Escribe el motivo de la baja del vehículo" style="-fx-border-color: black;" />
-      <Button fx:id="btnGuardar" layoutX="291.0" layoutY="332.0" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: blue;" text="Guardar" textFill="WHITE" />
+      <TextField fx:id="tfAnio" layoutX="433.0" layoutY="143.0" prefHeight="25.0" prefWidth="170.0" promptText="Año" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: gray;" />
+      <ComboBox fx:id="cbTipoUnidad" layoutX="437.0" layoutY="209.0" prefWidth="150.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: white; -fx-border-color: gray;" />
+      <Label layoutX="469.0" layoutY="192.0" text="Tipo de Unidad:" />
+      <Button layoutX="492.0" layoutY="324.0" mnemonicParsing="false" onAction="#guardarDatos" prefHeight="31.0" prefWidth="95.0" style="-fx-background-color: blue; -fx-background-radius: 20;" text="Guardar" textFill="WHITE" />
+      <TextField fx:id="tfMotivo" layoutX="325.0" layoutY="272.0" prefHeight="25.0" prefWidth="252.0" promptText="Motivo de baja" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: gray;" />
+      <Label fx:id="lMotivo" layoutX="413.0" layoutY="251.0" text="Motivo:" />
    </children>
 </AnchorPane>

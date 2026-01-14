@@ -22,24 +22,23 @@
                   <Image url="@recursos/arrow_back.png" />
                </image>
             </ImageView>
+            <Label layoutX="80.0" layoutY="16.0" text="Colaboradores" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
-      <Label layoutX="204.0" layoutY="68.0" text="Formulario Colaborador">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="271.0" layoutY="106.0" text="Apellido Paterno:" />
-      <TextField fx:id="tfApellidoPaterno" layoutX="242.0" layoutY="123.0" promptText="Apellido Paterno" style="-fx-border-color: black;" />
-      <Label fx:id="lEstadoUnidad" layoutX="496.0" layoutY="232.0" text="Rol:" />
-      <ComboBox fx:id="cbRol" layoutX="431.0" layoutY="249.0" onAction="#oyenteDelRol" prefWidth="150.0" style="-fx-border-color: black;" />
-      <Button fx:id="btnGuardar" layoutX="287.0" layoutY="301.0" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: blue;" text="Guardar" textFill="WHITE" />
-      <TextField fx:id="tfNombre" layoutX="53.0" layoutY="123.0" promptText="Nombre" style="-fx-border-color: black;" />
-      <TextField fx:id="tfApellidoMaterno" layoutX="430.0" layoutY="123.0" promptText="Apellido Materno" style="-fx-border-color: black;" />
-      <TextField fx:id="tfCurp" layoutX="53.0" layoutY="187.0" promptText="CURP" style="-fx-border-color: black;" />
-      <TextField fx:id="tfCorreo" layoutX="242.0" layoutY="187.0" promptText="Correo" style="-fx-border-color: black;" />
-      <TextField fx:id="tfNumeroPersonal" layoutX="430.0" layoutY="187.0" promptText="Num. De Personal" style="-fx-border-color: black;" />
-      <TextField fx:id="tfNoLicencia" layoutX="53.0" layoutY="249.0" promptText="No. Licencia" style="-fx-border-color: black;" />
+      <TextField fx:id="tfNombre" layoutX="104.0" layoutY="123.0" promptText="Nombre" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: gray;" />
+      <TextField fx:id="tfApellidoPaterno" layoutX="282.0" layoutY="123.0" promptText="Apellido Paterno" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: gray;" />
+      <TextField fx:id="tfApellidoMaterno" layoutX="458.0" layoutY="123.0" promptText="Apellido Materno" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: gray;" />
+      <TextField fx:id="tfCURP" layoutX="104.0" layoutY="187.0" promptText="CURP" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: gray;" />
+      <TextField fx:id="tfCorreo" layoutX="269.0" layoutY="187.0" prefHeight="31.0" prefWidth="175.0" promptText="Correo Electronico" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: gray;" />
+      <TextField fx:id="tfNoPersonal" layoutX="459.0" layoutY="187.0" prefHeight="25.0" prefWidth="149.0" promptText="No. Personal" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: gray;" />
+      <ComboBox fx:id="cbRol" layoutX="255.0" layoutY="73.0" onAction="#habilitarCampos" prefWidth="150.0" promptText="Seleccionar Rol" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: white; -fx-border-color: gray;" />
+      <PasswordField fx:id="tfPassword" layoutX="282.0" layoutY="249.0" promptText="Contraseña" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: gray;" />
+      <ComboBox fx:id="cbSucursal" layoutX="443.0" layoutY="249.0" prefHeight="31.0" prefWidth="165.0" promptText="Seleccionar Sucursal" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: white; -fx-border-color: gray;" />
+      <TextField fx:id="tfNoLicencia" layoutX="53.0" layoutY="249.0" promptText="No. Licencia" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: gray;" />
       <ImageView fx:id="imgFotografia" fitHeight="60.0" fitWidth="53.0" layoutX="100.0" layoutY="296.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@recursos/background_replace.png" />
@@ -52,10 +51,9 @@
       <Label layoutX="458.0" layoutY="170.0" text="Numero Personal:" />
       <Label layoutX="285.0" layoutY="232.0" text="Contraseña:" />
       <Label fx:id="lNoLicencia" layoutX="87.0" layoutY="232.0" text="No. Licencia:" />
-      <Button fx:id="btnSeleccionarFoto" layoutX="74.0" layoutY="349.0" mnemonicParsing="false" onAction="#selecionarFoto" style="-fx-background-color: gray;" text="Seleccionar Foto" />
-      <PasswordField fx:id="pfContrasena" layoutX="242.0" layoutY="249.0" promptText="*****" style="-fx-border-color: black;" />
-      <Label fx:id="lFoto" layoutX="114.0" layoutY="279.0" text="Foto" />
-      <Label layoutX="485.0" layoutY="288.0" text="Sucursal" />
-      <ComboBox fx:id="cbSucursal" layoutX="431.0" layoutY="310.0" prefWidth="150.0" style="-fx-border-color: black;" />
+      <Button fx:id="btnSeleccionarFoto" layoutX="74.0" layoutY="349.0" mnemonicParsing="false" onAction="#seleccionarFoto" style="-fx-background-color: transparent; -fx-text-fill: blue; -fx-border-color: blue;" text="Seleccionar foto" />
+      <Button fx:id="btnGuardar" layoutX="483.0" layoutY="334.0" mnemonicParsing="false" onAction="#guardarDatos" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 20; -fx-background-color: blue;" text="Guardar" textFill="WHITE" />
+      <Label layoutX="282.0" layoutY="106.0" text="Apellido Paterno:" />
+      <Label layoutX="453.0" layoutY="232.0" text="Sucursal:" />
    </children>
 </AnchorPane>

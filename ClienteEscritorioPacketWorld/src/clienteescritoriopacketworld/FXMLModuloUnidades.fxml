@@ -22,24 +22,27 @@
                   <Image url="@recursos/arrow_back.png" />
                </image>
             </ImageView>
+            <Label layoutX="80.0" layoutY="16.0" text="Unidades" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
-      <ImageView fx:id="imgBuscar" fitHeight="33.0" fitWidth="28.0" layoutX="254.0" layoutY="147.0" onMouseClicked="#buscarUnidad" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@recursos/search_black.png" />
-         </image>
-      </ImageView>
-      <TableView fx:id="tvTablaUnidades" layoutX="23.0" layoutY="186.0" prefHeight="200.0" prefWidth="579.0" style="-fx-border-color: blue;">
-        <columns>
-          <TableColumn fx:id="colMarca" prefWidth="72.0" text="Marca" />
-            <TableColumn fx:id="colModelo" text="Modelo" />
-            <TableColumn fx:id="colAnio" prefWidth="44.0" text="Año" />
-            <TableColumn fx:id="colVin" prefWidth="164.0" text="VIN" />
-            <TableColumn fx:id="colTipoDeUnidad" prefWidth="135.0" text="Tipo Unidad" />
-            <TableColumn fx:id="colNii" prefWidth="82.0" text="NII" />
-        </columns>
-      </TableView>
-      <Pane layoutX="350.0" layoutY="114.0" prefHeight="53.0" prefWidth="53.0" style="-fx-border-color: blue;">
+      
+      <!-- Buscador Estilizado -->
+      <Pane layoutX="23.0" layoutY="114.0" prefHeight="53.0" prefWidth="328.0" style="-fx-background-color: D9D9D9; -fx-background-radius: 15;">
+         <children>
+            <TextField fx:id="tfBuscar" layoutX="53.0" layoutY="11.0" prefHeight="31.0" prefWidth="261.0" promptText="Buscar unidad (VIN, Marca, NII)" style="-fx-background-color: transparent; -fx-background-radius: 30; -fx-border-radius: 30;" />
+            <ImageView fitHeight="30.0" fitWidth="36.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/search_black.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+
+      <Pane layoutX="359.0" layoutY="114.0" prefHeight="53.0" prefWidth="64.0" style="-fx-border-color: blue;">
          <children>
             <ImageView fitHeight="43.0" fitWidth="53.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#irRegistrarUnidad" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -66,11 +69,14 @@
             </ImageView>
          </children>
       </Pane>
-      <Label layoutX="23.0" layoutY="99.0" text="Unidades Vehiculares" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfBuscar" layoutX="23.0" layoutY="147.0" prefHeight="27.0" prefWidth="231.0" promptText="busca tu Unidad por VIN, Marca o NII" style="-fx-border-color: blue;" />
+      <TableView fx:id="tvTablaUnidades" layoutX="23.0" layoutY="186.0" prefHeight="200.0" prefWidth="585.0">
+        <columns>
+          <TableColumn fx:id="tcMarca" prefWidth="128.0" text="Marca" />
+          <TableColumn fx:id="tcModelo" prefWidth="117.0" text="Modelo" />
+            <TableColumn fx:id="tcAnio" prefWidth="89.0" text="Año" />
+            <TableColumn fx:id="tcVin" prefWidth="154.0" text="VIN" />
+            <TableColumn fx:id="tcNii" prefWidth="96.0" text="NII" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

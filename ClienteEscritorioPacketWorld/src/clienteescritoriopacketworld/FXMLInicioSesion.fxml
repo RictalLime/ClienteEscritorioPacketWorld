@@ -15,14 +15,14 @@
             <Image url="@recursos/Packet%20World%20logo.png" />
          </image>
       </ImageView>
-      <Pane layoutX="36.0" layoutY="136.0" prefHeight="250.0" prefWidth="403.0" style="-fx-background-color: blue;">
+      <Pane layoutX="36.0" layoutY="136.0" prefHeight="250.0" prefWidth="403.0" style="-fx-background-color: blue; -fx-background-radius: 20;">
          <children>
-            <Pane layoutX="7.0" layoutY="7.0" prefHeight="236.0" prefWidth="388.0" style="-fx-background-color: white;">
+            <Pane layoutX="2.0" layoutY="2.0" prefHeight="246.0" prefWidth="399.0" style="-fx-background-color: white; -fx-background-radius: 18;">
                <children>
                   <TextField fx:id="tfNumeroPersonal" layoutX="68.0" layoutY="56.0" prefHeight="25.0" prefWidth="253.0" promptText="Num. Personal" style="-fx-border-color: blue;" />
                   <Label layoutX="74.0" layoutY="39.0" text="Numero Personal" />
                   <Label layoutX="74.0" layoutY="101.0" text="Contraseña" />
-                  <Button layoutX="134.0" layoutY="185.0" mnemonicParsing="false" onAction="#btnIniciarSesion" style="-fx-background-color: blue;" text="Iniciar Sesion" textFill="WHITE">
+                  <Button layoutX="134.0" layoutY="185.0" mnemonicParsing="false" onAction="#btnIniciarSesion" style="-fx-background-color: blue; -fx-background-radius: 10;" text="Iniciar Sesion" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>

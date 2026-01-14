@@ -36,20 +36,16 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Tron7
+ * @author b1nc0
  */
 public class FXMLModuloColaboradoresController implements Initializable, NotificadoOperacion {
-    
-    private ObservableList<Colaborador> colaboradores;
 
     @FXML
     private ImageView imgRegresar;
     @FXML
     private TextField tfBuscar;
     @FXML
-    private TableView<Colaborador> tvTablaColaboradores;
-    @FXML
-    private TableColumn colNoPersonal;
+    private TableView<Colaborador> tvColaboradores;
     @FXML
     private TableColumn colNombre;
     @FXML
@@ -57,152 +53,128 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
     @FXML
     private TableColumn colApellidoMaterno;
     @FXML
+    private TableColumn colNoPersonal;
+    @FXML
+    private TableColumn colCURP;
+    @FXML
     private TableColumn colCorreo;
     @FXML
     private TableColumn colRol;
-    @FXML
-    private TableColumn colCurp;
-    
+
+    private ObservableList<Colaborador> listaColaboradores;
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configurarTabla();
         cargarLaInformacion();
+        
+        // Listener para la busqueda en tiempo real
+        tfBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null || newValue.isEmpty()) {
+                tvColaboradores.setItems(listaColaboradores);
+            } else {
+                filtrarColaboradores(newValue);
+            }
+        });
+    }    
+    
+    private void configurarTabla(){
+        colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
+        colApellidoPaterno.setCellValueFactory(new PropertyValueFactory("apellidoPaterno"));
+        colApellidoMaterno.setCellValueFactory(new PropertyValueFactory("apellidoMaterno"));
+        colNoPersonal.setCellValueFactory(new PropertyValueFactory("noPersonal"));
+        colCURP.setCellValueFactory(new PropertyValueFactory("curp"));
+        colCorreo.setCellValueFactory(new PropertyValueFactory("correo"));
+        colRol.setCellValueFactory(new PropertyValueFactory("rol"));
     }
     
-    private void configurarTabla() {
-           colNoPersonal.setCellValueFactory(new PropertyValueFactory("noPersonal"));
-           colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
-           colApellidoPaterno.setCellValueFactory(new PropertyValueFactory("apellidoPaterno"));
-           colApellidoMaterno.setCellValueFactory(new PropertyValueFactory("apellidoMaterno"));
-           colCorreo.setCellValueFactory(new PropertyValueFactory("correo"));
-           colRol.setCellValueFactory(new PropertyValueFactory("rol"));
-           colCurp.setCellValueFactory(new PropertyValueFactory("curp"));
-    }
-    
-    private void cargarLaInformacion() {
-           colaboradores = FXCollections.observableArrayList();
-           List<Colaborador> lista = ColaboradorImp.obtenerColaboradores();
-           if (lista != null) {
-               colaboradores.addAll(lista);
-               tvTablaColaboradores.setItems(colaboradores);
-           }else{
-               Utilidades.mostrarAlertaSimple("ERROR", "Lo sentimos por el momento no se puede cargar la informacion"
-                       + "de los Colaboradores, por favor intentélo más tarde", Alert.AlertType.ERROR);
-               cerrarVentana();
-           }
-
-    }
-    
-    private void cerrarVentana(){
-        ((Stage) tfBuscar.getScene().getWindow()).close();
-    }
-    
-    public void irPantallaPrincipal(){
-        try {
-            Stage escenarioBase = (Stage) imgRegresar.getScene().getWindow();
-            Parent principal = FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml"));
-            Scene escenaPrincipal = new Scene(principal);
-            escenarioBase.setScene(escenaPrincipal);
-            escenarioBase.setTitle("Packet World Principal");
-            escenarioBase.show();
-        } catch (IOException ex) {
-            Utilidades.mostrarAlertaSimple("Error", "No podemos ir a la pantalla principal :(", Alert.AlertType.ERROR);
+    private void cargarLaInformacion(){
+        listaColaboradores = FXCollections.observableArrayList();
+        ColaboradorImp colaboradorImp = new ColaboradorImp();
+        List<Colaborador> lista = colaboradorImp.obtenerColaboradores();
+        
+        if(lista != null){
+            listaColaboradores.addAll(lista);
+            tvColaboradores.setItems(listaColaboradores);
+        } else {
+            Utilidades.mostrarAlertaSimple("Error al cargar", 
+                "No se pudo cargar la lista de colaboradores", 
+                Alert.AlertType.ERROR);
         }
+    }
+    
+    // Metodo para realizar el filtrado de busqueda
+    private void filtrarColaboradores(String busqueda) {
+        ObservableList<Colaborador> listaFiltrada = FXCollections.observableArrayList();
+        String filtro = busqueda.toLowerCase();
+
+        for (Colaborador colaborador : listaColaboradores) {
+            // Verificamos nombre
+            String nombre = colaborador.getNombre() != null ? colaborador.getNombre().toLowerCase() : "";
+            // Verificamos numero de personal
+            String noPersonal = colaborador.getNoPersonal() != null ? colaborador.getNoPersonal().toLowerCase() : "";
+            // Verificamos rol
+            String rol = colaborador.getRol() != null ? colaborador.getRol().toLowerCase() : "";
+
+            // Si alguno contiene el texto de busqueda, se agrega a la lista
+            if (nombre.contains(filtro) || noPersonal.contains(filtro) || rol.contains(filtro)) {
+                listaFiltrada.add(colaborador);
+            }
+        }
+        tvColaboradores.setItems(listaFiltrada);
     }
 
     @FXML
     private void regresarPrincipal(MouseEvent event) {
-        irPantallaPrincipal();
-    }
-
-    @FXML
-    private void irBuscar(MouseEvent event) {
-        if(!tfBuscar.getText().isEmpty()){
-            String dato = tfBuscar.getText();
-            buscarColaborador(dato);
-        }else{
-            Utilidades.mostrarAlertaSimple("Error", "Campo de buscar Vacio", Alert.AlertType.ERROR);
-            cargarLaInformacion();
+         try {
+            Stage stage = (Stage) imgRegresar.getScene().getWindow();
+            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml")));
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLInicioSesionController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @FXML
     private void irRegistrarColaboradors(MouseEvent event) {
         irAFormulario(this, null);
     }
-    
-    // --- MÉTODO MODIFICADO CON LÓGICA DE SEGURIDAD ---
-    @FXML
-    private void irEliminarColaborador(MouseEvent event) {
-        Colaborador colaboradorSeleccionado = tvTablaColaboradores.getSelectionModel().getSelectedItem();
-        
-        if(colaboradorSeleccionado != null){
-            
-            // 1. Confirmación de seguridad
-            boolean confirmar = Utilidades.mostrarAlertaConfirmacion("Eliminar Colaborador", 
-                    "¿Estás seguro de eliminar a: " + colaboradorSeleccionado.getNombre() + "?");
-            
-            if(confirmar){
-                Mensaje mensaje = ColaboradorImp.eliminarColaborador(colaboradorSeleccionado.getIdColaborador());
-                
-                if(!mensaje.isError()){
-                    
-                    // 2. VALIDACIÓN DE AUTO-ELIMINACIÓN
-                    // Comparamos el ID del que acabamos de borrar con el ID del que tiene la sesión abierta
-                    if(colaboradorSeleccionado.getIdColaborador().equals(Sesion.getColaboradorActual().getIdColaborador())){
-                        Utilidades.mostrarAlertaSimple("Adiós", 
-                            "Has eliminado tu propia cuenta. El sistema se cerrará.", 
-                            Alert.AlertType.INFORMATION);
-                        System.exit(0); // Cierre total de la aplicación
-                    }
 
-                    Utilidades.mostrarAlertaSimple("Correcto", "Colaborador Eliminado correctamente", Alert.AlertType.INFORMATION);
-                    cargarLaInformacion();
-                }else{
-                    Utilidades.mostrarAlertaSimple("Error", mensaje.getMensaje(), Alert.AlertType.ERROR);
-                }
-            }
-            
-        }else{
-            Utilidades.mostrarAlertaSimple("Atención", "Por favor, selecciona un colaborador de la tabla", Alert.AlertType.WARNING);
-        }
-    }
-    
     @FXML
     private void irEditarColaborador(MouseEvent event) {
-        Colaborador colaborador = tvTablaColaboradores.getSelectionModel().getSelectedItem();
-        if(colaborador!= null){
+        int posicion = tvColaboradores.getSelectionModel().getSelectedIndex();
+        if(posicion != -1){
+            Colaborador colaborador = listaColaboradores.get(posicion);
             irAFormulario(this, colaborador);
         }else{
-            Utilidades.mostrarAlertaSimple("Error", "Selecciona un colaborador", Alert.AlertType.ERROR);
+            Utilidades.mostrarAlertaSimple("Selecciona un colaborador", "Para editar debes seleccionar un colaborador de la tabla", Alert.AlertType.WARNING);
         }
     }
-    
-    private void buscarColaborador(String dato) {
-        colaboradores.clear();
-        tvTablaColaboradores.setItems(colaboradores);
-        List<Colaborador> lista = ColaboradorImp.obtenerColaboradoresNoPersonal(dato);
-        if (lista!=null && !lista.isEmpty()) {
-            colaboradores.addAll(lista);
-            tvTablaColaboradores.setItems(colaboradores);
-        }else{
-           lista = ColaboradorImp.obtenerColaboradoresNombre(dato);
-           if (lista!=null && !lista.isEmpty()) {
-                colaboradores.addAll(lista);
-                tvTablaColaboradores.setItems(colaboradores);
-           }else{
-               Integer rol = obtenerRol(dato);
-               if(rol>0){
-                   lista = ColaboradorImp.obtenerColaboradoresRol(rol);
-                   if(lista!=null && !lista.isEmpty()){
-                        colaboradores.addAll(lista);
-                        tvTablaColaboradores.setItems(colaboradores);
-                   }
+
+    @FXML
+    private void irEliminarColaborador(MouseEvent event) {
+        int posicion = tvColaboradores.getSelectionModel().getSelectedIndex();
+        if (posicion != -1) {
+           Colaborador colaborador = listaColaboradores.get(posicion);
+           String mensaje = "Estás seguro de eliminar a " + colaborador.getNombre() + 
+                            " con número de personal: " + colaborador.getNoPersonal();
+           
+           if(Utilidades.mostrarAlertaConfirmacion("Eliminar Colaborador", mensaje)){
+               Mensaje msj = ColaboradorImp.eliminarColaborador(colaborador.getIdColaborador());
+               if(!msj.isError()){
+                   Utilidades.mostrarAlertaSimple("Éxito", msj.getMensaje(), Alert.AlertType.INFORMATION);
+                   cargarLaInformacion();
                }else{
-                        Utilidades.mostrarAlertaSimple("Aviso", "No se encontro el colaborador", Alert.AlertType.WARNING);
+                   Utilidades.mostrarAlertaSimple("Error", msj.getMensaje(), Alert.AlertType.WARNING);
                        cargarLaInformacion();
                }
            }
+        } else {
+             Utilidades.mostrarAlertaSimple("Selecciona un colaborador", "Para eliminar debes seleccionar un colaborador de la tabla", Alert.AlertType.WARNING);
         }
     }
     
@@ -244,5 +216,6 @@ public class FXMLModuloColaboradoresController implements Initializable, Notific
     @Override
     public void notificarOperacion(String tipo, String nombre) {
         cargarLaInformacion();
+        System.out.println("Operación: " + tipo + " realizada por: " + nombre);
     }
 }
