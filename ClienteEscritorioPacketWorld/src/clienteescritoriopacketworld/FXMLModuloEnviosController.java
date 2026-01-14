@@ -106,17 +106,24 @@ public class FXMLModuloEnviosController implements Initializable, NotificadoOper
     
     private void cargarLaInformacion() {
         envios = FXCollections.observableArrayList();
+        
+        Mensaje msj = EnvioImp.recalcularCostosTodos();
+        if (!msj.isError()) {
+            //System.out.println(msj.getMensaje());
+        } else {
+            Utilidades.mostrarAlertaSimple("Error", msj.getMensaje(), Alert.AlertType.ERROR);
+        }
+
         List<Envio> lista = EnvioImp.obtenerEnvios();
-           
         if (lista != null) {
             envios.addAll(lista);
             tvTablaEnvios.setItems(envios);
-        }else{
-            Utilidades.mostrarAlertaSimple("ERROR", "Lo sentimos por el momento no se puede cargar la informacion"
-                + "de los Envios, por favor intentélo mas tarde", Alert.AlertType.ERROR);
+        } else {
+            Utilidades.mostrarAlertaSimple("ERROR", "No se pudo cargar la información de los envíos.", Alert.AlertType.ERROR);
             cerrarVentana();
         }
     }
+
 
     private void cerrarVentana(){
         ((Stage) tfBuscar.getScene().getWindow()).close();

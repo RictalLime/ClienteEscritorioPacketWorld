@@ -169,5 +169,24 @@ public class EnvioImp {
         }
         return mensaje;
     }
+    
+    public static Mensaje recalcularCostosTodos() {
+        Mensaje mensaje = new Mensaje();
+        try {
+            String url = Constantes.URL_WS + "envio/recalcular-costos";
+            RespuestaHTTP respuesta = ConexionAPI.peticionSinBody(url, Constantes.PETICION_PUT);
 
+            if (respuesta != null && respuesta.getCodigo() == HttpURLConnection.HTTP_OK) {
+                Gson gson = new Gson();
+                mensaje = gson.fromJson(respuesta.getContenido(), Mensaje.class);
+            } else {
+                mensaje.setError(true);
+                mensaje.setMensaje("No se pudo recalcular los costos de los envíos.");
+            }
+        } catch (Exception e) {
+            mensaje.setError(true);
+            mensaje.setMensaje("Error al recalcular costos: " + e.getMessage());
+        }
+        return mensaje;
+    }
 }
