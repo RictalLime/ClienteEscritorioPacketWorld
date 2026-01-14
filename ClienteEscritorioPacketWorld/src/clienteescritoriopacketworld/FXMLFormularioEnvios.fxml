@@ -32,8 +32,6 @@
       <Label layoutX="69.0" layoutY="214.0" text="Cliente:" />
       <ComboBox fx:id="cbClientes" layoutX="14.0" layoutY="229.0" prefWidth="150.0" style="-fx-border-color: black;" />
       <Button fx:id="btnGuardar" layoutX="287.0" layoutY="338.0" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: blue;" text="Guardar" textFill="WHITE" />
-      <Label fx:id="lEstadoEnvio" layoutX="127.0" layoutY="158.0" text="Estado de Envio:" />
-      <ComboBox fx:id="cbEstadoDeEnvio" layoutX="95.0" layoutY="175.0" prefWidth="150.0" style="-fx-border-color: black;" />
       <Label fx:id="lEstadoUnidad11" layoutX="213.0" layoutY="117.0" text="Conductor:" />
       <ComboBox fx:id="cbConductores" layoutX="180.0" layoutY="131.0" prefWidth="150.0" style="-fx-border-color: black;" />
       <TextField fx:id="tfNumeroGuia" layoutX="354.0" layoutY="131.0" prefHeight="27.0" prefWidth="121.0" promptText="Num. Guia" style="-fx-border-color: black;" />
@@ -46,8 +44,6 @@
       <TextField fx:id="tfCodigoPostal" layoutX="192.0" layoutY="281.0" prefHeight="27.0" prefWidth="121.0" promptText="Codigo Postal" style="-fx-border-color: black;" />
       <Label layoutX="391.0" layoutY="266.0" text="Numero:" />
       <TextField fx:id="tfNumero" layoutX="355.0" layoutY="281.0" prefHeight="27.0" prefWidth="121.0" promptText="Numero" style="-fx-border-color: black;" />
-      <TextField fx:id="tfMotivo" layoutX="401.0" layoutY="175.0" promptText="Motivo" style="-fx-border-color: black;" />
-      <Label fx:id="lMotivo" layoutX="456.0" layoutY="158.0" text="Motivo:" />
       <TextField fx:id="tfCostoEnvio" layoutX="490.0" layoutY="131.0" prefHeight="27.0" prefWidth="121.0" promptText="Costo Envio" style="-fx-border-color: black;" />
       <Label layoutX="534.0" layoutY="117.0" text="Costo:" />
       <ComboBox fx:id="cbCiudad" layoutX="340.0" layoutY="229.0" prefWidth="150.0" style="-fx-border-color: black;" />

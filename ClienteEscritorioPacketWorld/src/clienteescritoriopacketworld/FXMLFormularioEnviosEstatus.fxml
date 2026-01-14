@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="227.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriopacketworld.FXMLFormularioEnviosEstatusController">
+   <children>
+      <Pane prefHeight="60.0" prefWidth="462.0" style="-fx-background-color: blue;">
+         <children>
+            <ImageView fitHeight="53.0" fitWidth="54.0" layoutX="205.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/Packet%20World%20logo%20blanco.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgRegresar" fitHeight="53.0" fitWidth="43.0" layoutX="26.0" layoutY="9.0" onMouseClicked="#regresarPrincipal" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/arrow_back.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label fx:id="lEstadoEnvio" layoutX="84.0" layoutY="116.0" text="Estado de Envio:" />
+      <ComboBox fx:id="cbEstadoDeEnvio" layoutX="52.0" layoutY="133.0" onAction="#detectarEstado" prefWidth="150.0" style="-fx-border-color: black;" />
+      <Label fx:id="lMotivo" layoutX="316.0" layoutY="116.0" text="Motivo:" />
+      <TextField fx:id="tfMotivo" layoutX="261.0" layoutY="133.0" promptText="Motivo" style="-fx-border-color: black;" />
+      <Button fx:id="btnGuardar" layoutX="202.0" layoutY="175.0" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: blue;" text="Guardar" textFill="WHITE" />
+      <Label layoutX="110.0" layoutY="69.0" text="Formulario Estatus Envios">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

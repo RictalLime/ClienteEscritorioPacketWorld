@@ -24,7 +24,7 @@
             </ImageView>
          </children>
       </Pane>
-      <ImageView fx:id="imgBuscar" fitHeight="33.0" fitWidth="28.0" layoutX="239.0" layoutY="136.0" onMouseClicked="#buscarUnidad" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgBuscar" fitHeight="33.0" fitWidth="28.0" layoutX="254.0" layoutY="147.0" onMouseClicked="#buscarUnidad" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@recursos/search_black.png" />
          </image>
@@ -66,11 +66,11 @@
             </ImageView>
          </children>
       </Pane>
-      <Label layoutX="25.0" layoutY="84.0" text="Unidades Vehiculares" textAlignment="CENTER">
+      <Label layoutX="23.0" layoutY="99.0" text="Unidades Vehiculares" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="tfBuscar" layoutX="34.0" layoutY="137.0" prefHeight="25.0" prefWidth="205.0" promptText="busca tu Unidad por VIN, Marca o NII" style="-fx-border-color: blue;" />
+      <TextField fx:id="tfBuscar" layoutX="23.0" layoutY="147.0" prefHeight="27.0" prefWidth="231.0" promptText="busca tu Unidad por VIN, Marca o NII" style="-fx-border-color: blue;" />
    </children>
 </AnchorPane>

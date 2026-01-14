@@ -24,7 +24,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Label layoutX="35.0" layoutY="94.0" text="Paquetes " textAlignment="CENTER">
+      <Label layoutX="35.0" layoutY="118.0" text="Paquetes " textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -37,7 +37,7 @@
             <TableColumn fx:id="colPeso" prefWidth="139.0" text="Peso" />
          </columns>
       </TableView>
-      <ImageView fx:id="imgBuscar" fitHeight="33.0" fitWidth="28.0" layoutX="249.0" layoutY="146.0" onMouseClicked="#irABuscar" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgBuscar" fitHeight="33.0" fitWidth="28.0" layoutX="249.0" layoutY="153.0" onMouseClicked="#irABuscar" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@recursos/search_black.png" />
          </image>
@@ -69,6 +69,6 @@
             </ImageView>
          </children>
       </Pane>
-      <TextField fx:id="tfBuscar" layoutX="44.0" layoutY="146.0" prefHeight="25.0" prefWidth="205.0" promptText="busca tu paquete por envio" style="-fx-border-color: blue;" />
+      <TextField fx:id="tfBuscar" layoutX="22.0" layoutY="153.0" prefHeight="27.0" prefWidth="227.0" promptText="busca tu paquete por envio (Num Guia)" style="-fx-border-color: blue;" />
    </children>
 </AnchorPane>

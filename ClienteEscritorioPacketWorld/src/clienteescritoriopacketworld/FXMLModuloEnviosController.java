@@ -189,6 +189,35 @@ public class FXMLModuloEnviosController implements Initializable, NotificadoOper
             Utilidades.mostrarAlertaSimple("Error", "Selecciona un envío", Alert.AlertType.ERROR);
         }
     }
+    
+    @FXML
+    private void irActualizarEstatus(MouseEvent event) {
+        Envio envio = tvTablaEnvios.getSelectionModel().getSelectedItem();
+        if(envio!= null){
+            irAFormularioEstatus(this, envio);
+        }else{
+            Utilidades.mostrarAlertaSimple("Error", "Selecciona un envío", Alert.AlertType.ERROR);
+        }
+    }
+    
+    private void irAFormularioEstatus(NotificadoOperacion observador, Envio envio){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLFormularioEnviosEstatus.fxml"));
+            Parent root = loader.load();
+            
+            FXMLFormularioEnviosEstatusController controlador = loader.getController();
+            controlador.initializeValores(observador, envio, colaboradorLoguiado);
+            
+            Stage ecena = new Stage();
+            Scene ecenario = new Scene(root);
+            ecena.setScene(ecenario);
+            ecena.setTitle("Formulario Envios Motivo");
+            ecena.initModality(Modality.APPLICATION_MODAL);
+            ecena.showAndWait();
+        } catch (Exception ex) {
+            Logger.getLogger(FXMLModuloColaboradoresController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @Override
     public void notificarOperacion(String tipo, String nombre) {

@@ -109,19 +109,32 @@ public class FXMLModuloUnidadesController implements Initializable, NotificadoOp
     @FXML
     private void irEliminarUnidad(MouseEvent event) {
         Unidad unidad = tvTablaUnidades.getSelectionModel().getSelectedItem();
-        if(unidad!= null){
-            Mensaje mensaje = UnidadImp.eliminarUnidad(unidad.getIdUnidad());
-            if(!mensaje.isError()){
-                Utilidades.mostrarAlertaSimple("Correcto", "Unidad Eliminada correctamente", Alert.AlertType.WARNING);
-                cargarLaInformacion();
-            }else{
-                Utilidades.mostrarAlertaSimple("Error", "No se pudo eliminar la Unidad", Alert.AlertType.ERROR);
-            }    
-        }else{
+        if (unidad != null) {
+            irAFormularioMotivo(this, unidad);
+        } else {
             Utilidades.mostrarAlertaSimple("Error", "Selecciona una Unidad", Alert.AlertType.ERROR);
         }
     }
 
+    private void irAFormularioMotivo(NotificadoOperacion observador, Unidad unidad) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLFormularioMotivo.fxml"));
+            Parent root = loader.load();
+
+            FXMLFormularioMotivoController controlador = loader.getController();
+            controlador.initializeValores(observador, unidad);
+
+            Stage ecena = new Stage();
+            Scene ecenario = new Scene(root);
+            ecena.setScene(ecenario);
+            ecena.setTitle("Motivo de Baja");
+            ecena.initModality(Modality.APPLICATION_MODAL);
+            ecena.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLModuloUnidadesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     @FXML
     private void buscarUnidad(MouseEvent event) {
         if(!tfBuscar.getText().isEmpty()){

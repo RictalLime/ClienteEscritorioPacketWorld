@@ -62,15 +62,6 @@ public class FXMLFormularioEnviosController implements Initializable {
     @FXML 
     private ComboBox<Colaborador> cbConductores;
     ObservableList<Colaborador> tiposDeConductores;
-    @FXML 
-    private Label lEstadoEnvio;
-    @FXML 
-    private ComboBox<EstadoDeEnvio> cbEstadoDeEnvio;
-    ObservableList<EstadoDeEnvio> tiposDeEstadosDeEnvio;
-    @FXML 
-    private Label lMotivo;
-    @FXML 
-    private TextField tfMotivo;
     @FXML
     private ComboBox<Sucursal> cbSucursal;
     private ObservableList<Sucursal> sucursales;
@@ -105,14 +96,9 @@ public class FXMLFormularioEnviosController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         cargarClientes();
         cargarConductores();
-        cargarEstadosDeEnvio();
         cargarEstados();
         cargarSucursales();
         cbEstado.setOnAction(event -> cargarCiudades());
-        lEstadoEnvio.setVisible(false);
-        cbEstadoDeEnvio.setVisible(false);
-        lMotivo.setVisible(false);
-        tfMotivo.setVisible(false);
     }
     
     public void initializeValores(NotificadoOperacion observador, Envio envioEditado, Colaborador colaboradorLoguiado) {
@@ -128,11 +114,6 @@ public class FXMLFormularioEnviosController implements Initializable {
             tfNumeroGuia.setEditable(false);
             tfCostoEnvio.setEditable(false);
 
-            lEstadoEnvio.setVisible(true);
-            cbEstadoDeEnvio.setVisible(true);
-            lMotivo.setVisible(true);
-            tfMotivo.setVisible(true);
-
             llenarCampos();
         } else {
             modoEdicion = false;
@@ -140,11 +121,6 @@ public class FXMLFormularioEnviosController implements Initializable {
             tfNumeroGuia.setText(EnvioImp.generarNoGuia());
             tfNumeroGuia.setEditable(false);
             tfCostoEnvio.setEditable(false);
-
-            lEstadoEnvio.setVisible(false);
-            cbEstadoDeEnvio.setVisible(false);
-            lMotivo.setVisible(false);
-            tfMotivo.setVisible(false);
         }
     }
 
@@ -179,7 +155,6 @@ public class FXMLFormularioEnviosController implements Initializable {
         
         cbClientes.getSelectionModel().select(buscarCliente(envioEditado.getIdCliente()));
         cbConductores.getSelectionModel().select(buscarConductor(envioEditado.getIdColaborador()));
-        cbEstadoDeEnvio.getSelectionModel().select(buscarEstadoEnvio(envioEditado.getIdEstadoDeEnvio()));
     }
     
     private void cargarEstados() {        
@@ -279,7 +254,12 @@ public class FXMLFormularioEnviosController implements Initializable {
 
         envio.setIdCliente(cbClientes.getValue() != null ? cbClientes.getValue().getIdCliente() : -1);
         envio.setIdColaborador(cbConductores.getValue() != null ? cbConductores.getValue().getIdColaborador() : -1);
-        envio.setIdEstadoDeEnvio(cbEstadoDeEnvio.getValue() != null ? cbEstadoDeEnvio.getValue().getIdEstadoDeEnvio() : 1);
+
+        if (!modoEdicion) {
+            envio.setIdEstadoDeEnvio(1);
+        } else {
+            envio.setIdEstadoDeEnvio(envioEditado.getIdEstadoDeEnvio());
+        }
 
         if (validarCampos(envio)) {
             if (!modoEdicion) {
@@ -313,12 +293,6 @@ public class FXMLFormularioEnviosController implements Initializable {
         cbConductores.setItems(tiposDeConductores);
     }
 
-    private void cargarEstadosDeEnvio() {
-        tiposDeEstadosDeEnvio = FXCollections.observableArrayList();
-        tiposDeEstadosDeEnvio.addAll(EnvioImp.obtenerEstadosDeEnvios());
-        cbEstadoDeEnvio.setItems(tiposDeEstadosDeEnvio);
-    }
-
     private int buscarCliente(Integer idCliente) {
         for (int i = 0; i < tiposDeClientes.size(); i++) {
             if (tiposDeClientes.get(i).getIdCliente() == idCliente) return i;
@@ -329,13 +303,6 @@ public class FXMLFormularioEnviosController implements Initializable {
     private int buscarConductor(Integer idColaborador) {
         for (int i = 0; i < tiposDeConductores.size(); i++) {
             if (tiposDeConductores.get(i).getIdColaborador() == idColaborador) return i;
-        }
-        return -1;
-    }
-
-    private int buscarEstadoEnvio(Integer idEstadoDeEnvio) {
-        for (int i = 0; i < tiposDeEstadosDeEnvio.size(); i++) {
-            if (tiposDeEstadosDeEnvio.get(i).getIdEstadoDeEnvio() == idEstadoDeEnvio) return i;
         }
         return -1;
     }
@@ -380,12 +347,6 @@ public class FXMLFormularioEnviosController implements Initializable {
         }
         if (envio.getNoGuia() == null || envio.getNoGuia().trim().isEmpty()) {
             Utilidades.mostrarAlertaSimple("Validación", "El número de guía es obligatorio.", Alert.AlertType.WARNING);
-            return false;
-        }
-        if ((envio.getIdEstadoDeEnvio() == 4 || envio.getIdEstadoDeEnvio() == 5) &&
-            (tfMotivo.getText() == null || tfMotivo.getText().trim().isEmpty())) {
-
-            Utilidades.mostrarAlertaSimple("Validación", "Debe ingresar un motivo para estados 'Cancelado' o 'Detenido'.", Alert.AlertType.WARNING);
             return false;
         }
         if (envio.getIdSucursal() == null || envio.getIdSucursal() <= 0) {
@@ -449,20 +410,5 @@ public class FXMLFormularioEnviosController implements Initializable {
         } else {
             Utilidades.mostrarAlertaSimple("Error", msj.getMensaje(), Alert.AlertType.ERROR);
         }
-    }
-    
-    private boolean enviarHistorial(Envio envio) {
-
-        HistorialDeEnvio historial = new HistorialDeEnvio();
-
-        historial.setIdEstadoDeEnvio(envio.getIdEstadoDeEnvio());
-        historial.setIdColaborador(colaboradorLoguiado.getIdColaborador());
-        historial.setNoGuia(envio.getNoGuia());
-        historial.setMotivo(tfMotivo.getText().isEmpty() ? "S/M" : tfMotivo.getText());
-        historial.setTiempoDeCambio(LocalDate.now().toString());
-
-        Mensaje mensaje = HistorialDeEnvioImp.registrarHistorialEnvio(historial);
-
-        return mensaje.isError();
     }
 }

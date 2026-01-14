@@ -24,7 +24,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Label layoutX="55.0" layoutY="114.0" text="Asignacion Vehicular" textAlignment="CENTER">
+      <Label layoutX="40.0" layoutY="116.0" text="Asignacion Vehicular" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
