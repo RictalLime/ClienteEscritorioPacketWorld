@@ -208,9 +208,20 @@ public class FXMLFormularioColaboradoresController implements Initializable {
             Utilidades.mostrarAlertaSimple("Validación", "El campo Número Personal es obligatorio.", Alert.AlertType.WARNING);
             return false;
         }
-        if (colaborador.getContrasena() == null || colaborador.getContrasena().length() < 6) {
-            Utilidades.mostrarAlertaSimple("Validación", "La contraseña debe tener al menos 6 caracteres.", Alert.AlertType.WARNING);
-            return false;
+        if (!modoEdicion) {
+            if (colaborador.getContrasena() == null || colaborador.getContrasena().length() < 6) {
+                Utilidades.mostrarAlertaSimple("Validación", "La contraseña debe tener al menos 6 caracteres.", Alert.AlertType.WARNING);
+                return false;
+            }
+        } else {
+            if (pfContrasena.getText() == null || pfContrasena.getText().trim().isEmpty()) {
+                colaborador.setContrasena(colaboradorEditado.getContrasena());
+            } else if (pfContrasena.getText().length() < 6) {
+                Utilidades.mostrarAlertaSimple("Validación", "La nueva contraseña debe tener al menos 6 caracteres.", Alert.AlertType.WARNING);
+                return false;
+            } else {
+                colaborador.setContrasena(pfContrasena.getText());
+            }
         }
         if (colaborador.getIdRol() == null || colaborador.getIdRol() <= 0) {
             Utilidades.mostrarAlertaSimple("Validación", "Debe seleccionar un rol válido.", Alert.AlertType.WARNING);
@@ -251,20 +262,35 @@ public class FXMLFormularioColaboradoresController implements Initializable {
         cbRol.setItems(tiposDeColaboradores);
     }
     
-    
     private void editarDatosColaborador(Colaborador colaborador){
+        if (pfContrasena.getText() == null || pfContrasena.getText().trim().isEmpty()) {
+            colaborador.setContrasena(colaboradorEditado.getContrasena());
+        } else {
+            colaborador.setContrasena(pfContrasena.getText());
+        }
+
+        if (quisoAgregarUnaFoto) {
+            try {
+                byte[] fotoBytes = convertirImagenABytes(foto);
+                colaborador.setFoto(fotoBytes);
+            } catch (Exception ex) {
+                Utilidades.mostrarAlertaSimple("Validación", "Debes seleccionar una foto", Alert.AlertType.WARNING);
+            }
+        } else {
+            colaborador.setFoto(colaboradorEditado.getFoto());
+        }
+
+        colaborador.setIdColaborador(colaboradorEditado.getIdColaborador());
+
         Mensaje msj = ColaboradorImp.editarColaborador(colaborador);
-        Mensaje fotoEditada = ColaboradorImp.subirFoto(colaborador.getIdColaborador(), colaborador.getFoto());
-        if(!msj.isError()){
-            Utilidades.mostrarAlertaSimple("Edición", "Colaborador: " +colaborador.getNombre()+ " Editado" , Alert.AlertType.INFORMATION);
+        if (!msj.isError()) {
+            Utilidades.mostrarAlertaSimple("Edición", "Colaborador: " + colaborador.getNombre() + " editado correctamente", Alert.AlertType.INFORMATION);
             observador.notificarOperacion("Edición", colaborador.getNombre());
             cerrarVentana();
-        }else{
-            colaborador = null;
+        } else {
             Utilidades.mostrarAlertaSimple("Error", "No se pudo editar el colaborador", Alert.AlertType.ERROR);
         }
     }
-    
     
     private void llenarcampos() {
         tfNombre.setText(colaboradorEditado.getNombre());
@@ -293,7 +319,6 @@ public class FXMLFormularioColaboradoresController implements Initializable {
             mostrarFotografia(colaboradorEditado.getFoto());
         }
     }
-
     
     private int buscarIdRol(int idRol){
         for(int i=0; i<tiposDeColaboradores.size();i++){
@@ -303,7 +328,7 @@ public class FXMLFormularioColaboradoresController implements Initializable {
         }
         return -1;
     }
-
+    
     @FXML
     private void oyenteDelRol(ActionEvent event) {
         int rol = cbRol.getSelectionModel().getSelectedItem().getIdRol();

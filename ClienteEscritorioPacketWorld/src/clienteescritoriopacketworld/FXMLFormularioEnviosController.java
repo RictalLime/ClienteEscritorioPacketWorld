@@ -380,12 +380,13 @@ public class FXMLFormularioEnviosController implements Initializable {
         Mensaje msj = EnvioImp.agregarEnvio(envio);
 
         if (!msj.isError()) {
+            //actualizarCostoEnvio(envio.getIdEnvio());
+
             tfCostoEnvio.setText("" + envio.getCostoDeEnvio());
             tfCostoEnvio.setEditable(false);
 
             Utilidades.mostrarAlertaSimple("Registro Exitoso", 
-                "Envío agregado correctamente. Costo: $" + envio.getCostoDeEnvio(), 
-                Alert.AlertType.INFORMATION);
+                "Envío agregado correctamente.", Alert.AlertType.INFORMATION);
 
             observador.notificarOperacion("Guardar", envio.getNoGuia());
             cerrarVentana();
@@ -393,17 +394,28 @@ public class FXMLFormularioEnviosController implements Initializable {
             Utilidades.mostrarAlertaSimple("Error", msj.getMensaje(), Alert.AlertType.ERROR);
         }
     }
+
+    
+    private void actualizarCostoEnvio(int idEnvio) {
+        Mensaje msj = EnvioImp.recalcularCostoEnvio(idEnvio);
+        if (!msj.isError()) {
+            Utilidades.mostrarAlertaSimple("Costo actualizado", msj.getMensaje(), Alert.AlertType.INFORMATION);
+        } else {
+            Utilidades.mostrarAlertaSimple("Error", "No se pudo recalcular el costo del envío.", Alert.AlertType.ERROR);
+        }
+    }
     
     private void editarDatosEnvio(Envio envio) {
         Mensaje msj = EnvioImp.editarEnvio(envio);
 
         if (!msj.isError()) {
+            //actualizarCostoEnvio(envio.getIdEnvio());
+            
             tfCostoEnvio.setText("" + envio.getCostoDeEnvio());
             tfCostoEnvio.setEditable(false);
 
             Utilidades.mostrarAlertaSimple("Edición Exitosa", 
-                "Envío editado correctamente. Costo: $" + envio.getCostoDeEnvio(), 
-                Alert.AlertType.INFORMATION);
+                "Envío editado correctamente.", Alert.AlertType.INFORMATION);
 
             observador.notificarOperacion("Edición", envio.getNoGuia());
             cerrarVentana();

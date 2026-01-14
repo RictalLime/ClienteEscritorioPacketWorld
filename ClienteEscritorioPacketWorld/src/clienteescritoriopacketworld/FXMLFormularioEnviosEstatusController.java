@@ -111,7 +111,10 @@ public class FXMLFormularioEnviosEstatusController implements Initializable {
         historial.setIdEstadoDeEnvio(envioEditado.getIdEstadoDeEnvio());
         historial.setIdColaborador(colaboradorLogueado.getIdColaborador());
         historial.setNoGuia(envioEditado.getNoGuia());
-        historial.setMotivo(tfMotivo.getText().isEmpty() ? "S/M" : tfMotivo.getText());
+        String motivo = (tfMotivo != null && tfMotivo.getText() != null && !tfMotivo.getText().trim().isEmpty())
+                ? tfMotivo.getText()
+                : "S/M";
+        historial.setMotivo(motivo);
         historial.setTiempoDeCambio(LocalDate.now().toString());
 
         Mensaje mensajeHistorial = HistorialDeEnvioImp.registrarHistorialEnvio(historial);
